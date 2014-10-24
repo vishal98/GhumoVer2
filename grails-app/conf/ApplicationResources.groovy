@@ -30,6 +30,7 @@ modules = {
 		resource url:'css/angucomplete-alt.css'
 		//resource url:'css/structure.css'
 		resource url:'js/app/angucomplete-alt.js'
+		resource url:'js/app/angular.rangeSlider.js'
 	
 		
 		

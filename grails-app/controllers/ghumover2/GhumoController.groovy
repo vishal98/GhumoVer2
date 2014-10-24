@@ -2,7 +2,11 @@ package ghumover2
 
 
 
+
+
+
 import grails.converters.JSON
+
 
 class GhumoController {
 
@@ -14,6 +18,7 @@ class GhumoController {
 			//between('startDate', now, now+7)
 			//like('eventPlace', '%plp%') as JSON
 		//}
+		
 		String plp="plp"
 		def c = EventVersion.createCriteria()
 		def now = new Date()
@@ -39,6 +44,38 @@ class GhumoController {
 		render json
 
 	}
+	
+	
+	def showEvents() {
+		//	def json	=EventVersion.withCriteria {
+			//	def now = new Date()
+				//between('startDate', now, now+7)
+				//like('eventPlace', '%plp%') as JSON
+			//}
+			 
+			String plp="plp"
+			def c = ActivityDetails.createCriteria()
+			def now = new Date()
+			def json = c.list {
+				like("placeId",'1')
+				
+				maxResults(10)
+			
+			} as JSON
+			
+			//println("show placeName ::" +params.placeName)
+		//	def json = 	.findAllByName(params.placeName) as JSON
+		//	Destination.findByAName();
+			println("show Phone  :":json)
+			
+			
+			
+			
+			
+			render json
+	
+		}
+		
 	
 	def showAgentsDetails(){
 	def eventVersion	=EventVersion.withCriteria {

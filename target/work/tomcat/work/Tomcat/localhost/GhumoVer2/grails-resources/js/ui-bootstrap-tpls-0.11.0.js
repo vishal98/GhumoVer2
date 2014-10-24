@@ -2823,7 +2823,9 @@ angular.module('ui.bootstrap.rating', [])
 
     this.stateOn = angular.isDefined($attrs.stateOn) ? $scope.$parent.$eval($attrs.stateOn) : ratingConfig.stateOn;
     this.stateOff = angular.isDefined($attrs.stateOff) ? $scope.$parent.$eval($attrs.stateOff) : ratingConfig.stateOff;
-
+  //  if(this.stateOn!=null){
+ 
+//    }
     var ratingStates = angular.isDefined($attrs.ratingStates) ? $scope.$parent.$eval($attrs.ratingStates) :
                         new Array( angular.isDefined($attrs.max) ? $scope.$parent.$eval($attrs.max) : ratingConfig.max );
     $scope.range = this.buildTemplateObjects(ratingStates);
@@ -2844,6 +2846,7 @@ angular.module('ui.bootstrap.rating', [])
   };
 
   $scope.enter = function(value) {
+	   console.log("entr::"+angular.isDefined($attrs.stateOn));	
     if ( !$scope.readonly ) {
       $scope.value = value;
     }

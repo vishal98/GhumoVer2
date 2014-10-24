@@ -96,11 +96,20 @@
           <div class="row">
             <div class="col-md-12 ">	
               <div class="form-section">
+             
                 <div class="row">
+                
                     <form role="form" ng-submit="customNavigate(selectedPerson.originalObject.surname)" >
                       <div class="col-md-10">
                       <div class="padded-row">
-          <div angucomplete-alt id="ex2"  placeholder="Search people" pause="300" selected-object="selectedPerson" local-data="place" search-fields="firstName,surname" 
+                           <ul class="list-inline" style="border: medium;color: activeborder;color:yellow;font: bold;font-size: medium; padding-left:20 px;font:fantasy;text-shadow: aqua;">
+  <li><a tabindex="-1" href=""  ng-click="chngeSearch(place)">Search</a></li>
+  <li><a tabindex="-1" href="#">Anotheraction</a></li>
+  <li><a tabindex="-1" href="#">Something-else-here</a></li>
+  <li class="divider"></li>
+  <li><a tabindex="-1" href="#">Separated-link</a></li>
+</ul>
+          <div angucomplete-alt id="ex2"  placeholder="{{placeholder}}" pause="300" selected-object="selectedPerson" local-data="place" search-fields="firstName,surname" 
           title-field="firstName,surname" description-field="twitter" image-field="pic" minlength="1" input-class="form-control form-control-small" match-class="highlight">
           </div>
         </div>

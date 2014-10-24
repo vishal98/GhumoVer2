@@ -69,11 +69,28 @@ console.log("hello");
 
 phonecatControllers.controller('PlaceListCtrl', [ '$scope',
                                                   'ghumo','$routeParams','$location', function($scope,ghumo,$routeParams,$location) {
-	
+    $scope.usePlaces = {};
+    $scope.useDays = {};
 
+	$scope.demo1 = {
+		    min: 20,
+		    max: 80
+		};	
+	
+	$scope.rate = 2;
+	  $scope.ratingStates = [
+	                         {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+	                         {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+	                         {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+	                         {stateOn: 'glyphicon-heart'},
+	                         {stateOff: 'glyphicon-off'}	  ];
 
-	
-	
+	  $scope.hoveringOver = function(value) {
+		  console.log("hover");
+		   console.log(value);
+	    $scope.overStar = value;
+	    $scope.percent = 100 * (value / $scope.max);
+	  };
 	$scope.places = ghumo.places.query({
 
 
@@ -87,8 +104,98 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope',
 
 
 	}
+	
+	
+	
+
+	var uniqueItems = function (data, key) {
+	    var result = new Array();
+	    for (var i = 0; i < data.length; i++) {
+	        var value = data[i][key];
+	          
+	        if (result.indexOf(value) == -1) {
+	            result.push(value);
+	        }
+	    
+	    }
+	    return result;
+	};
+	
+	
+	// Watch the placeCount that are selected
+    $scope.$watch(function () {
+        return {
+            places: $scope.places,
+            usePlaces: $scope.usePlaces,
+            useDays: $scope.useDays,
+            useShoes: $scope.useShoes
+        }
+    }, function (value) {
+        var selected;
+    console.log("min"+$scope.demo1.min)
+        $scope.placeGroup = uniqueItems($scope.places, 'activityKeyWord');
+        var filterAfterplaceCount = [];        
+        selected = false;
+        for (var j in $scope.places) {
+            
+            var p = $scope.places[j];
+            for (var i in $scope.usePlaces) {
+                
+                if ($scope.usePlaces[i]) {
+                    selected = true;
+                    console.log("pyt: "+$scope.usePlaces[i]+"::player::" +p+ ":useP:: "+i+":p.placeCount:"+p.activityKeyWord);   	
+                    if (i == p.activityKeyWord) {
+                    	 console.log("herei");  
+                        filterAfterplaceCount.push(p);
+                        break;
+                    }
+                }
+            }        
+        }
+        if (!selected) {
+        	 console.log("hereddi");  
+            filterAfterplaceCount = $scope.places;
+        }
+        
+        $scope.daysGroup = uniqueItems(filterAfterplaceCount, 'days');
+        var filterAfterDays = [];        
+        selected = false;
+        for (var j in filterAfterplaceCount) {
+            var p = filterAfterplaceCount[j];
+            for (var i in $scope.useDays) {
+                if ($scope.useDays[i]) {
+                    selected = true;
+                    if (i == p.days) {
+                        filterAfterDays.push(p);
+                        break;
+                    }
+                }
+            }       
+        }
+        if (!selected) {
+            filterAfterDays = filterAfterplaceCount;
+        }
+
+
+      // code comenedte
+        $scope.filteredPlaces = filterAfterDays;        
+    }, true);
+    
+    
+    $scope.$watch('filtered', function (newValue) {
+        if (angular.isArray(newValue)) {
+            console.log(newValue.length);
+        }
+    }, true);    
+
+
+
+	
+	
 
 } ]);
+
+
 
 phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location',
                                                  function($scope,ghumo,$location) {
@@ -103,30 +210,37 @@ phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location',
 
 
 	}
+	$scope.chngeSearch=function(placeName){
+		
+		$scope.placeholder='search';
+
+
+			}
+	$scope.placeholder='search here';
 	
 	// autocomeplete data
 	$scope.place = [ {
 		name : "plp",
 		surname : "plp",
 		twitter : "@darylrowland",
-		pic : "http://placehold.it/270x150"
+		pic : "http://placehold.itr/2170x150"
 	}, {
 		name : "Alan",
 		surname : "Partridge",
 		twitter : "@alangpartridge",
-		pic : "http://placehold.it/270x150"
+		pic : "http://placehold.itr/270x150"
 	}, {
 		name : "Annie",
 		surname : "Rowland",
 		twitter : "@anklesannie",
-		pic : "http://placehold.it/270x150"
+		pic : "http://placehold.itr/270x150"
 	} ];
 	
 	$scope.places = [ {
 		name : "Daryl",
 		surname : "Rowland",
 		twitter : "@darylrowland",
-		pic : "http://placehold.it/270x150"
+		pic : "http://placehold.itr/270x150"
 	}, {
 		name : "Alan",
 		surname : "Partridge",
@@ -136,23 +250,23 @@ phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location',
 		name : "Annie",
 		surname : "Rowland",
 		twitter : "@anklesannie",
-		pic : "http://placehold.it/270x150"
+		pic : "http://placehold.itr/270x150"
 	} ,
 	{
 		name : "Daryl",
 		surname : "Rowland",
 		twitter : "@darylrowland",
-		pic : "http://placehold.it/270x150"
+		pic : "http://placehold.itr/270x150"
 	}, {
 		name : "Alan",
 		surname : "Partridge",
 		twitter : "@alangpartridge",
-		pic : "http://placehold.it/270x150"
+		pic : "http://placehold.itr/270x150"
 	}, {
 		name : "Annie",
 		surname : "Rowland",
 		twitter : "@anklesannie",
-		pic : "http://placehold.it/270x150"
+		pic : "http://placehold.itr	/270x150"
 	} 
 	];
 	

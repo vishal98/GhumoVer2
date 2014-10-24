@@ -10,7 +10,8 @@ var phonecatApp = angular.module('phonecatApp', [
   'phonecatFilters',
   'ghumoServices',
   'ui.bootstrap',
-  'angucomplete-alt'
+  'angucomplete-alt',
+  'ui-rangeSlider'
 ]);
 
 phonecatApp.config(['$routeProvider',

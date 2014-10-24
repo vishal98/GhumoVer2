@@ -27,7 +27,7 @@ class UrlMappings {
 		
 		"/detail/${placeName}.json" {
 		controller = "ghumo"
-		action = "showDetail"
+		action = "showEvents"
 	}
 		
 		
