@@ -1,6 +1,7 @@
 modules = {
     angular {
 		resource url: 'css/app.css'
+		resource url:'css/angucomplete-alt.css'
 		resource url: 'css/bootstrap.css'
 		resource url: 'css/animations.css'
 		resource url:'js/jquery.js'
@@ -27,8 +28,7 @@ modules = {
 		resource url:'js/ui-bootstrap-tpls-0.11.0.js'
 		resource url:'css/font-awesome.css'
 		resource url:'css/styleSearch.css'
-		resource url:'css/angucomplete-alt.css'
-		//resource url:'css/structure.css'
+		resource url:'css/structure.css'
 		resource url:'js/app/angucomplete-alt.js'
 		resource url:'js/app/angular.rangeSlider.js'
 	

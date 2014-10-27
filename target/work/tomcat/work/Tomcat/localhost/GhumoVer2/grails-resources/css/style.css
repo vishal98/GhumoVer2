@@ -2079,7 +2079,7 @@ blockquote {
     z-index: 0; }
 
 /* 2.2.11. Price section */
-.price1 {
+.price{
   color: #7db921;
   font-size: 1.6667em;
   text-transform: uppercase;
@@ -2087,7 +2087,7 @@ blockquote {
   text-align: right;
   line-height: 1;
   display: block; }
-  .price1 small {
+  .price small {
     display: block;
     color: #838383;
     font-size: 0.5em; }
@@ -2643,14 +2643,14 @@ ul.check-circle li:before {
 /* 2.9. Tabs ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .tab-wrapper {
   background: #fff; }
-  .tab-wrapper .tab-container .tab-content .tab-pane {
+  .tab-wrapper .tab-container .tab-content .tab-pane1 {
     padding-left: 0;
     padding-right: 0; }
 
-.tab-pane [class^="col-"], .tab-pane [class*=" col-"] {
+.tab-pane1 [class^="col-"], .tab-pane [class*=" col-"] {
   padding-left: 10px;
   padding-right: 10px; }
-.tab-pane .row {
+.tab-pane1 .row {
   margin-top: 0;
   margin-left: -10px;
   margin-right: -10px; }
@@ -2699,21 +2699,21 @@ ul.check-circle li:before {
       clear: both; }
   .tab-container .tab-content {
     background: #fff; }
-    .tab-container .tab-content .tab-pane {
+    .tab-container .tab-content .tab-pane1 {
       padding: 20px;
       line-height: 1.7em; }
-      .tab-container .tab-content .tab-pane .row {
+      .tab-container .tab-content .tab-pane1 .row {
         margin-bottom: 15px;
                      /*border-top: 1px solid #f5f5f5; padding: 20px 0;
 &:first-child { border: none; padding-top: 0; }
 &:last-child { padding-bottom: 0; }*/ }
-      .tab-container .tab-content .tab-pane > img {
+      .tab-container .tab-content .tab-pane1 > img {
         margin: 0 15px 0 0; }
-      .tab-container .tab-content .tab-pane:after {
+      .tab-container .tab-content .tab-pane1:after {
         content: "";
         display: table;
         clear: both; }
-      .tab-container .tab-content .tab-pane .image-box .details {
+      .tab-container .tab-content .tab-pane1 .image-box .details {
         padding-right: 0; }
   .tab-container.style1 ul.tabs {
     display: block;
@@ -2855,7 +2855,7 @@ ul.check-circle li:before {
         border-left: 3px solid #fdb714;
         border-top: 5px solid transparent;
         border-bottom: 5px solid transparent; }
-  .tab-container.full-width-style.arrow-left .tab-content .tab-pane {
+  .tab-container.full-width-style.arrow-left .tab-content .tab-pane1 {
     padding: 30px; }
   .tab-container.full-width-style .tab-content {
     float: left;
@@ -7033,6 +7033,23 @@ ul.search-tabs {
       border-color: #da6161; }
     #hotel-main-content .calendar-legend label.past:before, #flight-main-content .calendar-legend label.past:before, #cruise-main-content .calendar-legend label.past:before {
       border-color: #01b7f2; }
+      tabcont{
+      color: #12a0c3;
+background: #fff;
+      }
+.tabdesc{
+	color: #fff;
+display: block;
+padding: 0 20px;
+background: #d9d9d9;
+font-size: 1em;
+font-weight: bold;
+height: 40px;
+line-height: 40px;
+text-decoration: none;
+text-transform: uppercase;
+white-space: nowrap;
+}
 
 #hotel-description .intro, #hotel-reviews .intro, #hotel-write-review .intro, #car-details .intro, #flight-details .intro, #cruise-description .intro, #cruise-reviews .intro, #cruise-write-review .intro, #travel-guide .intro {
   background: #f5f5f5; }
@@ -7070,6 +7087,10 @@ ul.search-tabs {
 #hotel-description .long-description, #cruise-description .long-description, #travel-guide .long-description {
   margin-top: 25px;
   padding: 0 15px; }
+.update-search {
+    padding-right: 5px;
+    /*&:first-child { padding-left: 0; }
+    &:last-child { padding-right: 0; }*/ }
 
 #hotel-availability .update-search, #cruise-availability .update-search {
   border: 15px solid #f5f5f5;

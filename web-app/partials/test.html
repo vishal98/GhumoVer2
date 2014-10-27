@@ -1,62 +1,27 @@
- <div class="row" style="padding-top:3px">
-      <div ng-repeat="place in places">
-           <div class="col-md-4 col-sm-4 col-xs-6" style=" padding-right: 0px; padding-left: 0px;" >
-		     <article class="box">
-	
-		<div class="col-md-12 column">
-			
-				<div class="col-md-12 column">
-					<img alt="140x140" src="http://lorempixel.com/140/140/" style="width: 100%;max-height:348px" class="img-responsive"  />
-				</div>
-			
-			
-				<div class="col-md-12 column">
-				
-						<div class="col-md-6 column">
-							 <span class="label label-default">Name/placel</span>
-						</div>
-						<div class="col-md-6 column">
-							 <span class="label label-default">Srarting froml</span> <span class="label label-default">Price per dayl</span>
-						</div>
-					
-					<div class="row clearfix">
-						<div class="col-md-6 column">
-							<div class="row clearfix">
-								<div class="col-md-12 column">
-								</div>
-							</div>
-							<div class="row clearfix">
-								<div class="col-md-12 column">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 column">
-							<div class="row clearfix">
-								<div class="col-md-12 column">
-								</div>
-							</div>
-							<blockquote>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-								</p> <small>Someone famous <cite>Source Title</cite></small>
-							</blockquote>
-						</div>
-					</div>
-					<div class="row clearfix">
-						<div class="col-md-6 column">
-							 <span class="label label-default"><br />book/iternarybel</span>
-						</div>
-						<div class="col-md-6 column">
-							 <span class="label label-default">Detailsl</span>
-						</div>
-					</div>
-				</div>
-			
-		</div>
-		</article>
-	</div>
-</div>
-	</div>
-	</div>
-	</div>
-	
+
+                      <div class="padded-row">
+             
+          <div angucomplete-alt id="ex2"  placeholder="{{placeholder}}" pause="300" selected-object="selectedPerson" local-data="place" search-fields="firstName,surname" 
+          title-field="firstName,surname" description-field="twitter" image-field="pic" minlength="1" input-class="form-control form-control-small" match-class="highlight">
+          </div>
+        </div>
+        <div class="result">
+          <div class="" ng-show="selectedPerson">
+            You selected <span class="bold-span">{{selectedPerson.originalObject.firstName}} {{selectedPerson.originalObject.surname}}</span>
+          </div>
+        </div>
+        
+        <div class="large-padded-row">
+
+        <h3><a name="example2" class="page-anchor">Example 2 - People</a></h3>
+        <div class="padded-row">
+          <div angucomplete-alt id="ex2" placeholder="Search people" pause="300" selected-object="selectedPerson" local-data="place" search-fields="firstName,surname" title-field="firstName,surname" description-field="twitter" image-field="pic" minlength="1" input-class="form-control form-control-small" match-class="highlight">
+          </div>
+        </div>
+        <div class="result">
+          <div class="" ng-show="selectedPerson">
+            You selected <span class="bold-span">{{selectedPerson.originalObject.firstName}} {{selectedPerson.originalObject.surname}}</span>
+          </div>
+        </div>
+        </div>
+              

@@ -1197,17 +1197,17 @@ h3.popover-title {
 	}
 }
 
-.clearfix {
+.clearfix1 {
 	*zoom: 1
 }
 
-.clearfix:before, .clearfix:after {
+.clearfix1:before, .clearfix1:after {
 	display: table;
 	content: "";
 	line-height: 0
 }
 
-.clearfix:after {
+.clearfix1:after {
 	clear: both
 }
 
@@ -1880,7 +1880,7 @@ h3.popover-title {
 	.dl-horizontal dd {
 		margin-left: 0
 	}
-	.container {
+	.container2 {
 		width: auto
 	}
 	.row-fluid {

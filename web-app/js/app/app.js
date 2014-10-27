@@ -18,7 +18,7 @@ phonecatApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/trekDetail/:trekName', {
-        templateUrl: 'partials/hotel-detailed.html',
+        templateUrl: 'partials/details.html',
         controller: 'PlaceDetailCtrl'
       }).
       when('/detail/:placeName', {
@@ -35,6 +35,17 @@ phonecatApp.config(['$routeProvider',
       });
       
   }]);
+
+phonecatApp.directive('disableAnimation', function($animate){
+    return {
+        restrict: 'A',
+        link: function($scope, $element, $attrs){
+            $attrs.$observe('disableAnimation', function(value){
+                $animate.enabled(!value, $element);
+            });
+        }
+    }
+});
 
 phonecatApp.directive('slider', function ($timeout) {
 	  return {
@@ -69,7 +80,7 @@ phonecatApp.directive('slider', function ($timeout) {
 			var sliderFunc=function(){
 				timer=$timeout(function(){
 					scope.next();
-					timer=$timeout(sliderFunc,6000);
+					timer=$timeout(sliderFunc,900);
 				},6000);
 			};
 			

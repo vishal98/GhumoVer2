@@ -415,10 +415,10 @@
     float: none !important;
     margin-bottom: 10px !important; }
 
-  .tab-container .tab-pane [class^="col-md-"], .tab-container .tab-pane [class*=" col-md-"] {
+  .tab-container1 .tab-pane [class^="col-md-"], .tab-container1 .tab-pane [class*=" col-md-"] {
     padding-left: 0;
     padding-right: 0; }
-  .tab-container .tab-pane [class^="col-sm-"], .tab-container .tab-pane [class*=" col-sm-"], .tab-container .tab-pane [class^="col-sms-"], .tab-container .tab-pane [class*=" col-sms-"], .tab-container .tab-pane [class^="col-xs-"], .tab-container .tab-pane [class*=" col-xs-"] {
+  .tab-container1 .tab-pane [class^="col-sm-"], .tab-container1 .tab-pane [class*=" col-sm-"], .tab-container1 .tab-pane [class^="col-sms-"], .tab-container1 .tab-pane [class*=" col-sms-"], .tab-container1 .tab-pane [class^="col-xs-"], .tab-container1 .tab-pane [class*=" col-xs-"] {
     padding-left: 10px;
     padding-right: 10px; }
 
@@ -496,9 +496,9 @@
     line-height: 24px !important; } }
 /* 6. Styles for devices(>=768px and <= 991px) */
 @media (min-width: 768px) and (max-width: 991px) {
-  .tab-container.full-width-style ul.tabs {
+  .tab-container1.full-width-style ul.tabs {
     width: 20%; }
-  .tab-container.full-width-style .tab-content {
+  .tab-container1.full-width-style .tab-content {
     width: 80%; } }
 @media (min-width: 481px) and (max-width: 767px) {
   /*.hidden-xs { display: block !important; }*/ }
@@ -508,28 +508,28 @@
   .chaser {
     display: none !important; }
 
-  .tab-container ul.tabs li {
+  .tab-container1 ul.tabs li {
     float: none;
     padding-right: 0; }
-    .tab-container ul.tabs li.pull-right {
+    .tab-container1 ul.tabs li.pull-right {
       float: none !important; }
-  .tab-container ul.tabs.full-width {
+  .tab-container1 ul.tabs.full-width {
     display: block; }
-    .tab-container ul.tabs.full-width > li {
+    .tab-container1 ul.tabs.full-width > li {
       display: block;
       width: auto; }
-      .tab-container ul.tabs.full-width > li a {
+      .tab-container1 ul.tabs.full-width > li a {
         padding-left: 20px !important;
         text-align: left; }
-  .tab-container.style1 ul.tabs li > a:after {
+  .tab-container1.style1 ul.tabs li > a:after {
     display: none !important; }
-  .tab-container.trans-style ul.tabs {
+  .tab-container1.trans-style ul.tabs {
     margin-left: 0; }
-    .tab-container.trans-style ul.tabs li {
+    .tab-container1.trans-style ul.tabs li {
       margin: 0; }
-  .tab-container.full-width-style ul.tabs {
+  .tab-container1.full-width-style ul.tabs {
     width: 25%; }
-  .tab-container.full-width-style .tab-content {
+  .tab-container1.full-width-style .tab-content {
     width: 75%; }
 
   [class^="col-sm-"].pull-left, [class^="col-sm-"].pull-right, [class*=" col-sm-"].pull-left, [class*=" col-sm-"].pull-right {
@@ -552,10 +552,10 @@
       .hidden-table-sms.table-wrapper > .table-cell.pull-right, .hidden-table-sms.table-wrapper > .table-row > .table-cell.pull-right {
         float: right !important; }
 
-  .tab-container .tab-pane [class^="col-sm-"], .tab-container .tab-pane [class*=" col-sm-"] {
+  .tab-container1 .tab-pane [class^="col-sm-"], .tab-container1 .tab-pane [class*=" col-sm-"] {
     padding-left: 0;
     padding-right: 0; }
-  .tab-container .tab-pane [class^="col-sms-"], .tab-container .tab-pane [class*=" col-sms-"], .tab-container .tab-pane [class^="col-xs-"], .tab-container .tab-pane [class*=" col-xs-"] {
+  .tab-container1 .tab-pane [class^="col-sms-"], .tab-container1 .tab-pane [class*=" col-sms-"], .tab-container1 .tab-pane [class^="col-xs-"], .tab-container1 .tab-pane [class*=" col-xs-"] {
     padding-left: 10px;
     padding-right: 10px; }
 
@@ -686,9 +686,9 @@
     border-left: none; } }
 /* 8. Styles for devices(<=480px ) */
 @media (max-width: 480px) {
-  .tab-container.full-width-style ul.tabs {
+  .tab-container1.full-width-style ul.tabs {
     width: 30%; }
-  .tab-container.full-width-style .tab-content {
+  .tab-container1.full-width-style .tab-content {
     width: 70%; }
 
   .image-box-style.style2 figure {
@@ -700,10 +700,10 @@
   .visible-sms {
     display: block; }
 
-  .tab-container .tab-pane [class^="col-sms-"], .tab-container .tab-pane [class*=" col-sms-"] {
+  .tab-container1 .tab-pane [class^="col-sms-"], .tab-container1 .tab-pane [class*=" col-sms-"] {
     padding-left: 0;
     padding-right: 0; }
-  .tab-container .tab-pane [class^="col-xs-"], .tab-container .tab-pane [class*=" col-xs-"] {
+  .tab-container1 .tab-pane [class^="col-xs-"], .tab-container1 .tab-pane [class*=" col-xs-"] {
     padding-left: 10px;
     padding-right: 10px; }
 

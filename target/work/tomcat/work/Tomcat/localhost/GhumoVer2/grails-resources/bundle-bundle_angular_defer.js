@@ -34303,7 +34303,7 @@ phonecatApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/trekDetail/:trekName', {
-        templateUrl: 'partials/hotel-detailed.html',
+        templateUrl: 'partials/details.html',
         controller: 'PlaceDetailCtrl'
       }).
       when('/detail/:placeName', {
@@ -34320,6 +34320,17 @@ phonecatApp.config(['$routeProvider',
       });
       
   }]);
+
+phonecatApp.directive('disableAnimation', function($animate){
+    return {
+        restrict: 'A',
+        link: function($scope, $element, $attrs){
+            $attrs.$observe('disableAnimation', function(value){
+                $animate.enabled(!value, $element);
+            });
+        }
+    }
+});
 
 phonecatApp.directive('slider', function ($timeout) {
 	  return {
@@ -34354,7 +34365,7 @@ phonecatApp.directive('slider', function ($timeout) {
 			var sliderFunc=function(){
 				timer=$timeout(function(){
 					scope.next();
-					timer=$timeout(sliderFunc,6000);
+					timer=$timeout(sliderFunc,900);
 				},6000);
 			};
 			
@@ -34440,6 +34451,22 @@ var phonecatControllers = angular.module('phonecatControllers', ['duScroll','ngA
 
 phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$routeParams',
                                                     '$log','$location','$anchorScroll', function($scope, $routeParams,$log,$location,$anchorScroll,$document) {
+	
+	//carousel
+	$scope.myInterval = 5000;
+	  var slides = $scope.slides = [];
+	  $scope.addSlide = function() {
+	    var newWidth = 900 + slides.length;
+	    slides.push({
+	      image: 'http://placekitten.com/' + newWidth + '/300',
+	      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+	        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+	    });
+	  };
+	  for (var i=0; i<4; i++) {
+	    $scope.addSlide();
+	  }
+	
 	var top = 400;
 	  var duration = 2000; // milliseconds
 	console.log("hello");
@@ -34575,7 +34602,6 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope',
                 
                 if ($scope.usePlaces[i]) {
                     selected = true;
-                    console.log("pyt: "+$scope.usePlaces[i]+"::player::" +p+ ":useP:: "+i+":p.placeCount:"+p.activityKeyWord);   	
                     if (i == p.activityKeyWord) {
                     	 console.log("herei");  
                         filterAfterplaceCount.push(p);
@@ -34633,7 +34659,8 @@ phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location',
                                                  function($scope,ghumo,$location) {
 	// carousel
 
-	 $scope.images=[{src:'img1.jpg',title:'Pic 1'},{src:'img3.jpg',title:'Pic 2'},{src:'img2.jpg',title:'Pic 3'}]; 
+	 $scope.images=[{src:'img1.jpg',title:'Pic 1'},{src:'img3.jpg',title:'Pic 2'},{src:'img2.jpg',title:'Pic 3'},{src:'img4.jpg',title:'Pic 4'}]; 
+	 $scope.showDropdown = true;
 
 	$scope.customNavigate=function(placeName){
 		
@@ -34654,25 +34681,8 @@ phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location',
 	$scope.place = [ {
 		name : "plp",
 		surname : "plp",
-		twitter : "@darylrowland",
-		pic : "http://placehold.itr/2170x150"
-	}, {
-		name : "Alan",
-		surname : "Partridge",
-		twitter : "@alangpartridge",
-		pic : "http://placehold.itr/270x150"
-	}, {
-		name : "Annie",
-		surname : "Rowland",
-		twitter : "@anklesannie",
-		pic : "http://placehold.itr/270x150"
-	} ];
-	
-	$scope.places = [ {
-		name : "Daryl",
-		surname : "Rowland",
-		twitter : "@darylrowland",
-		pic : "http://placehold.itr/270x150"
+		twitter : "Palampur City Beautiful",
+		pic : "http://placehold.it/270x150"
 	}, {
 		name : "Alan",
 		surname : "Partridge",
@@ -34682,23 +34692,40 @@ phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location',
 		name : "Annie",
 		surname : "Rowland",
 		twitter : "@anklesannie",
-		pic : "http://placehold.itr/270x150"
+		pic : "http://placehold.it/270x150"
+	} ];
+	
+	$scope.places = [ {
+		name : "Daryl",
+		surname : "Rowland",
+		twitter : "@darylrowland",
+		pic : "http://placehold.it/270x150"
+	}, {
+		name : "Alan",
+		surname : "Partridge",
+		twitter : "@alangpartridge",
+		pic : "http://placehold.it/270x150"
+	}, {
+		name : "Annie",
+		surname : "Rowland",
+		twitter : "@anklesannie",
+		pic : "http://placehold.it/270x150"
 	} ,
 	{
 		name : "Daryl",
 		surname : "Rowland",
 		twitter : "@darylrowland",
-		pic : "http://placehold.itr/270x150"
+		pic : "http://placehold.it/270x150"
 	}, {
 		name : "Alan",
 		surname : "Partridge",
 		twitter : "@alangpartridge",
-		pic : "http://placehold.itr/270x150"
+		pic : "http://placehold.it/270x150"
 	}, {
 		name : "Annie",
 		surname : "Rowland",
 		twitter : "@anklesannie",
-		pic : "http://placehold.itr	/270x150"
+		pic : "http://placehold.it	/270x150"
 	} 
 	];
 	
