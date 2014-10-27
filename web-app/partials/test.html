@@ -1,27 +1,39 @@
-
-                      <div class="padded-row">
-             
-          <div angucomplete-alt id="ex2"  placeholder="{{placeholder}}" pause="300" selected-object="selectedPerson" local-data="place" search-fields="firstName,surname" 
-          title-field="firstName,surname" description-field="twitter" image-field="pic" minlength="1" input-class="form-control form-control-small" match-class="highlight">
-          </div>
-        </div>
-        <div class="result">
-          <div class="" ng-show="selectedPerson">
-            You selected <span class="bold-span">{{selectedPerson.originalObject.firstName}} {{selectedPerson.originalObject.surname}}</span>
-          </div>
-        </div>
-        
-        <div class="large-padded-row">
-
-        <h3><a name="example2" class="page-anchor">Example 2 - People</a></h3>
-        <div class="padded-row">
-          <div angucomplete-alt id="ex2" placeholder="Search people" pause="300" selected-object="selectedPerson" local-data="place" search-fields="firstName,surname" title-field="firstName,surname" description-field="twitter" image-field="pic" minlength="1" input-class="form-control form-control-small" match-class="highlight">
-          </div>
-        </div>
-        <div class="result">
-          <div class="" ng-show="selectedPerson">
-            You selected <span class="bold-span">{{selectedPerson.originalObject.firstName}} {{selectedPerson.originalObject.surname}}</span>
-          </div>
-        </div>
-        </div>
-              
+<h1>
+		Preloading Images In AngularJS With Promises
+	</h1>
+ 
+	<div ng-switch="isLoading">
+ 
+		<!-- BEGIN: Loading View. -->
+		<p ng-switch-when="true">
+ 
+			Your images are being loaded... {{ percentLoaded }}%
+ 
+		</p>
+		<!-- END: Loading View. -->
+ 
+		<!-- BEGIN: Results View. -->
+		<div
+			ng-switch-when="false"
+			ng-switch="isSuccessful">
+ 
+			<p ng-switch-when="true">
+ 
+				<img
+					ng-repeat="src in imageLocations"
+					ng-src="{{ src }}"
+					style="width: 100px ; margin-right: 10px ;"
+					/>
+ 
+			</p>
+ 
+			<p ng-switch-when="false">
+ 
+				<strong>Oops</strong>: One of your images failed to load :(
+ 
+			</p>
+ 
+		</div>
+		<!-- END: Results View. -->
+ 
+	</div>
