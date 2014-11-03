@@ -6,8 +6,106 @@ var phonecatControllers = angular.module('phonecatControllers', ['duScroll','ngA
 
 
 
-phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$routeParams',
-                                                    '$log','$location','$anchorScroll', function($scope, $routeParams,$log,$location,$anchorScroll,$document) {
+
+
+
+
+phonecatControllers.controller('CheckOutListCtrl', [ '$scope',
+                                                  'ghumo','$stateParams','$location', '$timeout', function($scope,ghumo,$stateParams,$location,$timeout) {
+	
+	
+	 $scope.step1open= true;
+	 $scope.isFirstDisabled=true;
+	 $scope.isSecondDisabled=true;
+	$scope.isThirdDisabled=true;
+	$scope.isFourthDisabled=true;
+	 $scope.edit=false;
+	 $scope.editClick1=false;
+	 $scope.editClick2=false;
+	 $scope.editClick3=false;
+	 $scope.editClick4=false;
+	 $scope.currentState=1;
+	// $scope.dayslist=[{one},{two},{three},{four}];
+	
+
+	
+	
+	 
+		$scope.editClick=function(editState) {
+			$scope.edit=true;
+			$scope.openAcc=editState;
+			if(editState!=1){
+			    $scope.isFirstDisabled=true;
+			}
+			if(editState!=2){
+				$scope.isSecondDisabled=true;
+			}	if(editState!=3){	
+				$scope.isThirdDisabled=true;
+			}	if(editState!=4){
+				$scope.isFourthDisabled=true;
+			}
+		};
+				      
+		
+	 
+	$scope.submit=function(step) {
+		
+		if($scope.edit){
+		step=$scope.currentState;
+		$scope.edit;
+		}
+		$scope.currentState=step;
+		$scope.openAcc=step;
+		console.log("step:"+step)
+		if(step==2 ||step==3||step==4){
+			$scope.isSecondDisabled=false;
+			$scope.editClick1=true;
+		}	if(step==3||step==4){	
+			$scope.isThirdDisabled=false;
+			$scope.editClick2=true;
+			
+		}	if(step==4){
+			$scope.isFourthDisabled=false;
+			$scope.editClick3=true;
+		}
+		
+
+	}	; 
+	  
+			      
+		 
+	
+	$scope.oneAtATime = true;
+
+
+
+	  $scope.items = ['Item 1', 'Item 2', 'Item 3'];
+
+	  $scope.addItem = function() {
+	    var newItemNo = $scope.items.length + 1;
+	    $scope.items.push('Item ' + newItemNo);
+	  };
+
+	  $scope.status = {
+	    isFirstOpen: true,
+	    isFirstDisabled: false
+	  };
+	
+	 $scope.formData = {};
+	    
+	    // function to process the form
+	    $scope.processForm = function() {
+	        alert('awesome!');  
+	    };
+	
+	
+          
+}
+	
+	 ]);
+
+phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$stateParams',
+                                                    '$log','$location','$anchorScroll', function($scope, $stateParams,$log,$location,$anchorScroll,$document) {
 	
 	//carousel
 	$scope.myInterval = 5000;
@@ -26,7 +124,7 @@ phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$routeParams',
 	
 	var top = 400;
 	  var duration = 2000; // milliseconds
-	console.log("hello");
+//	console.log("hello");
 	  // Scroll to the exact position
 	 
 
@@ -62,6 +160,9 @@ phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$routeParams',
 
 var scroll = angular.module('duScroll', []);
 
+
+
+
 scroll.
 controller('PlaceDetCtrl', ['$scope',function($scope, $document) {
   var top = 400;
@@ -82,9 +183,9 @@ console.log("hello");
 
 
 
-
+//placeList Controller
 phonecatControllers.controller('PlaceListCtrl', [ '$scope',
-                                                  'ghumo','$routeParams','$location', function($scope,ghumo,$routeParams,$location) {
+                                                  'ghumo','$stateParams','$location', function($scope,ghumo,$stateParams,$location) {
     $scope.usePlaces = {};
     $scope.useDays = {};
 
@@ -107,10 +208,11 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope',
 	    $scope.overStar = value;
 	    $scope.percent = 100 * (value / $scope.max);
 	  };
+	  console.log('$stateParams ::'+$stateParams.placeName)
 	$scope.places = ghumo.places.query({
 
 
-		placeName : $routeParams.placeName
+		placeName : $stateParams.placeName
 
 	});
 
@@ -148,7 +250,7 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope',
         }
     }, function (value) {
         var selected;
-    console.log("min"+$scope.demo1.min)
+    //console.log("min"+$scope.demo1.min)
         $scope.placeGroup = uniqueItems($scope.places, 'activityKeyWord');
         var filterAfterplaceCount = [];        
         selected = false;
@@ -160,7 +262,7 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope',
                 if ($scope.usePlaces[i]) {
                     selected = true;
                     if (i == p.activityKeyWord) {
-                    	 console.log("herei");  
+                    	
                         filterAfterplaceCount.push(p);
                         break;
                     }
@@ -168,7 +270,7 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope',
             }        
         }
         if (!selected) {
-        	 console.log("hereddi");  
+        	  
             filterAfterplaceCount = $scope.places;
         }
         
@@ -217,15 +319,14 @@ phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location','p
 	// carousel
 
 	 $scope.images=[{src:'img1.jpg',title:'Pic 1'},{src:'img3.jpg',title:'Pic 2'},{src:'img2.jpg',title:'Pic 3'},{src:'img4.jpg',title:'Pic 4'}]; 
-	 console.log("img/"+$scope.images[0].src);
+	// console.log("img/"+$scope.images[0].src);
 	 $scope.imageLocations=[("img/"+$scope.images[0].src)]; 
 ; 
 	 $scope.showDropdown = true;
 
 	$scope.customNavigate=function(placeName){
-		
-  console.log("test tt");
-		$location.path('/detail/'+placeName );
+  console.log("placename :"+placeName);
+		$location.path('/detail/:'+placeName);
 
 
 	}
@@ -236,59 +337,99 @@ phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location','p
 
 			}
 	$scope.placeholder='search here';
-	
+	$scope.place = [
+	            	{
+	            		placeName : "Shimla",
+	            		event : "paragliding",
+	            		verb : "in",
+	            		name : "Shimla",
+	            		pic : "http://placehold.it/200x150"
+	            	}
+	]
 	// autocomeplete data
-	$scope.place = [ {
-		name : "plp",
-		surname : "plp",
-		twitter : "Palampur City Beautiful",
-		pic : "http://placehold.it/270x150"
+	/*$scope.place = [
+	  {
+	            		place : "all places",
+	            		event : "trekking",
+	            		verb : "in",
+	            		name : "all places ",
+	            		pic : "http://placehold.it/200x150"
+	   },  
+             {
+		place : "himachal",
+	            		event : "trekking",
+	            		verb : "in",
+	            		name : "himachal",
+	            		event1 : "trekking in himachal",
+	            		pic : "http://placehold.it/200x150"
+	            	},             
+	                
+	                {
+		place : "manali",
+		event : "trekking",
+		verb : "in",
+		name : "churdhar",
+		pic : "http://placehold.it/200x150"
 	}, {
-		name : "Alan",
-		surname : "Partridge",
-		twitter : "@alangpartridge",
-		pic : "http://placehold.it/270x150"
+		place : "manali",
+		event : "camping",
+		verb : "in",
+		name : "manikaran",
+		pic : "http://placehold.it/200x150"
 	}, {
-		name : "Annie",
-		surname : "Rowland",
-		twitter : "@anklesannie",
-		pic : "http://placehold.it/270x150"
-	} ];
-	
-	$scope.places = [ {
-		name : "Daryl",
-		surname : "Rowland",
-		twitter : "@darylrowland",
-		pic : "http://placehold.it/270x150"
+		place : "leh",
+		event : "trekking",
+		verb : "in",
+		name : "khardungla",
+		pic : "http://placehold.it/200x150"
+	},{
+		place : "dharamshala",
+		event : "trekking",
+		verb : "in",
+		name : "triund",
+		pic : "http://placehold.it/200x150"
 	}, {
-		name : "Alan",
-		surname : "Partridge",
-		twitter : "@alangpartridge",
-		pic : "http://placehold.it/270x150"
+		place : "dharamshala",
+		event : "trekking",
+		verb : "in",
+		name : "indrahaar",
+		pic : "http://placehold.it/200x150"
 	}, {
-		name : "Annie",
-		surname : "Rowland",
-		twitter : "@anklesannie",
-		pic : "http://placehold.it/270x150"
-	} ,
+		place : "dharamshala",
+		event : "paragliding",
+		verb : "in",
+		name : "dharamshala",
+		pic : "http://placehold.it/200x150"
+	},
 	{
-		name : "Daryl",
-		surname : "Rowland",
-		twitter : "@darylrowland",
-		pic : "http://placehold.it/270x150"
+		place : "Shimla",
+		event : "paragliding",
+		verb : "in",
+		name : "Shimla",
+		pic : "http://placehold.it/200x150"
+	}
+	,
+	{
+		place : "leh",
+		event : "biking",
+		verb : "",
+		name : "leh to manali",
+		pic : "http://placehold.it/200x150"
 	}, {
-		name : "Alan",
-		surname : "Partridge",
-		twitter : "@alangpartridge",
-		pic : "http://placehold.it/270x150"
+		place : "kinnuar",
+		event : "trekking",
+		verb : "in",
+		name : "spiti",
+		pic : "http://placehold.it/200x150"
 	}, {
-		name : "Annie",
-		surname : "Rowland",
-		twitter : "@anklesannie",
-		pic : "http://placehold.it	/270x150"
+		place : "kinnaur",
+		event : "trekking",
+		verb : "in",
+		name  : "ladakh",
+		pic : "http://placehold.it/200x150"
 	} 
 	];
-	
+	*/
     $scope.inputChanged = function(str) {
         $scope.console10 = str;
       }
@@ -329,7 +470,7 @@ phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location','p
               $scope.isLoading = false;
               $scope.isSuccessful = true;
 
-              console.info( "Preload Successful" );
+            //  console.info( "Preload Successful" );
 
           },
           function handleReject( imageLocation ) {
@@ -346,7 +487,7 @@ phonecatControllers.controller('SearchContrl', [ '$scope','ghumo','$location','p
 
               $scope.percentLoaded = event.percent;
 
-              console.info( "Percent loaded:", event.percent );
+          //    console.info( "Percent loaded:", event.percent );
 
           }
       );
