@@ -1,0 +1,65 @@
+<accordion close-others="oneAtATime" >
+    <accordion-group    >
+      <accordion-heading is-open="openAcc==2" >
+      <div ng-show="!editClick1">
+      Step1
+      </div>
+           <div ng-show="editClick1">
+          
+            <button ng-click="editClick(1)" >
+          Edit
+          </button>
+           </div>
+       </accordion-heading>
+  
+   <form name="form" ng-app>
+<div class="control-group" ng-class="{true: 'error'}[submitted && form.email.$invalid]">
+        <label class="control-label" for="email">Your email address</label>
+        <div class="controls">
+            <input type="email" name="email" ng-model="email" required />
+            <span class="help-inline" ng-show="submitted && form.email.$error.required">Required</span>
+            <span class="help-inline" ng-show="submitted && form.email.$error.email">Invalid email</span>
+        </div>
+    </div>
+   
+    <button type="submit" class="btn btn-primary btn-large" ng-click="submit(2)">Submit</button>
+</form>
+    </accordion-group>
+    <accordion-group  is-open="openAcc==2" is-disabled="isSecondDisabled" >
+         
+           <button type="submit" class="btn btn-primary btn-large" ng-click="submit(3)">Submit</button>
+          <accordion-heading >
+      <div ng-show="!editClick2">
+      Step2
+      </div>
+           <div ng-show="editClick2">
+          
+            <button ng-click="editClick(2)" >
+          Edit
+          </button>
+           </div>
+       </accordion-heading>
+    </accordion-group>
+    <accordion-group is-open="openAcc==3" is-disabled="isThirdDisabled" >
+    <accordion-heading >
+      <div ng-show="!editClick3">
+      Step3
+      </div>
+           <div ng-show="editClick3">
+          
+            <button ng-click="editClick(3)" >
+          Edit
+          </button>
+           </div>
+       </accordion-heading>
+      <p>The body of the accordion group grows to fit the contents</p>
+        <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
+       
+    </accordion-group>
+    <accordion-group is-open="status.open">
+        <accordion-heading>
+            I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+  </accordion>
