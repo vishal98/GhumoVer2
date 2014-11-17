@@ -110,7 +110,7 @@ log4j.main = {
     //}
 	
 	// Enable Hibernate SQL logging with param values
-	trace 'org.hibernate.type'
+	//trace 'org.hibernate.type'
 	debug 'org.hibernate.SQL'
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers

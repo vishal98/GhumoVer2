@@ -1,3 +1,45 @@
+
+/* Search css stylesheet */
+.search {
+	margin-top: -5%;
+	width: 100%;
+   
+}
+
+ div.special > div[class*="col-"] {
+       padding: 0; 
+      }
+
+@media  (min-width: 768px) {
+
+.custom-collapse .collapse{
+            display:block;
+      }  
+}
+@media (max-width: 468px) {
+    .hideCl {
+        display: none !important;
+    }
+}
+@media (min-width: 468px) {
+    .hideCl2 {
+        display: none !important;
+    }
+}
+
+
+@media (max-width: 400px){
+  .search {
+	margin-top: -18%;
+  }
+
+}
+.search .form-section{
+	background:rgba(0,0,0,0.6);
+	border: 2px solid #414141;
+	border-radius: 5px;
+
+}
 /* slider css stylesheet */
 
 *{
@@ -197,3 +239,91 @@ ul.specs dt {
 h1 {
   border-bottom: 1px solid gray;
 }
+
+/* checkout **/
+
+.block .infoBlock {
+    padding: 2em 4em;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    background-color: white;
+    }
+    .relative {
+    position: relative;
+    }
+
+
+    .itinerary h1 {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    }
+
+    .hasBaggageInfo .itinerary ul.itinerarySummary {
+    width: 650px;
+    }
+    .itinerary .itinerarySummary {
+    display: table;
+    margin: 0 0 15px 0;
+    width: 600px;
+    padding: 0;
+    }
+
+
+
+    .hasBaggageInfo .itinerary ul.itinerarySummary .vendor {
+    width: 140px;
+    }
+    .itinerary .itinerarySummary .vendor {
+    width: 150px;
+    }
+    .itinerary .itinerarySummary .vendor, .itinerary .itinerarySummary .start, .itinerary .itinerarySummary .details, .itinerary .itinerarySummary .end {
+    display: block;
+    display: table-cell;
+    vertical-align: top;
+    }
+    p, li {
+    font-size: 1.3em;
+    line-height: 1.35em;
+    margin: 0.25em 0;
+    }
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, cite, code, del, dfn, em, img, q, s, samp, small, strike, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, button, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 100%;
+    line-height: 1;
+    font-family: inherit;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, cite, code, del, dfn, em, img, q, s, samp, small, strike, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, button, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 100%;
+    line-height: 1;
+    font-family: inherit;
+    }
+    user agent stylesheetul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+    }
+    .itinerary.clearFix
+    .clearFix {
+    zoom: 1;
+    }
+
+    .bookFlow .row {
+    max-width: 960px;
+    }
+    .upSell {
+    margin: 0 0 0 0;
+    color: #666;
+    }

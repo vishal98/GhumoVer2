@@ -1,4 +1,4 @@
-.angucomplete-holder {
+	.angucomplete-holder {
     position: relative;
     width: 100%%;
 }
@@ -66,3 +66,20 @@
     height: 34px;
     width: 34px;
 }
+
+.angucomplete-title{
+	
+	
+	font-weight: bold;
+
+
+}
+
+.angucomplete-title1{
+	font-family:sans-serif;
+	font-size:small;
+	font-weight: normal;
+color: #ca6307;
+
+}
+

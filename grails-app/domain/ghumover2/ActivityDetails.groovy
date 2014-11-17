@@ -11,10 +11,23 @@ class ActivityDetails {
     static constraints = {
     }
 
-	String activityName;
-	String placeId;
+	
+	static marshalling={
+		
+		JSON{
+			named{
+				shouldOutputIdentifier false
+        shouldOutputVersion false
+        shouldOutputClass false
+		ignore 'placeId,day,details,difficultyLevel,iternaryId,overview,physicalDemand,picUrl,placeName,priceRange,rating'
+			}
+			
+		}
+    }
+	String activityName
+	String placeId
 	String difficultyLevel
-   
+    String placeName   
 
 	String activityKeyWord
 	String picUrl

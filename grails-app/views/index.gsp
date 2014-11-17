@@ -14,9 +14,9 @@
 		<r:layoutResources />
 	</head>
 	
-	<body>
-	  <div class="view-container" ng-app="phonecatApp">
-	    <div ng-view class="view-frame"></div>
+	<body style="padding-top: 0%">
+	  <div class="container-fluid1" ng-app="phonecatApp">
+	    <div  ui-view class="view-frame"></div>
 	  </div>
 	  <r:layoutResources />
 	</body>

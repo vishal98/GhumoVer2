@@ -762,6 +762,11 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+.container-fluid1 {
+
+  margin-right: auto;
+  margin-left: auto;
+}
 .row {
   margin-right: -15px;
   margin-left: -15px;
@@ -3127,6 +3132,8 @@ input[type="button"].btn-block {
   bottom: 100%;
   margin-bottom: 1px;
 }
+
+
 @media (min-width: 768px) {
   .navbar-right .dropdown-menu {
     right: 0;

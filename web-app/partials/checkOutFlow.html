@@ -1,65 +1,381 @@
-<accordion close-others="oneAtATime" >
-    <accordion-group    >
-      <accordion-heading is-open="openAcc==2" >
-      <div ng-show="!editClick1">
-      Step1
-      </div>
-           <div ng-show="editClick1">
-          
-            <button ng-click="editClick(1)" >
-          Edit
-          </button>
-           </div>
-       </accordion-heading>
-  
-   <form name="form" ng-app>
-<div class="control-group" ng-class="{true: 'error'}[submitted && form.email.$invalid]">
-        <label class="control-label" for="email">Your email address</label>
-        <div class="controls">
-            <input type="email" name="email" ng-model="email" required />
-            <span class="help-inline" ng-show="submitted && form.email.$error.required">Required</span>
-            <span class="help-inline" ng-show="submitted && form.email.$error.email">Invalid email</span>
-        </div>
-    </div>
-   
-    <button type="submit" class="btn btn-primary btn-large" ng-click="submit(2)">Submit</button>
+<div class="container">
+<div class="col-md-2">
+</div>
+
+<div class="col-md-10">
+
+<accordion close-others="oneAtATime"> <accordion-group
+	is-open="openAcc==1" is-disabled="isFirstDisabled">
+<accordion-heading>
+<div ng-show="!editClick1">Step1</div>
+
+
+
+
+<div ng-show="editClick1">
+
+	<button ng-model="button" ng-click="editClick(1)"
+		ng-disabled="isFirstDisabled">Edit</button>
+</div>
+</accordion-heading>
+
+
+<div class="infoBlock relative" id="itinBlock">
+	<div class="row">
+		<div class="col col18  hasBaggageInfo">
+			<div class="itinerary clearFix">
+
+				<h1>
+					Bangalore → New Delhi <small></small> <small class="weak">
+
+
+
+						Sunday 16 Nov 2014 </small>
+
+				</h1>
+
+
+				<!-- flight 1 -->
+				<ul class="itinerarySummary BLR_DEL" flightid="507" flightname="SG"
+					id="SG507">
+					<li class="vendor">
+						<div class="airLogo">
+							<span class="airLogo"> <img
+								src="/images/logos/air-logos/SG.png" alt="SpiceJet logo">
+							</span>
+						</div>
+						<div class="airlineName">
+							<span class="name">SpiceJet</span> <small class="flightNumber">SG-507</small>
+
+							<small>Economy</small>
+						</div>
+
+					</li>
+					<li class="start"><time datetime="20081002T1200+0530">
+							<span class="placeTime"> <span rel="tTooltip"
+								original-title="Kempegowda International Airport, Bangalore">BLR
+							</span> <strong> 22:50 </strong>
+
+
+							</span>
+							<!-- span class="travelDate">Thu, 21 Oct, 2011</span-->
+							<span class="travelDate truncate"> Sun, 16 Nov, 2014 </span>
+						</time> <small class="terminal"> Kempegowda International
+							Airport, Bangalore </small></li>
+					<li class="details"><abbr title="PT1H45M0S"
+						class="duration weak">2h 35m</abbr></li>
+
+
+
+
+					<li class="end"><time datetime="20081002T1200+0530">
+							<span class="placeTime"> <strong> 01:25 </strong> <span
+								rel="tTooltip" original-title="Indira Gandhi Airport, New Delhi">
+									DEL</span>
+							</span>
+							<!-- span class="travelDate">Thu, 21 Oct, 2011</span-->
+							<span class="travelDate truncate"> Mon, 17 Nov, 2014 </span>
+						</time> <small class="terminal"> Indira Gandhi Airport, New Delhi
+
+					</small></li>
+					<li class="baggageInfo"></li>
+					<li class="baggageInfo"><small class="strong">Baggage
+							information</small><small>Check-in: 15 KG / person</small><small>Cabin:
+							7 KG / person</small><a class="weak"
+						href="javascript:CT.utils.showModalDialog('/flightstatic/includes/baggage.shtml' , '700px' , '80%' , false , false);">more
+							info</a></li>
+				</ul>
+			</div>
+
+			<!-- brough the form here-->
+			<form errorblkid="itineraryBlockError" onsubmit="return false;"
+				id="infoStep">
+				<div class="row upSell">
+
+
+
+
+					<div class="blockOptInBG baggaeButtonContainer"
+						style="display: none;">
+						<!-- Start Baggage Markup -->
+						<div class="blockOptInPAD flightAddons">
+							<dl class="horizontal">
+								<dt>Check-in baggage</dt>
+								<dd>
+									<div id="beforeBaggae">
+										<span class="flightAddonButtonText">Add to your
+											check-in baggage allowance at a discount.</span> <span
+											class="leftColWrapper">
+											<button
+												onclick="CT.utils.showModalDialog('/html/b2c/airBaggageModal.shtml','475','550',true,false)"
+												type="button" class="action selectAddonButton">
+												<span>+</span> Add Baggage
+											</button>
+										</span>
+									</div>
+
+									<div id="afterBaggae" style="display: none">
+										<div class="row">
+											<div class="col col20 addonSelectedContainer"></div>
+											<div class="col col4">
+												<button
+													onclick="CT.utils.showModalDialog('/html/b2c/airBaggageModal.shtml','475','550',true,false)"
+													type="button" class="action fRight">Change</button>
+											</div>
+										</div>
+									</div>
+
+
+								</dd>
+							</dl>
+						</div>
+
+					</div>
+					<!-- End Baggage Markup -->
+
+
+					<div class="blockOptInBG mealsButtonContainer"
+						style="display: none">
+						<!-- Start Meals Markup -->
+						<div class="blockOptInPAD flightAddons">
+							<dl class="horizontal">
+								<dt>In-flight meals</dt>
+								<dd>
+
+									<div id="beforeMeals">
+										<span class="flightAddonButtonText"> Buy in-flight
+											meals now at discounted rates. </span> <span class="leftColWrapper">
+											<button
+												onclick="CT.utils.showModalDialog('/html/b2c/airMealModal.shtml','475','550',true,false)"
+												type="button" class="action selectAddonButton">
+
+												<span>+</span> Add Meals
+
+											</button>
+										</span>
+									</div>
+
+									<div id="afterMeals" style="display: none">
+										<div class="row">
+											<div class="col col20 addonSelectedContainer"></div>
+											<div class="col col4">
+												<button
+													onclick="CT.utils.showModalDialog('/html/b2c/airMealModal.shtml','475','550',true,false)"
+													type="button" class="action fRight">Change</button>
+											</div>
+										</div>
+									</div>
+
+								</dd>
+							</dl>
+						</div>
+					</div>
+					<!-- End Meals Markup -->
+
+
+					<div class="blockOptInBG" id="insuranceBG">
+						<div class="blockOptInPAD iciciLombard" id="insurancePAD">
+							<div class="blockOptIn clearFix">
+
+								<dl class="horizontal">
+									<dt>&nbsp;</dt>
+									<dd>
+										<input type="checkbox" name="insurance" id="insurance_box"
+											checked="checked"> <label for="insurance_box">
+											Secure your trip with ICICI Lombard Travel Insurance for 1
+											Adult </label> <small><span class="curr INR">Rs.</span> 149.0
+											per passenger <a href="javascript:void(0);"
+											id="view_benefits" class="weak">(View benefits)</a></small>
+									</dd>
+								</dl>
+
+								<!--p id="insuranceDuration">
+                    <select title="Adult 1" name="AdultTitle1" id="AD1"  class="customTList">
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    days of your journey you want to get insured for. 
+
+                </p-->
+
+
+								<div id="insuraceDetails">
+									<dl class="horizontal" id="insuranceDesc" style="display: none">
+										<dt>&nbsp;</dt>
+										<dd>
+											<nav>
+												<ul class="inline clearFix">
+													<li><span class="insurance flight">&nbsp;</span> <strong>Trip
+															cancellation</strong><br> Reimbursed upto <br> <strong><span
+															class="curr INR">Rs.</span> 20,000*</strong></li>
+													<li><span class="insurance baggage">&nbsp;</span> <strong>Baggage
+															loss</strong><br> Reimbursed upto <br> <strong><span
+															class="curr INR">Rs.</span> 7,500*</strong></li>
+
+													<li><span class="insurance delay">&nbsp;</span> <strong>Flight
+															delay</strong><br> Reimbursed upto <br> <strong><span
+															class="curr INR">Rs.</span> 10,500*</strong></li>
+													<li><span class="insurance medical">&nbsp;</span> <strong>Medical
+															Emergency</strong><br> Reimbursed upto <br> <strong><span
+															class="curr INR">Rs.</span> 100,000*</strong></li>
+													<li class="orphan icici"><span
+														class="insurance ICICIcompany ir">ICICI Lombard</span> <span
+														class="last"> <a href="javascript:void(0);"
+															class="weak"
+															onclick="javascript:CT.helperFunctions.showModalDialog('/insurance/iciciLombard/','900','550',false,true)">Read
+																policy details</a> to know more
+													</span></li>
+												</ul>
+											</nav>
+										</dd>
+									</dl>
+									<dl class="horizontal" id="insuranceConfirm" style="">
+										<dt>&nbsp;</dt>
+										<dd>
+											<div class="valHighlight">
+												<input type="checkbox" name="insuranceConfirm"
+													id="insurance_confirm" class="foreign"> <label
+													for="insurance_confirm"> Yes, I accept the terms
+													and conditions of the policy <small>(These
+														passengers are between 2 and 70 years of age.)</small>
+												</label>
+											</div>
+										</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="blockOptInBG" id="couponcodeBG">
+						<div class="blockOptInPAD" id="couponcodePAD">
+							<dl class="horizontal">
+								<dt>&nbsp;</dt>
+								<dd>
+									<p class="pahMessage" style="display: none">
+										<span class="icon bad"></span>Coupon code is not applicable if
+										you wish to pay at hotel
+									</p>
+									<p class="blockCouponMessage" style="display: none">
+										<span class="icon bad"></span>Coupon Code is not applicable on
+										this Hotel
+									</p>
+									<div id="couponCodeBlock" class="clearFix">
+										<div class="couponHolder">
+											<label for="couponcode_check">&nbsp;Have a coupon
+												code to redeem?</label>
+											<div style="display: block;" class="savingBlock spoonForm"
+												id="savingBlock">
+												<input type="text" name="coupon" id="coupon"
+													class="span span14 couponGiftCardField"
+													title="Enter your coupon" placeholder="Enter your coupon"
+													autocomplete="off" autocorrect="off"> <a
+													href="javascript:void(0)" applyurl="apply-coupon"
+													id="check_saving"
+													class="button action span span6 applyCodeButton">Apply
+													code</a>
+
+											</div>
+
+										</div>
+									</div>
+								</dd>
+							</dl>
+						</div>
+						<input type="hidden" value="" id="couponValue">
+					</div>
+
+					<input type="hidden" value="" id="couponValue">
+				</div>
+
+				<div class="upSell">
+					<dl class="horizontal row totalFareBlock blockOptInBG">
+						<dt>Total</dt>
+						<dd>
+							<!--<strong id="totalFare"><span id="counter">Rs. 5,950</span></strong>-->
+							<strong id="totalFare" class="totalFare"> <span
+								class="curr INR">Rs.</span> <span id="counter">6,099</span> <span
+								class="bookflowCurrency" style="display: none;"></span>
+							</strong> <small> 1 adult <a href="javascript:void(0);"
+								class="weak"
+								onclick="javascript:CT.helperFunctions.showModalDialog('/html/b2c/fair_details.shtml','90%','80%',true,false)">(fare
+									details)</a> <input type="hidden"
+								value="682d142db1-8de5-4653-977c-34a7e6c51652" id="itineraryId">
+							</small> <span class="leftColWrapper" style="display: none;"> <span
+								class="status positive" style="display: none;">Refundable</span><br>
+								<a
+								onclick="javascript:CT.helperFunctions.showModalDialog('/flightstatic/includes/refund-policy.shtml','700px','400px','yes',false);"
+								style="display: none;" href="javascript:void(0)" class="weak">View
+									details</a>
+							</span>
+						</dd>
+						<dt>&nbsp;</dt>
+						<dd>
+							<input class="booking" type="button" id="itineraryBtn"
+								value="Continue booking">
+							<!--p id="ItineraryClosing" style="display:none;"><span class="loadingSmall"></span>Hang onâ€¦</p-->
+						</dd>
+					</dl>
+				</div>
+
+
+
+			</form>
+		</div>
+		<aside class="col col6 multiple"></aside>
+	</div>
+
+</div>
+
+<form name="form" ng-app>
+	<div class="control-group"
+		ng-class="{true: 'error'}[submitted && form.email.$invalid]">
+		<label class="control-label" for="email">Your email address</label>
+		<div class="controls">
+			<input type="email" name="email" ng-model="email" required /> <span
+				class="help-inline"
+				ng-show="submitted && form.email.$error.required">Required</span> <span
+				class="help-inline" ng-show="submitted && form.email.$error.email">Invalid
+				email</span>
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary btn-large"
+		ng-click="submit(2)">Submit</button>
 </form>
-    </accordion-group>
-    <accordion-group  is-open="openAcc==2" is-disabled="isSecondDisabled" >
-         
-           <button type="submit" class="btn btn-primary btn-large" ng-click="submit(3)">Submit</button>
-          <accordion-heading >
-      <div ng-show="!editClick2">
-      Step2
-      </div>
-           <div ng-show="editClick2">
-          
-            <button ng-click="editClick(2)" >
-          Edit
-          </button>
-           </div>
-       </accordion-heading>
-    </accordion-group>
-    <accordion-group is-open="openAcc==3" is-disabled="isThirdDisabled" >
-    <accordion-heading >
-      <div ng-show="!editClick3">
-      Step3
-      </div>
-           <div ng-show="editClick3">
-          
-            <button ng-click="editClick(3)" >
-          Edit
-          </button>
-           </div>
-       </accordion-heading>
-      <p>The body of the accordion group grows to fit the contents</p>
-        <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
-       
-    </accordion-group>
-    <accordion-group is-open="status.open">
-        <accordion-heading>
-            I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-        </accordion-heading>
-        This is just some content to illustrate fancy headings.
-    </accordion-group>
-  </accordion>
+</accordion-group> <accordion-group is-open="openAcc==2" is-disabled="isSecondDisabled">
+
+<button type="submit" class="btn btn-primary btn-large"
+	ng-click="submit(3)">Submit</button>
+<accordion-heading>
+<div ng-show="!editClick2">Step2</div>
+<div ng-show="editClick2">
+
+	<button ng-model="button" ng-click="editClick(2)"
+		ng-disabled="isSecondDisabled">Edit</button>
+</div>
+</accordion-heading> </accordion-group> <accordion-group is-open="openAcc==3" is-disabled="isThirdDisabled">
+<accordion-heading>
+<div ng-show="!editClick3">Step3</div>
+<div ng-show="editClick3">
+
+	<button ng-click="editClick(3)" disabled="isThirdDisabled">
+		Edit</button>
+</div>
+</accordion-heading>
+<p>The body of the accordion group grows to fit the contents</p>
+<button class="btn btn-default btn-sm" ng-click="addItem()">Add
+	Item</button>
+
+</accordion-group> <accordion-group is-open="status.open"> <accordion-heading>
+I can have markup, too! <i class="pull-right glyphicon"
+	ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+</accordion-heading> This is just some content to illustrate fancy headings. </accordion-group> </accordion>
+</div>
+
+<div class="col-md-2">
+</div>
+</div>

@@ -13,13 +13,10 @@ class GhumoController {
     def index() { }
 	
 	def showDetail() {
-	//	def json	=EventVersion.withCriteria {
-		//	def now = new Date()
-			//between('startDate', now, now+7)
-			//like('eventPlace', '%plp%') as JSON
-		//}
+	
 		
 		String plp="plp"
+				println("show Phone  :":params.name)
 		def c = EventVersion.createCriteria()
 		def now = new Date()
 		def json = c.list {
@@ -32,9 +29,7 @@ class GhumoController {
 		
 		} as JSON
 		
-		//println("show placeName ::" +params.placeName)
-	//	def json = 	.findAllByName(params.placeName) as JSON
-	//	Destination.findByAName();
+	
 		println("show Phone  :":json)
 		
 		
@@ -47,32 +42,29 @@ class GhumoController {
 	
 	
 	def showEvents() {
-		//	def json	=EventVersion.withCriteria {
-			//	def now = new Date()
-				//between('startDate', now, now+7)
-				//like('eventPlace', '%plp%') as JSON
-			//}
+	
 			 
+		println("show Phone  :"+params.event + "show name  :"+params.name )
 			String plp="plp"
 			def c = ActivityDetails.createCriteria()
 			def now = new Date()
-			def json = c.list {
-				like("placeId",'1')
+			ActivityDetails[] det = c.list {
+				like("placeName",params.name)
+				like("activityName",params.event)
 				
 				maxResults(10)
 			
-			} as JSON
+			}
+		
+	//	JSON.use('named'){
+			render det as JSON
+	//	}
 			
-			//println("show placeName ::" +params.placeName)
-		//	def json = 	.findAllByName(params.placeName) as JSON
-		//	Destination.findByAName();
-			println("show Phone  :":json)
+		
+			println("show Phone  :"+det)
 			
 			
 			
-			
-			
-			render json
 	
 		}
 		

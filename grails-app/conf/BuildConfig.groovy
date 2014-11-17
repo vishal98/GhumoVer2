@@ -41,9 +41,9 @@ grails.project.dependency.resolution = {
 		grailsCentral()
 		mavenCentral()
 		// uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
-		mavenRepo "http://mvnrepository.com/artifact/"
+		//mavenRepo "http://mvnrepository.com/artifact/"
 		//mavenRepo "http://download.java.net/maven/2/"
-		mavenRepo "http://repository.jboss.com/maven2/"
+	//	mavenRepo "http://repository.jboss.com/maven2/"
 		mavenRepo "http://repository.codehaus.org"
 	}
 
@@ -54,9 +54,7 @@ grails.project.dependency.resolution = {
 		test "org.grails:grails-datastore-test-support:1.0-grails-2.4"
 		compile 'commons-beanutils:commons-beanutils:1.8.3'
          compile('org.hibernate:hibernate-search:4.5.1.Final') 
-		 {
-        excludes  "hibernate-core"
-        }
+		
 		runtime 'mysql:mysql-connector-java:5.1.29'
 		
 	}
@@ -72,6 +70,7 @@ grails.project.dependency.resolution = {
 		compile ":scaffolding:2.1.2"
 		compile ':cache:1.1.7'
 		compile ":asset-pipeline:1.9.9"
+		compile ":marshallers:0.6"
 		
 		
 

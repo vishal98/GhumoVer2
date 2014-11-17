@@ -25,7 +25,7 @@ class UrlMappings {
 			action = "showPhoneByName"
 		}
 		
-		"/detail/${placeName}.json" {
+		"/detail/$name/event/$event?" {
 		controller = "ghumo"
 		action = "showEvents"
 	}

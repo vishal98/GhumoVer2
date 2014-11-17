@@ -3,38 +3,98 @@
 /* App Module */
 
 var phonecatApp = angular.module('phonecatApp', [
-  'duScroll',
-  'ngRoute',
-  'phonecatAnimations',
   'phonecatControllers',
-  'phonecatFilters',
-  'ghumoServices',
-  'ui.bootstrap',
+ // 'phonecatFilters',
+//  'ghumoServices',
+ // 'ui.bootstrap',
   'angucomplete-alt',
-  'ui-rangeSlider'
+ // 'ui-rangeSlider',
+  'ui.router',
+  'ngAnimate',
+  'ncy-angular-breadcrumb',
+  'restangular'
 ]);
 
-phonecatApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/trekDetail/:trekName', {
-        templateUrl: 'partials/details.html',
-        controller: 'PlaceDetailCtrl'
-      }).
-      when('/detail/:placeName', {
-    	  templateUrl: 'partials/hotel-grid-view.html',
-          controller: 'PlaceListCtrl'
-      }).
-      when('/search', {
-    	  templateUrl: 'partials/searchVer.html',
-    	  controller: 'SearchContrl'
-         
-      }).
-      otherwise({
-        redirectTo: '/search'
-      });
-      
-  }]);
+
+
+
+phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvider){
+                    
+	//$urlRouterProvider.otherwise("/checkOutStep1")
+                    
+                  
+                    $urlRouterProvider.otherwise("/search")
+                      $stateProvider
+                      .state('search', {
+                    	  url: "/search",
+                    	  templateUrl: 'partials/searchVer.html',
+                    	  controller: 'SearchContrl',
+                    	  ncyBreadcrumb: {
+                    		    label: 'Home page'
+                    		  }
+                      })
+                        .state('trekList', {
+                            url: "/detail/:placeName",
+                            templateUrl: 'partials/hotel-grid-view.html',
+                            controller: 'PlaceListCtrl',
+                            ncyBreadcrumb: {
+                                label: 'List',
+                                parent: 'search'
+                              }
+                        })
+                        
+                      .state('details', {
+                          url: "/trekDetail/:trekName",
+                          templateUrl: 'partials/details.html',
+                          controller: 'PlaceDetailCtrl',
+                          ncyBreadcrumb: {
+                              label: 'Details',
+                              //parent: 'trekList'
+                            	  parent: function ($scope) {
+                                    var param = $scope.slug; // Or wherever is the slug value.
+                                      return 'trekList({placeName:' + param + '})';
+                                  }
+                              
+                            }
+                      })
+                        $stateProvider.state('checkout', {
+                            url: "/checkout",
+                            templateUrl: 'partials/checkOutFlow.html',
+                            controller: 'CheckOutListCtrl'
+                            
+                        })   
+                        
+                        .state('checkout.checkOutStep1', {
+                            url: '/checkOutStep1',
+                            templateUrl: 'partials/checkOutStep1.html',
+                            controller: 'CheckOutListCtrl'
+                        })
+                        
+                        // nested states 
+                        // each of these sections will have their own view
+                        // url will be nested (/form/profile)
+                        .state('checkout.checkOutStep2', {
+                            url:'/checkOutStep2' ,
+                            templateUrl: 'partials/checkOutStep2.html',
+                                controller: 'CheckOutListCtrl'
+                        })
+                        
+                        // url will be /form/interests
+                        .state('checkout.checkOutStep3', {
+                            url: '/checkOutStep3',
+                            templateUrl: 'partials/checkOutStep3.html',
+                                controller: 'CheckOutListCtrl'
+                        })
+                        
+                     
+                       
+                       
+                            RestangularProvider.setBaseUrl('http://localhost:8080/GhumoVer2/');
+                          
+                    
+}
+
+     	);
 
 phonecatApp.directive('disableAnimation', function($animate){
     return {
@@ -47,6 +107,11 @@ phonecatApp.directive('disableAnimation', function($animate){
     }
 });
 
+//httpresource
+var forceSsl = function () {
+    if ($location.protocol() != 'https')
+        $window.location.href = $location.absUrl().replace('http', 'https');
+}
 phonecatApp.directive('slider', function ($timeout) {
 	  return {
 	    restrict: 'AE',
@@ -97,7 +162,9 @@ phonecatApp.directive('slider', function ($timeout) {
 		templateUrl:'template/templateurl.html'
 	  }
 	});
-
+phonecatApp.factory("user",function(){
+    return {};
+});
 phonecatApp.factory(
         "preloader",
         function( $q, $rootScope ) {
@@ -202,7 +269,7 @@ phonecatApp.factory(
                     this.state = this.states.LOADING;
 
                     for ( var i = 0 ; i < this.imageCount ; i++ ) {
-console.log("imgC: "+this.imageCount);
+
                         this.loadImageLocation( this.imageLocations[ i ] );
 
                     }
@@ -335,6 +402,55 @@ console.log("imgC: "+this.imageCount);
         }
     );
 
+
+phonecatApp
+.directive('bsActiveLink', ['$location', function ($location) {
+return {
+    restrict: 'A', //use as attribute 
+    replace: false,
+    link: function (scope, elem) {
+        //after the route has changed
+        scope.$on("$routeChangeSuccess", function () {
+            var hrefs = ['/#' + $location.path(),
+                         '#' + $location.path(), //html5: false
+                         $location.path()]; //html5: true
+            console.log(hrefs);
+            angular.forEach(elem.find('a'), function (a) {
+                a = angular.element(a);
+                console.log(hrefs.indexOf(a.attr('href')));
+                if (-1 !== hrefs.indexOf(a.attr('href'))) {
+                    a.parent().addClass('active');
+                } else {
+                    a.parent().removeClass('active');   
+                };
+            });     
+        });
+    }
+}
+}]);
+
+phonecatApp.factory('dataService', function() {
+	 //   var stateData = window.jsObjFromBackend.weather.data;
+	    return {
+	        // default to A2 Michigan
+	        listName : '',
+	        searchObj :'',
+	       
+	        
+	   setSearchObj : function(searchObj) {
+	            this.searchObj=searchObj;
+	        },
+	       
+
+	        setListName : function(listName) {
+	            this.listName = listName;
+	        },
+
+	        setPlace : function(place) {
+	            this.state = place;
+	        } 
+	    };
+	});
 
 
 

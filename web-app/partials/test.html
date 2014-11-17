@@ -1,39 +1,68 @@
-<h1>
-		Preloading Images In AngularJS With Promises
-	</h1>
- 
-	<div ng-switch="isLoading">
- 
-		<!-- BEGIN: Loading View. -->
-		<p ng-switch-when="true">
- 
-			Your images are being loaded... {{ percentLoaded }}%
- 
-		</p>
-		<!-- END: Loading View. -->
- 
-		<!-- BEGIN: Results View. -->
-		<div
-			ng-switch-when="false"
-			ng-switch="isSuccessful">
- 
-			<p ng-switch-when="true">
- 
-				<img
-					ng-repeat="src in imageLocations"
-					ng-src="{{ src }}"
-					style="width: 100px ; margin-right: 10px ;"
-					/>
- 
-			</p>
- 
-			<p ng-switch-when="false">
- 
-				<strong>Oops</strong>: One of your images failed to load :(
- 
-			</p>
- 
+<div class="col-md-12 column">
+			<div class="tabbable" id="tabs-724213">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#panel-719277" data-toggle="tab">Section 1</a>
+					</li>
+					<li>
+						<a href="#panel-400692" data-toggle="tab">Section 2</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="panel-719277">
+						<p>
+							I'm in Section 1.
+						</p>
+					</div>
+					<div class="tab-pane" id="panel-400692">
+						<p>
+							Howdy, I'm in Section 2.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<h3>
+						h3. Lorem ipsum dolor sit amet.
+					</h3>
+				</div>
+			</div>
+			<ul class="list-inline">
+				
+				<li class="list-group-item">
+				List header
+					   <img class="img-responsive" src="{{plac.pic}}" alt="" style="padding: 3px;border-bottom-style: solid;">
+				</li>
+				
+			</ul>	
+		
 		</div>
-		<!-- END: Results View. -->
- 
-	</div>
+		
+		<tabset>
+    <tab heading="Popular title"><div class="col-md-2 col-sm-4 col-xs-12" style=" padding-right: 0px; padding-left: 0px;" >
+                                                <article class="box">
+                <a href="portfolio-item.html">
+                    <img class="img-responsive" src="{{plac.pic}}" alt="" style="padding: 3px;border-bottom-style: solid;">
+                </a>
+                </article>
+            </div></tab>
+    <tab heading="Treks">
+   
+      <div ng-repeat="plac in place">
+                                    
+                                               <div class="col-md-2 col-sm-4 col-xs-12" style=" padding-right: 0px; padding-left: 0px;" >
+                                                <article class="box">
+                <a href="portfolio-item.html">
+                    <img class="img-responsive" src="{{plac.pic}}" alt="" style="padding: 3px;border-bottom-style: solid;">
+                </a>
+                </article>
+            </div>
+                                             
+                                             
+                                            </div>
+                                           
+    </tab>
+    
+  </tabset>
+		
