@@ -117,16 +117,24 @@ phonecatApp.directive('slider', function ($timeout) {
 	    restrict: 'AE',
 		replace: true,
 		scope:{
+			indext: '='	,
 			images: '='
+			
 		},
 	    link: function (scope, elem, attrs) {
-		
+		  console.log("indeXT"+scope.indext);
 			scope.currentIndex=0;
+			
+			scope.imagest=scope.images;
 
 			scope.next=function(){
 				scope.currentIndex<scope.images.length-1?scope.currentIndex++:scope.currentIndex=0;
 			};
-				
+			scope.showPhoto	=function($index){
+				//scope.images[currentIndex].visible=false;
+				scope.currentIndex=$index;
+				scope.images[$index].visible=true;
+			};	
 			scope.prev=function(){
 				scope.currentIndex>0?scope.currentIndex--:scope.currentIndex=scope.images.length-1;
 			};
@@ -429,26 +437,157 @@ return {
 }
 }]);
 
-phonecatApp.factory('dataService', function() {
+phonecatApp.factory('dataService', function($location) {
 	 //   var stateData = window.jsObjFromBackend.weather.data;
 	    return {
 	        // default to A2 Michigan
 	        listName : '',
 	        searchObj :'',
 	       
-	        
-	   setSearchObj : function(searchObj) {
-	            this.searchObj=searchObj;
-	        },
-	       
+	  
+	        //places data
+	     // autocomeplete data
+	      	places: [
+	      	  {
+	      		  
+	      		                id:"1",
+	      	            		place : "all places",
+	      	            		event : "trekking",
+	      	            		verb : "in",
+	      	            		name : "all places ",
+	      	            		pic : "http://placehold.it/200x150"
+	      	   },  
+	                   {
+	      		 id:"2",
+	      		place : "himachal",
+	      	            		event : "trekking",
+	      	            		verb : "in",
+	      	            		name : "himachal",
+	      	            		event : "trekking in himachal",
+	      	            		pic : "http://placehold.it/200x150"
+	      	            	},             
+	      	                
+	      	                {
+	      	            		id:"3",
+	      		place : "manali",
+	      		event : "trekking",
+	      		verb : "in",
+	      		name : "churdhar",
+	      		pic : "http://placehold.it/200x150"
+	      	}, {
+	      		id:"4",
+	      		place : "manali",
+	      		event : "camping",
+	      		verb : "in",
+	      		name : "manikaran",
+	      		pic : "http://placehold.it/200x150"
+	      	}, {
+	      		id:"5",
+	      		place : "leh",
+	      		event : "trekking",
+	      		verb : "in",
+	      		name : "khardungla",
+	      		pic : "http://placehold.it/200x150"
+	      	},{
+	      		id:"6",
+	      		place : "dharamshala",
+	      		event : "trekking",
+	      		verb : "in",
+	      		name : "triund",
+	      		pic : "http://placehold.it/200x150"
+	      	}, {
+	      		id:"7",
+	      		place : "dharamshala",
+	      		event : "trekking",
+	      		verb : "in",
+	      		name : "indrahaar",
+	      		pic : "http://placehold.it/200x150"
+	      	}, {
+	      		id:"8",
+	      		place : "dharamshala",
+	      		event : "paragliding",
+	      		verb : "in",
+	      		name : "dharamshala",
+	      		pic : "http://placehold.it/200x150"
+	      	},
+	      	{
+	      		id:"9",
+	      		place : "Shimla",
+	      		event : "paragliding",
+	      		verb : "in",
+	      		name : "Shimla",
+	      		pic : "http://placehold.it/200x150"
+	      	}
+	      	,
+	      	{
+	      		id:"10",
+	      		place : "leh",
+	      		event : "biking",
+	      		verb : "",
+	      		name : "leh to manali",
+	      		pic : "http://placehold.it/200x150"
+	      	}, {
+	      		id:"11",
+	      		place : "kinnuar",
+	      		event : "trekking",
+	      		verb : "in",
+	      		name : "spiti",
+	      		pic : "http://placehold.it/200x150"
+	      	}, {
+	      		id:"12",
+	      		place : "kinnaur",
+	      		event : "trekking",
+	      		verb : "in",
+	      		name  : "ladakh",
+	      		pic : "http://placehold.it/200x150"
+	      	} 
+	      	],
+	      	
+	      	 getSearchData : function(selectedPlace) {
+	      	var obj=selectedPlace.originalObject;
+	      	this.setSearchObj(obj);
+	      		//$location.path('/detail/:'+obj.name);
+	      $location.path('/detail/:'+obj.name);
+	      	 },
+	      	 
+	      	searchFieldSer:'event,place,name',
+	     	
+	     	
+	     	chngeSearchSer : function(activity){
+	     		if(!activity){
+	     			activity="your adventure example trekking in manali,camping in "
+	     		}
+	     		this.placeholderSer='Enter Name of Place for '+activity;
+	     		this.searchFieldSer='place,name';
+	     		
 
-	        setListName : function(listName) {
-	            this.listName = listName;
-	        },
+	     			},
+	     	placeholderSer:'search here',
+	     	
+	     	getFilterPlaces : function (activity) {
+	    		
+	     		if(activity){
+	    		 return(_.filter(this.places, { 'event':activity}));
+	     	}else{
+	     		return this.places;
+	     	}
+	    	       
+	    	    },
+	      	 
+	 	   setSearchObj : function(searchObj) {
+	 		   console.log("seTobj");
+	 	            this.searchObj=searchObj;
+	 	        },
+	 	       
 
-	        setPlace : function(place) {
-	            this.state = place;
-	        } 
+	 	        setListName : function(listName) {
+	 	            this.listName = listName;
+	 	        },
+
+	 	        setPlace : function(place) {
+	 	            this.state = place;
+	 	        } 
+	 	        
 	    };
 	});
 

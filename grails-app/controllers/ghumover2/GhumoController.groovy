@@ -9,7 +9,7 @@ import grails.converters.JSON
 
 
 class GhumoController {
-
+	
     def index() { }
 	
 	def showDetail() {

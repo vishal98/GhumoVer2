@@ -1,6 +1,10 @@
     <div class="container-full" >
     <nav class="navbar navbar-default1 navbar-fixed-top">
         <div class="container">
+        
+        
+        
+        
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -118,7 +122,7 @@
     <!-- Header Carousel -->
     <header id="myCarousel" >
        
-        <slider images="images"/>
+        <slider images="images" indexT="indext"/>
         <!-- Controls -->
       <div class="search">
 
@@ -133,8 +137,8 @@
                       <div class="padded-row">
                       <div class="custom-collapse">
                                       <ul class="list-inline collapse" style="border: medium;color: activeborder;font: bold;font-size: medium;font:fantasy;text-shadow: aqua;margin-left:30px;color: yellow;">
-  <li><a tabindex="-1" href=""  ng-click="chngeSearch(place)">Search</a></li>
-  <li><a tabindex="-1" href="#" ng-click="chngeSearch('Trekking')">Trekking</a></li>
+  <li><a tabindex="-1" href=""  ng-click="chngeSearch()">Search</a></li>
+  <li><a tabindex="-1" href="#" ng-click="chngeSearch('trekking')">Trekking</a></li>
   <li><a tabindex="-1" href="#"  ng-click="chngeSearch('Camping')">Camping</a></li>
   <li class="divider"></li>
   <li><a tabindex="-1" href="#" ng-click="chngeSearch('Surfing')">Surfing</a></li>
@@ -176,8 +180,9 @@
 
     </header>
     <div class="row" style="padding-top: 6%"></div>
-	<tabset>
+	<tabset >
     <tab heading="Activities">
+    
     
       <div ng-repeat="plac in place">
     <div class="col-md-2 col-sm-4 col-xs-12" style=" padding-right: 0px; padding-left: 0px;" >

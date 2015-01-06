@@ -6,11 +6,11 @@ var phonecatControllers = angular.module('detailPage', ['duScroll','ngAnimate','
 
 
 
-
 phonecatControllers.controller('HeadertCtrl', [ '$scope',
                                                      '$stateParams','$location', '$timeout', function($scope,$stateParams,$location,$timeout) {
 	  
-
+	
+	  
 	$scope.navClass = function (page) {
 	        var currentRoute = $location.path().substring(1) || 'search';
 	        return page === currentRoute ? 'active' : '';
@@ -20,8 +20,60 @@ phonecatControllers.controller('HeadertCtrl', [ '$scope',
 	    ]);
 
 phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$stateParams',
-                                                    '$log','$location','$anchorScroll', function($scope, $stateParams,$log,$location,$anchorScroll,$document) {
-	 $scope.slug='plp';
+                                                    '$log','$location','$anchorScroll','dataService', function($scope, $stateParams,$log,$location,$anchorScroll,$document,dataService) {
+	
+	$scope.changeTab = function (tab) {
+	    $scope.view_tab = tab;
+	}
+	$scope.c1=true;
+	$scope.c2=false;
+	$scope.getPlaylist=function (tab) {
+	    if(tab=='1'){
+	    	$scope.c1=true;
+	    	$scope.c2=false;
+	    }
+	    else if (tab=='2'){
+	    	$scope.c1=false;
+	    	$scope.c2=true;
+	    }
+	}
+	$scope.view_tab = "tab1";
+	$scope.indext=1;
+	 $scope.images=[{src:'img1.jpg',title:'Pic 1'},{src:'img3.jpg',title:'Pic 2'},{src:'img2.jpg',title:'Pic 3'},{src:'img4.jpg',title:'Pic 4'}]; 
+	// $scope.images=[{'img/'+ $scope.imagest[0].src},{'img/'+$scope.imagest[1].src}]; 
+	 //$scope.images=[("img/"+$scope.imagest[0].src)]; 
+	
+	 
+	 // show a certain image
+	    $scope.showPhoto = function (index) {
+	    	console.log(index);
+	        $scope.indext = index;
+	    };
+	//search
+    $scope.showDropdown = true;
+	 
+//	 $scope.selectedPlaced=dataService.places;
+//	 $scope.search=dataService.searchFieldSer;
+//	 $scope.placeholder=dataService.placeholderSer;
+//	 
+	$scope.customNavigate=function(selectedPlace){
+
+dataService.getSearchData(selectedPlace);
+	}
+	
+
+	$scope.chngeSearch=function(activity){
+		
+		dataService.chngeSearchSer(activity);
+		$scope.selectedPlaced=dataService.getFilterPlaces(activity);
+		 $scope.placeholder=dataService.placeholderSer;
+			}
+	
+	
+	
+	
+	
+	$scope.slug='plp';
 	//carousel
 	$scope.myInterval = 5000;
 	  var slides = $scope.slides = [];

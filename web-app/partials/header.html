@@ -10,19 +10,42 @@
                         </a>
                     </h1>
                     <div class="header-search col-md-offset-2 ">
-                        <form method="post" role="form">
-                            <div class="col-xs-6">
-                                <input type="text" name="where" value="" placeholder="Where do you want to go?" class="input-text white-bg full-width where" />
-                            </div>
-                            
-                                <div class="col-xs-3">
-                                    <button type="submit" class="btn-medium uppercase full-width">search</button>
-                                </div>
-                            </div>
-                        </form>
+                    <form role="form" ng-submit="customNavigate(selectedPlace.originalObject)" >
+                      <div class="padded-row">
+                      <div class="custom-collapse">
+                                      <ul class="list-inline collapse" style="border: medium;color: activeborder;font: bold;font-size: medium;font:fantasy;text-shadow: aqua;margin-left:30px;color: yellow;">
+  <li><a tabindex="-1" href=""  ng-click="chngeSearch(place)">Search</a></li>
+  <li><a tabindex="-1" href="#" ng-click="chngeSearch('Trekking')">Trekking</a></li>
+  <li><a tabindex="-1" href="#"  ng-click="chngeSearch('Camping')">Camping</a></li>
+  <li class="divider"></li>
+  <li><a tabindex="-1" href="#" ng-click="chngeSearch('Surfing')">Surfing</a></li>
+</ul>
+                      </div>
+                      <div class="col-md-10 col-xs-10" >
+                     
+           
+          <div angucomplete-alt id="ex2"  select-resultd="customNavigate(selectedEvent)"  placeholder="{{placeholder}}" pause="300" selected-object="selectedPlace" local-data="selectedPlaced" search-fields="{{search}}" 
+          title-field="event,verb,name" description-field="placeName"  minlength="1" input-class="form-control form-control-small" match-class="highlight">
+          </div>
+        
+        
+             
+                    </div>
+                      <div class="col-md-2 col-xs-2">
+                      <div class="hideCl"> 
+                        <input  type="submit" class="btn btn-default btn-primary" style="width: 100%">
+                        </div>
+                        <div class="hideCl2"> 
+                    <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size: 25px;background: windowframe;"></span>
+
+                        </div>
+                      </div>
+                      
+                </div>
+                    </form>	
                     </div>
                
-            
+            </div>
             </nav>
             <div class="topnav" style="padding-top: 3%;" >
                 <div class="container">

@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var phonecatControllers = angular.module('listPage', ['duScroll','ngAnimate']);
+var phonecatControllers = angular.module('listPage', ['duScroll','ngAnimate','angucomplete-alt']);
 
 
 
@@ -10,7 +10,7 @@ var phonecatControllers = angular.module('listPage', ['duScroll','ngAnimate']);
 phonecatControllers.controller('HeadertCtrl', [ '$scope',
                                                      'ghumo','$stateParams','$location', '$timeout', function($scope,ghumo,$stateParams,$location,$timeout) {
 	  
-
+	 $scope.selectedPlaced=dataService.places;
 	$scope.navClass = function (page) {
 	        var currentRoute = $location.path().substring(1) || 'search';
 	        return page === currentRoute ? 'active' : '';
@@ -29,14 +29,37 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope'
                                                   ,'$stateParams','$location','dataService','Restangular', function($scope,$stateParams,$location,dataService,Restangular) {
     $scope.usePlaces = {};
     $scope.useDays = {};
+    
+    
+    //search
+    $scope.showDropdown = true;
+	 
+	 $scope.selectedPlaced=dataService.places;
+	 $scope.search=dataService.searchFieldSer;
+	 $scope.placeholder=dataService.placeholderSer;
+	 
+	$scope.customNavigate=function(selectedPlace){
+ 
+ dataService.getSearchData(selectedPlace);
+	}
+	
 
+	$scope.chngeSearch=function(activity){
+		
+		dataService.chngeSearchSer(activity);
+		$scope.selectedPlaced=dataService.getFilterPlaces(activity);
+		 $scope.placeholder=dataService.placeholderSer;
+			}
+	
+	
+//
 	$scope.demo1 = {
 		    min: 20,
 		    max: 80
 		};	
-	
+	console.log("here");
+
 	if(!$stateParams.placeName){
-		  console.log('$stateParamsName null::'+$stateParams.placeName);
 		$stateParams.placeName= dataService.getListName();  
 	}else{
 		dataService.setListName($stateParams.placeName);
@@ -57,7 +80,7 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope'
 	  };
 	  
 		 var searchObj= dataService.searchObj;
-	  console.log('$stateParamsName ::');
+	
 	  console.log("placename :"+searchObj.name);
 	  console.log(Restangular.one('detail',searchObj.place).one('event',searchObj.event).getRestangularUrl());
 	  //RestangularProvider.setBaseUrl('/');

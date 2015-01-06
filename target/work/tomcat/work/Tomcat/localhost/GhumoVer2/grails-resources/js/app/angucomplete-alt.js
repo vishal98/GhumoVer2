@@ -18,8 +18,8 @@ angular
 						'$parse',
 						'$http',
 						'$sce',
-						'$timeout',
-						function($q, $parse, $http, $sce, $timeout) {
+						'$timeout','dataService',
+						function($q, $parse, $http, $sce, $timeout,dataService) {
 							// keyboard events
 							var KEY_DW = 40;
 							var KEY_RT = 39;
@@ -107,6 +107,7 @@ angular
 											.querySelector('.angucomplete-dropdown');
 									var isScrollOn = false;
 									var mousedownOn = null;
+									
 
 									elem.on('mousedown', function(event) {
 										mousedownOn = event.target.id;
@@ -145,7 +146,7 @@ angular
 										return event.which ? event.which
 												: event.keyCode;
 									}
-
+     
 									function callOrAssign(value) {
 										if (typeof scope.selectedObject === 'function') {
 											scope.selectedObject(value);
@@ -269,6 +270,10 @@ angular
 
 												searchTimer = $timeout(
 														function() {
+//															if(!scope.localdata){
+//																scope.localData=dataService.places;
+//															}
+//															
 															searchTimerComplete(scope.searchStr);
 														}, scope.pause);
 											}
@@ -469,7 +474,6 @@ angular
 										var i, match, s, j, k, v, value, newMatch, searchFields = scope.searchFields
 												.split(','), matches = [];
 										newMatch = true;
-
 										for (i = 0; i < scope.localData.length; i++) {
 											match = false;
 
@@ -484,8 +488,7 @@ angular
 														|| (value
 																.toLowerCase()
 																.indexOf(
-																		str
-																				.toLowerCase()) == 0);
+																		str.toLowerCase()) == 0);
 											}
 
 											if (match) {
@@ -593,6 +596,7 @@ angular
 												getLocalResults(str);
 											});
 										} else {
+										
 											getRemoteResults(str);
 										}
 									}

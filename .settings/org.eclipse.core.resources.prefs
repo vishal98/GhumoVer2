@@ -17,4 +17,6 @@ encoding//grails-app/i18n/messages_ru.properties=UTF-8
 encoding//grails-app/i18n/messages_sv.properties=UTF-8
 encoding//grails-app/i18n/messages_th.properties=UTF-8
 encoding//grails-app/i18n/messages_zh_CN.properties=UTF-8
+encoding//web-app/css/ie.css=UTF-8
 encoding//web-app/partials/checkOutFlow.html=UTF-8
+encoding//web-app/partials/details.html=UTF-8

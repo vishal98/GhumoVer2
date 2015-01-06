@@ -19,29 +19,24 @@ phonecatControllers.controller('SearchContrl', [ '$scope','$location','preloader
 	 $scope.imageLocations=[("img/"+$scope.images[0].src)]; 
 ; 
 	 $scope.showDropdown = true;
-
+	 
+	 $scope.selectedPlaced=dataService.places;
+	 $scope.search=dataService.searchFieldSer;
+	 $scope.placeholder=dataService.placeholderSer;
+	 
 	$scope.customNavigate=function(selectedPlace){
   
-  var obj=selectedPlace.originalObject
-
-  dataService.setSearchObj(obj);
-  
-		$location.path('/detail/:'+obj.name);
-
-
-	}
+  dataService.getSearchData(selectedPlace);
+	};
 	
-	$scope.search='event,place,name';
-	
-	
+
 	$scope.chngeSearch=function(activity){
 		
-		$scope.placeholder='Enter Name of Place for '+activity;
-		$scope.search='place,name';
-		selectedPlace1();
-
-			}
-	$scope.placeholder='search here';
+		dataService.chngeSearchSer(activity);
+		$scope.selectedPlaced=dataService.getFilterPlaces(activity);
+		 $scope.placeholder=dataService.placeholderSer;
+			};
+	
 
 	$scope.place = [
 	            	{
@@ -119,114 +114,14 @@ phonecatControllers.controller('SearchContrl', [ '$scope','$location','preloader
           }
       );
       
-   // autocomeplete data
-  	$scope.places = [
-  	  {
-  		  
-  		                id:"1",
-  	            		place : "all places",
-  	            		event : "trekking",
-  	            		verb : "in",
-  	            		name : "all places ",
-  	            		pic : "http://placehold.it/200x150"
-  	   },  
-               {
-  		 id:"2",
-  		place : "himachal",
-  	            		event : "trekking",
-  	            		verb : "in",
-  	            		name : "himachal",
-  	            		event : "trekking in himachal",
-  	            		pic : "http://placehold.it/200x150"
-  	            	},             
-  	                
-  	                {
-  	            		id:"3",
-  		place : "manali",
-  		event : "trekking",
-  		verb : "in",
-  		name : "churdhar",
-  		pic : "http://placehold.it/200x150"
-  	}, {
-  		id:"4",
-  		place : "manali",
-  		event : "camping",
-  		verb : "in",
-  		name : "manikaran",
-  		pic : "http://placehold.it/200x150"
-  	}, {
-  		id:"5",
-  		place : "leh",
-  		event : "trekking",
-  		verb : "in",
-  		name : "khardungla",
-  		pic : "http://placehold.it/200x150"
-  	},{
-  		id:"6",
-  		place : "dharamshala",
-  		event : "trekking",
-  		verb : "in",
-  		name : "triund",
-  		pic : "http://placehold.it/200x150"
-  	}, {
-  		id:"7",
-  		place : "dharamshala",
-  		event : "trekking",
-  		verb : "in",
-  		name : "indrahaar",
-  		pic : "http://placehold.it/200x150"
-  	}, {
-  		id:"8",
-  		place : "dharamshala",
-  		event : "paragliding",
-  		verb : "in",
-  		name : "dharamshala",
-  		pic : "http://placehold.it/200x150"
-  	},
-  	{
-  		id:"9",
-  		place : "Shimla",
-  		event : "paragliding",
-  		verb : "in",
-  		name : "Shimla",
-  		pic : "http://placehold.it/200x150"
-  	}
-  	,
-  	{
-  		id:"10",
-  		place : "leh",
-  		event : "biking",
-  		verb : "",
-  		name : "leh to manali",
-  		pic : "http://placehold.it/200x150"
-  	}, {
-  		id:"11",
-  		place : "kinnuar",
-  		event : "trekking",
-  		verb : "in",
-  		name : "spiti",
-  		pic : "http://placehold.it/200x150"
-  	}, {
-  		id:"12",
-  		place : "kinnaur",
-  		event : "trekking",
-  		verb : "in",
-  		name  : "ladakh",
-  		pic : "http://placehold.it/200x150"
-  	} 
-  	];
+   
   	
   	
   //filter place
 	
-	$scope.selectedPlaced=$scope.places;
 	
-	function selectedPlace1() {
-		console.log("slPl Before:: "+$scope.places)
-		  $scope.selectedPlaced=_.filter($scope.places, { 'event':'trekking'});
-	       console.log("slPl:: "+$scope.selectedPlaced);
-	        
-	    };
+	
+	
 
   
 
