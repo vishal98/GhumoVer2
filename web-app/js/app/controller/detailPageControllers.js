@@ -20,8 +20,26 @@ phonecatControllers.controller('HeadertCtrl', [ '$scope',
 	    ]);
 
 phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$stateParams',
-                                                    '$log','$location','$anchorScroll','dataService', function($scope, $stateParams,$log,$location,$anchorScroll,$document,dataService) {
+                                                    '$log','$location','$anchorScroll','dataService','Restangular',
+                                                    function($scope, $stateParams,$log,$location,$anchorScroll,dataService,Restangular) {
+	 $scope.images=[{src:'img3.jpg',title:'Piscf 2'},{src:'img2.jpg',title:'Picoda'},{src:'img4.jpg',title:'Pic 4'}]; 	
+	 var result;
+	//todo
 	
+		var placeD=$stateParams.trek;
+		
+		
+		
+		  console.log(Restangular.one('detail',placeD).one('event',placeD).getRestangularUrl());
+		 var oneUser = Restangular.one('detail',placeD).one('event',placeD);
+	  oneUser.get().then(function(user) {
+		  // GET /users/abc123/inboxes
+		  $scope.activity =user[0]; 
+		  console.log("wgre ::"+ user[0].priceRange);
+	});
+		
+	
+	//code for changing tabs 
 	$scope.changeTab = function (tab) {
 	    $scope.view_tab = tab;
 	}
@@ -39,9 +57,7 @@ phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$stateParams',
 	}
 	$scope.view_tab = "tab1";
 	$scope.indext=1;
-	 $scope.images=[{src:'img1.jpg',title:'Pic 1'},{src:'img3.jpg',title:'Pic 2'},{src:'img2.jpg',title:'Pic 3'},{src:'img4.jpg',title:'Pic 4'}]; 
-	// $scope.images=[{'img/'+ $scope.imagest[0].src},{'img/'+$scope.imagest[1].src}]; 
-	 //$scope.images=[("img/"+$scope.imagest[0].src)]; 
+
 	
 	 
 	 // show a certain image
@@ -56,6 +72,9 @@ phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$stateParams',
 //	 $scope.search=dataService.searchFieldSer;
 //	 $scope.placeholder=dataService.placeholderSer;
 //	 
+    
+    
+    //generic code for search input
 	$scope.customNavigate=function(selectedPlace){
 
 dataService.getSearchData(selectedPlace);
@@ -74,24 +93,7 @@ dataService.getSearchData(selectedPlace);
 	
 	
 	$scope.slug='plp';
-	//carousel
-	$scope.myInterval = 5000;
-	  var slides = $scope.slides = [];
-	  $scope.addSlide = function() {
-	    var newWidth = 900 + slides.length;
-	    slides.push({
-	      image: 'http://placekitten.com/' + newWidth + '/300',
-	      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-	        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-	    });
-	  };
-	  for (var i=0; i<4; i++) {
-	    $scope.addSlide();
-	  }
 	
-	var top = 400;
-	  var duration = 2000; // milliseconds
-//	console.log("hello");
 	  // Scroll to the exact position
 	 
 
@@ -109,19 +111,8 @@ dataService.getSearchData(selectedPlace);
 		    $anchorScroll();
 	}
 	    
-	    $scope.myInterval = 5000;
-	    var slides = $scope.slides = [];
-	    $scope.addSlide = function() {
-	      var newWidth = 600 + slides.length;
-	      slides.push({
-	        image: 'http://placekitten.com/' + newWidth + '/300',
-	        text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-	          ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-	      });
-	    };
-	    for (var i=0; i<4; i++) {
-	      $scope.addSlide();
-	    }
+	   
+	   
 }
 	 ]);
 

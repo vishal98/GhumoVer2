@@ -1,9 +1,6 @@
 modules = {
     angular {
-			//	resource url:'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular.min.js'
-			//	resource url:'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular-route.min.js'
-			//	resource url:'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular-animate.min.js'
-			//	resource url:'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular-resource.min.js'
+		
 		
 		resource url: 'css/app.css'
 		resource url: 'css/ie.css'
@@ -11,9 +8,16 @@ modules = {
 	   resource url: 'css/bootstrap.css'
 		resource url:'css/font-awesome.css'
 		resource url:'css/style.css'
+		
+		
+		//resource url:'css/compCss.css'
+		
+		
 		//resource url:'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css'
 		//resource url: 'css/animations.css'
-		resource url:'js/jquery.js'
+		
+		//js
+		/*resource url:'js/jquery.js'
 		
 		resource url:'js/angular.js'
 		resource url:'js/angular-animate.js'
@@ -50,6 +54,9 @@ modules = {
 		resource url:'js/app/angular-breadcrumb.js'
 		resource url:'js/restangular.js'
 		resource url:'js/lodash.js'
+		resource url:'js/angular-spinner.js'
+		resource url:'js/spin.js'*/
+		resource url:'js/miniEx.js'
 		
 		
 	

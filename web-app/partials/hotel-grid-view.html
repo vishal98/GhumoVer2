@@ -77,12 +77,12 @@
                                         <article class="box">
                                             <figure>
                                                 <a href="ajax/slideshow-popup.html" class="hover-effect popup-gallery">
-                                                	<img ng-src="images/{{place.picUrl}}" style="width: 100%;max-height:250px" class="img-responsive">
+                                                	<img ng-src="img/{{place.activityPicUrlId}}" style="width: 100%;max-height:250px" class="img-responsive">
                                                 </a>
                                             </figure>
                                              <div class="details">
-                                                <span class="price1"><small>from</small>$239</span>
-                                                <h4 class="box-title">Baja Mexico<small>{{place.activityKeyWord}}</small></h4>
+                                                <span class="price1"><small>price starting from</small>{{place.priceRange}}</span>
+                                                <h4 class="box-title">{{place.placeId}}<small>{{place.activityCode}}</small></h4>
                                           
                                             
                                                 <div class="feedback">
@@ -91,10 +91,8 @@
                                                 </div>
                                                 
                                                 <div class="feedback">
-                                              
-				<small>"
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-				Someone famous" <cite>Source Title</cite></small>
+                       {{place.activityComments  }}                     
+				<small> <cite>Source Title</cite></small>
 			
                                                   
                                                 </div>
@@ -102,20 +100,20 @@
                                                     <div class="date col-xs-6">
                                                         <i ></i>
                                                         <div>
-                                                            <span class="skin-color">Difficultl</span><br />Jan 26, 2014
+                                                            <span class="skin-color">Difficulty</span><br />{{place.difficultyLevel}}
                                                         </div>
                                                     </div>
                                                     <div class="departure col-xs-6">
                                                         <i ></i>
                                                         <div>
-                                                            <span class="skin-color">Departure</span><br />Los Angeles
+                                                            <span class="skin-color">Base</span><br />{{place.placeId}}
                                                         </div>
                                                     </div>
                                                 </div>
                                                          
                                                                   <div class="action">
-<!--                                                                   <a class="button btn-small"  ui-sref=".detail({placeName: place.name})">SELECT</a> -->
-                                                    <a class="button btn-small" ng-click="getDetails(place.name)">SELECT</a>
+<!--                                      	                             <a class="button btn-small"  ui-sref=".detail({placeName: place.name})">SELECT</a> -->
+                                                    <a class="button btn-small" ng-click="getDetails(place)">SELECT</a>
                                                     <a class="button btn-small yellow popup-map" href="#" data-box="48.856614, 2.352222">VIEW ON MAP</a>
                                                 </div>
                                                 

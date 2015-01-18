@@ -46,11 +46,10 @@ class GhumoController {
 			 
 		println("show Phone  :"+params.event + "show name  :"+params.name )
 			String plp="plp"
-			def c = ActivityDetails.createCriteria()
+			def c = Activity.createCriteria()
 			def now = new Date()
-			ActivityDetails[] det = c.list {
-				like("placeName",params.name)
-				like("activityName",params.event)
+			Activity[] det = c.list {
+				like("activityTypeCode",params.name)
 				
 				maxResults(10)
 			

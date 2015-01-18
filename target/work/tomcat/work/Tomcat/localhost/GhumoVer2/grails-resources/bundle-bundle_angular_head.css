@@ -34,7 +34,7 @@ color: #400040;
             
 /* Search css stylesheet */
 .search {
-	margin-top: -5%;
+	margin-top: -10%;
 	width: 100%;
    
 }
@@ -712,7 +712,29 @@ h1 {
     position: relative;
     width: 100%%;
 }
-
+ .feature{
+     padding: 20px 0;
+    text-align: center;
+ }
+ .feature > div > div{
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: 0.2s;
+ }
+ .feature > div:hover > div{
+    margin-top: -10px;
+    border: 1px solid rgb(128, 128, 128);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 5px;
+    background: rgba(232, 215, 215, 0.10);
+    transition: 0.3s;
+ }
+ 
+  #cnt1 {            
+     background-color:rgba(215, 212, 212, 0.88);
+     width:90%;
+     margin-bottom:70px;
+ }
 .angucomplete-dropdown {
     border-color: #ececec;
     border-width: 1px;
@@ -3186,8 +3208,8 @@ input[type="button"].btn-block {
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url('fonts/glyphicons-halflings-regular.eot?#iefix');
-  src: url('resource:/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('fonts/glyphicons-halflings-regular.woff') format('woff'), url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('resource:/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('fonts/glyphicons-halflings-regular.eot');
+  src: url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('fonts/glyphicons-halflings-regular.woff') format('woff'), url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -6604,8 +6626,8 @@ button.close {
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url('resource:/fonts/fontawesome-webfont.eot?v=4.0.3');
-  src: url('resource:/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('resource:/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('resource:/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('resource:/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+  src: url('fonts/fontawesome-webfont.eot?v=4.0.3');
+  src: url('fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -8347,8 +8369,8 @@ img.full-width {
 /* Icons */
 @font-face {
   font-family: 'soap-icons';
-  src: url("resource:/fonts/soap-icons.eot?26664784");
-  src: url("resource:/fonts/soap-icons.eot?26664784#iefix") format("embedded-opentype"), url("resource:/fonts/soap-icons.woff?26664784") format("woff"), url("resource:/fonts/soap-icons.ttf?26664784") format("truetype"), url("resource:/fonts/soap-icons.svg?26664784#soap-icons") format("svg");
+  src: url("fonts/soap-icons.eot?26664784");
+  src: url("fonts/soap-icons.eot?26664784#iefix") format("embedded-opentype"), url("fonts/soap-icons.woff?26664784") format("woff"), url("fonts/soap-icons.ttf?26664784") format("truetype"), url("fonts/soap-icons.svg?26664784#soap-icons") format("svg");
   font-weight: normal;
   font-style: normal; }
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
@@ -8993,7 +9015,7 @@ img.full-width {
 /* font */
 @font-face {
   font-family: 'NexaBlack';
-  src: url("resource:/fonts/NexaBlack.eot?") format("eot"), url("fonts/NexaBlack.otf") format("opentype"), url("fonts/NexaBlack.woff") format("woff"), url("fonts/NexaBlack.ttf") format("truetype"), url("resource:/fonts/NexaBlack.svg#NexaBlack") format("svg"); }
+  src: url("fonts/NexaBlack.eot?") format("eot"), url("fonts/NexaBlack.otf") format("opentype"), url("fonts/NexaBlack.woff") format("woff"), url("fonts/NexaBlack.ttf") format("truetype"), url("fonts/NexaBlack.svg#NexaBlack") format("svg"); }
 /* 1.2. Layout ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #page-wrapper {
   position: relative;
@@ -17732,10 +17754,11 @@ button.ui-button::-moz-focus-inner {
 }
 
 .navbar-brand { 
-  width: 70px;
-  height: 50px;
-  background: url('http://www.sneaker-mission.com/uploads/3/1/2/7/31279819/5617441.png') no-repeat center center;
-  background-size: 50px;  
+  width: 80px;
+  height: 80px;
+  background: url('css/gimmeWings.png') no-repeat center center;
+  background-size: 80px;  
+  
 }
 
 

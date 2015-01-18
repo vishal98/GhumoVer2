@@ -26,12 +26,13 @@ phonecatControllers.controller('HeadertCtrl', [ '$scope',
 
 //placeList Controller
 phonecatControllers.controller('PlaceListCtrl', [ '$scope'
-                                                  ,'$stateParams','$location','dataService','Restangular', function($scope,$stateParams,$location,dataService,Restangular) {
+                                                  ,'$stateParams','$location','dataService','Restangular',
+                                                  function($scope,$stateParams,$location,dataService,Restangular) {
     $scope.usePlaces = {};
     $scope.useDays = {};
     
     
-    //search
+    //for search input box generic code 
     $scope.showDropdown = true;
 	 
 	 $scope.selectedPlaced=dataService.places;
@@ -51,14 +52,17 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope'
 		 $scope.placeholder=dataService.placeholderSer;
 			}
 	
+	//end here
 	
-//
+//rating related code
 	$scope.demo1 = {
-		    min: 20,
+		 
+			min: 20,
 		    max: 80
 		};	
-	console.log("here");
 
+
+	
 	if(!$stateParams.placeName){
 		$stateParams.placeName= dataService.getListName();  
 	}else{
@@ -79,22 +83,25 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope'
 	    $scope.percent = 100 * (value / $scope.max);
 	  };
 	  
+	  
+	  
+	  //call to backend for getting details
 		 var searchObj= dataService.searchObj;
 	
-	  console.log("placename :"+searchObj.name);
-	  console.log(Restangular.one('detail',searchObj.place).one('event',searchObj.event).getRestangularUrl());
+	  console.log(Restangular.one('detail',searchObj.eventCode).one('event',searchObj.event).getRestangularUrl());
 	  //RestangularProvider.setBaseUrl('/');
 
-	  var oneUser = Restangular.one('detail',searchObj.name).one('event',searchObj.event);
+	  var oneUser = Restangular.one('detail',searchObj.eventCode).one('event',searchObj.event);
 	  oneUser.get().then(function(user) {
 		  // GET /users/abc123/inboxes
 		  $scope.places =user; 
 	});
 
 
-	
-	$scope.getDetails=function(trekName){
-			$location.path('/trekDetail/'+trekName );
+	//navigation to  detail function
+	$scope.getDetails=function(place){
+		dataService.setPlaceDetails(place);
+			$location.path('/trekDetail/'+place );
 
 
 	}

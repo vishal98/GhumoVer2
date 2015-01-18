@@ -26,24 +26,7 @@ class ActivityDetails {
     }
 	
 	
-	String activityId;
-	String activityCode;
-	String activityName
-	String placeId
-	String difficultyLevel
-	String placeName
-
-	String activityKeyWord
-	String picUrl
-	String rating
-	String iternaryId
-	int days
-	String overview
-	String comments
-	String priceRange
-	String physicalDemand
-	String activityType
-	String reviewId
+	String details
 	
 
 

@@ -12,7 +12,8 @@ var phonecatApp = angular.module('phonecatApp', [
   'ui.router',
   'ngAnimate',
   'ncy-angular-breadcrumb',
-  'restangular'
+  'restangular',
+  'angularSpinner'
 ]);
 
 
@@ -44,7 +45,7 @@ phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvid
                         })
                         
                       .state('details', {
-                          url: "/trekDetail/:trekName",
+                          url: "/trekDetail/:trek",
                           templateUrl: 'partials/details.html',
                           controller: 'PlaceDetailCtrl',
                           ncyBreadcrumb: {
@@ -122,7 +123,6 @@ phonecatApp.directive('slider', function ($timeout) {
 			
 		},
 	    link: function (scope, elem, attrs) {
-		  console.log("indeXT"+scope.indext);
 			scope.currentIndex=0;
 			
 			scope.imagest=scope.images;
@@ -443,8 +443,8 @@ phonecatApp.factory('dataService', function($location) {
 	        // default to A2 Michigan
 	        listName : '',
 	        searchObj :'',
-	       
-	  
+	        placeDetails :'',     
+	     
 	        //places data
 	     // autocomeplete data
 	      	places: [
@@ -455,7 +455,8 @@ phonecatApp.factory('dataService', function($location) {
 	      	            		event : "trekking",
 	      	            		verb : "in",
 	      	            		name : "all places ",
-	      	            		pic : "http://placehold.it/200x150"
+	      	            		pic : "http://placehold.it/200x150",
+	      	            			eventCode:"TrekTriund"	
 	      	   },  
 	                   {
 	      		 id:"2",
@@ -464,7 +465,8 @@ phonecatApp.factory('dataService', function($location) {
 	      	            		verb : "in",
 	      	            		name : "himachal",
 	      	            		event : "trekking in himachal",
-	      	            		pic : "http://placehold.it/200x150"
+	      	            		pic : "http://placehold.it/200x150",
+	      	            		eventCode:"TrekTriund"	
 	      	            	},             
 	      	                
 	      	                {
@@ -473,29 +475,34 @@ phonecatApp.factory('dataService', function($location) {
 	      		event : "trekking",
 	      		verb : "in",
 	      		name : "churdhar",
-	      		pic : "http://placehold.it/200x150"
+	      		pic : "http://placehold.it/200x150",
+	      			eventCode:"TrekManali"		
 	      	}, {
 	      		id:"4",
 	      		place : "manali",
 	      		event : "camping",
 	      		verb : "in",
 	      		name : "manikaran",
-	      		pic : "http://placehold.it/200x150"
+	      		pic : "http://placehold.it/200x150",
+	      			eventCode:"CampManali"
 	      	}, {
 	      		id:"5",
 	      		place : "leh",
 	      		event : "trekking",
 	      		verb : "in",
 	      		name : "khardungla",
-	      		pic : "http://placehold.it/200x150"
+	      		pic : "http://placehold.it/200x150",
+	      			eventCode:"CampManali"
 	      	},{
 	      		id:"6",
 	      		place : "dharamshala",
 	      		event : "trekking",
 	      		verb : "in",
 	      		name : "triund",
-	      		pic : "http://placehold.it/200x150"
-	      	}, {
+	      		pic : "http://placehold.it/200x150",
+	      			eventCode:"TrekTriund"	
+	      			
+	      	} /*,{
 	      		id:"7",
 	      		place : "dharamshala",
 	      		event : "trekking",
@@ -540,7 +547,7 @@ phonecatApp.factory('dataService', function($location) {
 	      		verb : "in",
 	      		name  : "ladakh",
 	      		pic : "http://placehold.it/200x150"
-	      	} 
+	      	}*/ 
 	      	],
 	      	
 	      	 getSearchData : function(selectedPlace) {
@@ -586,12 +593,70 @@ phonecatApp.factory('dataService', function($location) {
 
 	 	        setPlace : function(place) {
 	 	            this.state = place;
-	 	        } 
+	 	        } ,
+	 	      
+	 	       setPlaceDetails : function(placeDetails) {
+		 		   console.log("seTobj");
+		 	            this.placeDetails=placeDetails;
+		 	        },
 	 	        
 	    };
 	});
 
 
+phonecatApp.service('anchorSmoothScroll', function(){
+    
+    this.scrollTo = function(eID) {
+
+        // This scrolling function 
+        // is from http://www.itnewb.com/tutorial/Creating-the-Smooth-Scroll-Effect-with-JavaScript
+        
+        var startY = currentYPosition();
+        var stopY = elmYPosition(eID);
+        var distance = stopY > startY ? stopY - startY : startY - stopY;
+        if (distance < 100) {
+            scrollTo(0, stopY); return;
+        }
+        var speed = Math.round(distance / 100);
+        if (speed >= 20) speed = 20;
+        var step = Math.round(distance / 25);
+        var leapY = stopY > startY ? startY + step : startY - step;
+        var timer = 0;
+        if (stopY > startY) {
+            for ( var i=startY; i<stopY; i+=step ) {
+                setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+                leapY += step; if (leapY > stopY) leapY = stopY; timer++;
+            } return;
+        }
+        for ( var i=startY; i>stopY; i-=step ) {
+            setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+            leapY -= step; if (leapY < stopY) leapY = stopY; timer++;
+        }
+        
+        function currentYPosition() {
+            // Firefox, Chrome, Opera, Safari
+            if (self.pageYOffset) return self.pageYOffset;
+            // Internet Explorer 6 - standards mode
+            if (document.documentElement && document.documentElement.scrollTop)
+                return document.documentElement.scrollTop;
+            // Internet Explorer 6, 7 and 8
+            if (document.body.scrollTop) return document.body.scrollTop;
+            return 0;
+        }
+        
+        function elmYPosition(eID) {
+            var elm = document.getElementById(eID);
+            var y = elm.offsetTop;
+            var node = elm;
+            while (node.offsetParent && node.offsetParent != document.body) {
+                node = node.offsetParent;
+                y += node.offsetTop;
+            } return y;
+        }
+
+    };
+    
+});
 
 
 
