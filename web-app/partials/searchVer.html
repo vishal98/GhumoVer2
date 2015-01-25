@@ -1,87 +1,144 @@
-    <div class="container-full" >
-    <nav class="navbar navbar-default1 navbar-fixed-top">
-        <div class="container">	
-        
-        
-        <meta name="google-site-verification" content="LlujoSaELo2iAv1MNLTkPOLg5JFehx__qIP4yI-uKMk" />
-        
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>	
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand page-scroll" href="#page-top"></a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-               			
-				
-                    <li>
-                        <a class="page-scroll" href="#services" ng-click="services()" style="color: black;font-size: large;">Activities</a>
-                    </li>
-                   
-                    <!-- <li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#team">Team</a>
-                    </li> -->
-                    <li>
-                        <a class="page-scroll" href="#contact"  ng-click="cntctUs()" style="color: black;font-size: medium;">Contact Us</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
-
-    <!-- Navigation -->
+      <!-- Navigation -->
     <div ng-switch="isLoading">
  
 		<!-- BEGIN: Loading View. -->
 		<p ng-switch-when="true">
-<div>
-		 <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner-1"></span>
- </div>
+
+		 <span us-spinner="{radius:30, width:8, length: 16}" ></span>
+
 		</p>
 		<!-- END: Loading View. -->
  
 		<!-- BEGIN: Results View. -->
+		
 		<div
 			ng-switch-when="false"
 			ng-switch="isSuccessful">
  
 			<div ng-switch-when="true">
+
+
+  
+    <div class="container-full" >
+   <nav id="navbar-example" class="navbar  navbar-fixed-top" role="navigation" >
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+        <div collapse="isCollapsed" class="navbar-collapse bs-js-navbar-collapse">
+          
+         <ul class="nav navbar-nav navbar-right">
+        
+            <li id="fat-menu" class="dropdown">
+              <a href="#" id="drop3" role="button" class="dropdown-toggle" ng-click="services()"  style="color: white;font-size: medium;">Activities<b class="caret"></b></a>
+            </li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" id="drop3" role="button" class="dropdown-toggle"  ng-click="cntctUs()"   style="color: white;font-size: medium;">Contact Us<b class="caret"></b></a>
+            </li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+<!-- <nav class="navbar navbar-default navbar-fixed-top" id="scrollToTop">
+        <div class="container">
+            Brand and toggle get grouped for better mobile display
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                  
+               
+                <a class="navbar-brand page-scroll" href="#page-top" ng-click="scrollToTop()" ></a>
+                
+            </div>
+
+            Collect the nav links, forms, and other content for toggling
+            <div class="collapse " id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                                                <a class="page-scroll" href="#services" ng-click="services()" style="color: black;font-size: x-medium; ">Activities</a>
+
+                    </li>
+                    <li class="page-scroll">
+                         <a class="page-scroll" href="#contact"  ng-click="cntctUs()" style="color: black;font-size: x-medium;" >Contact Us</a>
+                    </li>
+                    <li class="page-scroll">
+                        
+                    </li>
+                </ul>
+            </div>
+            /.navbar-collapse
+        </div>
+        /.container-fluid
+    </nav>
+ -->
+
+ 
      <div class="container-full" >
-	
+	    
+ 
     
       <!-- Collect the nav links, forms, and other content for toggling -->
      
     <!-- Header Carousel -->
     <header id="myCarousel" >
         <slider images="images" indexT="indext"/>
+        </header>
         <!-- Controls -->
-      <div class="search">
-    	 <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner-1" spinneractive ="true"></span>    
+      <div class="search"  >
+   	 	
+<div class="fb-login-button"  scope="public_profile,email" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
 
-     <div class=" special" ng-show="false">
-            <div class="col-md-2 col-xs-0" > </div>	
-             <div class="col-md-8 col-xs-12"> 	
+<div id="status">
+</div>
+
+     <div class="special"    >
+          
+             <div class="col-md-12 col-xs-12"> 	
               <div class="form-section">
              
-                <div class="clearfix" >
+                <div class="clearfix" style="width: 100%;height: 100%">
+                <div style="text-align: center;">
+                <h1 style="color: white;">Welcome to New Home of Adventure Travel</h1>
+                    <button  style="background-color: #c74529;border-color: #c74529;" class="btn-md" title="Click Here To Know More" ng-click="clickToOpen(description)">
+                   Find Out More
+                    </button>
+                
+                </div>
+          
+
+      <!--  <div >
+              <h1 style="color: white;">
+              Welcome to GimmeWings,
+             While you are busy packing your bags for next adventure trip, our engineers are pacing up to get us updated website. </h1>
+
+<h1 style="color:white;"> This in no way delays your dream trip. Our team is available to provide you best experience at awesome prices. </h1>
+
+<div style="text-align: center;">
+<h2 style="color: white;" >Choose from the range of adventure  options in Himachal Pradesh: </h3>
+<h2 style="color: white;">Trekking</h2>
+<h2 style="color: white;">Camping</h2>
+<h2 style="color: white;">Rafting</h2>
+<h1 style="color:white	;"> Call/Whatsapp us at +91-8105363899 or mail at contact@gimmewings.com 
+</h1>
+</div>
+  </div> -->
+  </div>
            
-                    <form role="form" ng-submit="customNavigate(selectedPlace.originalObject)" >
+                    <form role="form" ng-submit="customNavigate(selectedPlace.originalObject)" ng-show="false" >
                       <div class="padded-row">
                       <div class="custom-collapse">
                                       <ul class="list-inline collapse" style="border: medium;color: activeborder;font: bold;font-size: medium;font:fantasy;text-shadow: aqua;margin-left:30px;color: yellow;">
@@ -122,21 +179,22 @@
               </div>
             </div>
             </div>
-             <div class="col-md-2 col-xs-0" > </div>	
+             
          </div>
     </div>
 
     </header>
-    <div class="row" style="padding-top:7%"></div>
+    <div class="row" style="padding-top:0%"></div>
 	
     
     
-      <div ng-repeat="plac in place1" style="padding-top:10 px;">
+      <div ng-repeat="plac in place1">
     <div class="col-md-3 col-sm-4 col-xs-12 col-lg-3" style=" padding-right: 0px; padding-left: 0px;" >
                                                 <article class="box">
                                                 
-                <a  ng-href="#/trekDetail/{{plac.eventCode}}"  title="{{plac.name}}">
-                    <img class="img-responsive" src="{{plac.pic}}" alt="" style="padding: 2px;border-bottom-style: solid; width:100%;height: 100%;border-top-style: solid;padding-top:10px;background-color: white;			">
+<!--                 <a  ng-href="#/trekDetail/{{plac.eventCode}}"  title="{{plac.name}}"> -->
+<a  ng-href="#"  title="{{plac.name}}" >
+                    <img class="img-responsive" src="{{plac.pic}}"  alt="" ng-click='clickToOpen(plac)' style="padding: 2px;border-bottom-style: solid; width:100%;height: 100%;border-top-style: solid;padding-top:10px;background-color: white;			">
                 </a>
                 </article>
             </div>
@@ -228,58 +286,64 @@
     </div>
 </div>
 </div>
+<
+    <form>
+        <input type="text" name="firstName" ng-model="myForm.firstName"> First name <br/>
+        <input type="text" name="lastName"  ng-model="myForm.lastName"> Last name <br/>
+    </form>
+
+    <div>
+        
+    </div>
 		<section id="contactUs"  ng-show="showContact" >
     <div class="row" >
         <div class="col-md-12">
             <div class="well well-sm">
-                <form class="form-horizontal" method="post">
+                <form class="form-horizontal"   ng-submit="submit(user)"   >
                     <fieldset>
                         <legend class="text-center header">Contact us</legend>
 
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
                             <div class="col-md-8">
-                                <input id="fname" name="name" type="text" placeholder="First Name" class="form-control">
+                                <input id="fname" type="text" placeholder="First Name" ng-model="user.name" class="form-control">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
-                            <div class="col-md-8">
-                                <input id="lname" name="name" type="text" placeholder="Last Name" class="form-control">
-                            </div>
-                        </div>
+                     
 
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-envelope-o bigicon"></i></span>
                             <div class="col-md-8">
-                                <input id="email" name="email" type="text" placeholder="Email Address" class="form-control">
+                                <input id="email"  type="text" placeholder="Email Address" ng-model="user.emailAddr" class="form-control">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
                             <div class="col-md-8">
-                                <input id="phone" name="phone" type="text" placeholder="Phone" class="form-control">
+                                <input id="phone" type="text" placeholder="Phone" ng-model="user.phone" class="form-control">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
                             <div class="col-md-8">
-                                <textarea class="form-control" id="message" name="message" placeholder="Enter your massage for us here. We will get back to you within 2 business days." rows="7"></textarea>
+                                <textarea class="form-control" id="message" ng-model="user.message" placeholder="Enter your massage for us here. We will get back to you within 2 business days." rows="7"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-12 text-center">
-                                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                <input type="submit" class="btn btn-primary btn-lg" />
                             </div>
-                        </div>
+                       </div>
                     </fieldset>
                 </form>
+  {{user.name}} {{user.emailAddr}}
             </div>
         </div>
     </div>
+   
     </section>
      
         <!-- /.row -->
@@ -288,7 +352,6 @@
      
         <!-- /.row -->
 
-        <hr>
 
         <!-- Call to Action Section -->
         <div class="well">
@@ -335,8 +398,7 @@
 
 	
 		<!-- END: Results View. -->
- </div>
-	
+
    
 
 

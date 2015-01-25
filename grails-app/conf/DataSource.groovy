@@ -18,7 +18,7 @@ hibernate {
 environments {
 	development {
 		dataSource {
-				dbCreate = "false"
+				dbCreate = "create"
 				url = "jdbc:mysql://localhost/test"
 				username = "root"
 				password = "admin"
@@ -36,9 +36,9 @@ environments {
 				username = "fusion"
 				password = "plp247619"
 				pooled = true
-				dbCreate = "update"
+				dbCreate = "create"
 				driverClassName = "com.mysql.jdbc.Driver"
-				url = "jdbc:mysql://aa19vt0qm0aetwj.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=fusion&password=plp247619"
+				url = "jdbc:mysql://aa1bzishuiat2fj.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=fusion&password=plp247619"
 				dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 				properties {
 				 validationQuery = "SELECT 1"

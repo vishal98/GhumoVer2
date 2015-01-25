@@ -9795,10 +9795,12 @@ button.ui-button::-moz-focus-inner {
 }
 
 .navbar-brand { 
-  width: 80px;
-  height: 80px;
-  background: url('resource:/css/gimmeWings.png') no-repeat center center;
-  background-size: 80px;  
+  width: 102px;
+  height: 50px;
+  background: url('resource:/css/Logo_Gimmewings.jpg') no-repeat center center;
+  background-size: 102px;  
+ 
+  
   
 }
 

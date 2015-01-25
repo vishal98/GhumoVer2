@@ -4,7 +4,14 @@ class Person {
 	
 String	name
 
-String Type
+
+
+String emailId
+
+String phoneNo
+
+
+
 
 
     static constraints = {

@@ -12,6 +12,20 @@ class GhumoController {
 	
     def index() { }
 	
+	
+	
+	def addMessage(){
+		println("show message  :"+params.name +"show msg: "+params.msg )
+		def p= new Person()
+		p.setName(params.name)
+		p.setType(params.msg)
+		 if (!p.save(flush: true)){
+        p.errors.each {	
+            println it
+        }}
+		render p
+	}
+	
 	def showDetail() {
 	
 		

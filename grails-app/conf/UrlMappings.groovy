@@ -28,8 +28,12 @@ class UrlMappings {
 		"/detail/$name/event/$event?" {
 		controller = "ghumo"
 		action = "showEvents"
+	
 	}
-		
+		"/user/name/$name/email/$email/message/$msg"{
+			controller = "ghumo"
+			action = "addMessage"
+	}
 		
 		
 		

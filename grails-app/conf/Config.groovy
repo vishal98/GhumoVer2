@@ -32,7 +32,7 @@ grails.mime.types = [ // the first one is the default format
 ]
 
 grails.resources.adhoc.includes = [
-	'/images/**', '/css/**', '/js/**', '/imges/**','/fonts/**'
+	'/images/**', '/css/**', '/js/**', '/img/**','/fonts/**','/img/**'
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000

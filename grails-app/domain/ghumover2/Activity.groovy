@@ -1,13 +1,14 @@
-	package ghumover2
+package ghumover2
 
 class Activity {
 
     static mapping = {
-    id generator: 'increment'
-    name: 'activityId'
+    id generator: 'increment',name: 'activityId'
+	childs lazy: false
+	
 }
 	
-
+	static hasMany = [review: Review,iternary:Iternary]
 	
 	String activityId;
 	String activityTypeCode
@@ -20,7 +21,7 @@ class Activity {
 	String activityOverview
 	String activityComments
 	String priceRange
-	String reviewId
+	Review review
 	Iternary iternary
 	
 	//String activityId

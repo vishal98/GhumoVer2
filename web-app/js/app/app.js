@@ -6,23 +6,33 @@ var phonecatApp = angular.module('phonecatApp', [
   'phonecatControllers',
  // 'phonecatFilters',
 //  'ghumoServices',
- // 'ui.bootstrap',
+ 'ui.bootstrap',
   'angucomplete-alt',
  // 'ui-rangeSlider',
   'ui.router',
   'ngAnimate',
   'ncy-angular-breadcrumb',
   'restangular',
-  'angularSpinner'
+  'angularSpinner',
+  'ngDialog',
+  'ezfb'
 ]);
 
 
+phonecatApp.constant('SOCIAL_PLUGINS', [
+                             'like', 'share-button', 'send', 'post',
+                             'follow', 'comments', 'comments-count', 'activity', 'recommendations',
+                             'recommendations-bar', 'like-box', 'facepile'
+                           ]);
 
-
-phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvider){
+phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvider,ezfbProvider, SOCIAL_PLUGINS){
                     
 	//$urlRouterProvider.otherwise("/checkOutStep1")
-                    
+	
+		  ezfbProvider.setInitParams({
+		    appId: '724770587622152'
+		  });
+		  
                   
                     $urlRouterProvider.otherwise("/search")
                       $stateProvider
@@ -657,6 +667,23 @@ phonecatApp.service('anchorSmoothScroll', function(){
     };
     
 });
+
+
+phonecatApp.run(['Restangular', '$window', function(Restangular, $window){
+    Restangular.setErrorInterceptor(
+        function(response) {
+            if (response.status == 401) {
+                console.log("Login required... ");
+                $window.location.href='/login';
+            } else if (response.status == 404) {
+                console.log("Resource not available...");
+            } else {
+                console.log("Response received with HTTP error code: " + response.status );
+            }
+            return false; // stop the promise chain
+        }
+    );
+}]);
 
 
 

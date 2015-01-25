@@ -1,18 +1,179 @@
- <div class="span2">
- Search: <input ng-model="pId" placeholder="Enter Phone Name" >
+<!DOCTYPE html>
 
- <button ng-click="customNavigate(pId)">Show Phone By Name</button>
- <button ng-click="customNavigate2(pId)">Show Phone By Id</button>
-
-  <a href="#/phones/{{pId}}" class="thumb">linkt</a>
+<!--[if lt IE 7 ]>  
+<!--[if IE 7 ]>     
+<!--[if IE 8 ]>     
+<!--[if IE 9 ]>     
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js" ><!--<![endif]-->
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Welcome to TrekNation</title>	 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	 <meta name="google-site-verification" content="LlujoSaELo2iAv1MNLTkPOLg5JFehx__qIP4yI-uKMk" />
+	</head>
+	    <div class="container-full" >
   
-  <button ng-click="clear()">Clear</button>
- </div>
- <div class="phone-images" ng-show="myBoolean" id="test"> 
- <h1>{{phone.name}}</h1>
-  <img ng-src="{{img}}"
-       class="phone"
-       ng-repeat="img in phone.images"
-       ng-class="{active: mainImageUrl==img}">
+
+    
+     <div class="container-full" >
+     
+	<div  style="max-height:500px;min-height:220px;width: 100%;background-image:url('img/img1.jpg')" class="img-responsive">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 " style="padding-top: 10%">
+              <h1 style="color: black;">
+             While you are busy packing your bags for next adventure trip, our engineers are pacing up to get us updated website. 
+
+This in no way delays your dream trip. Our booking team is available on phone and email. 
+</h1>
+
+<strong style="color: black;" >Choose from the range of adventure travel options: </strong>
+<h4 style="color: black;">Trekking</h4>
+<h4 style="color: black;">Camping</h4>
+<h4 style="color: black;">Rafting</h4>
+<h4 style="color: black;">Call us at +91-9886326669 or mail at contact@gimmewings.com 
+</h4>
+</div>
+    </div> 
+    </div> 
+  
+      <div id="cnt1" style="width: 100%; >
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                <img src="img/triund2.jpg" alt="Texto Alternativo" class="img-circle img-thumbnail" style="width: 250px">
+                <h2>Camping</h2>
+                <p>
+                  We have camping activities in whole himachal ex places like triund near dharamshala,manali ,near chandertaal lake and lahual spiti.
+                  Comfortable accomadation and hygenic food is provided in camps                      
+                </p>
+            
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div>		
+                <img src="img/img2t.jpg
+                " alt="Texto Alternativo" class="img-circle img-thumbnail" style="width: 250px">
+                <h2>Trekking</h2>
+                <p>
+                    Treks services is available in whole himachal in small group of 5-10 peoples with experienced guides.
+                    All the guides are local ,understand areas well and approved by govt     
+                </p>
+             
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div>
+                <img src="img/imgCol.jpg" alt="Texto Alternativo" class="img-circle img-thumbnail" style="width: 250px;height: 200px">
+                <h2>Rafting</h2>
+                <p>
+                Manali is known for rafting.
+                We provides camps along with rafting in manali    
+                </p>
+        
+            </div>
+        </div>
+    </div>
 </div>
 
+		<section id="contactUs"  >
+    <div class="row" >
+        <div class="col-md-12">
+            <div class="well well-sm">
+                <form class="form-horizontal" method="post">
+                    <fieldset>
+                        <legend class="text-center header">Contact us</legend>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input id="fname" name="name" type="text" placeholder="First Name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input id="lname" name="name" type="text" placeholder="Last Name" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-envelope-o bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input id="email" name="email" type="text" placeholder="Email Address" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input id="phone" name="phone" type="text" placeholder="Phone" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
+                            <div class="col-md-8">
+                                <textarea class="form-control" id="message" name="message" placeholder="Enter your massage for us here. We will get back to you within 2 business days." rows="7"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    </section>
+     
+        <!-- /.row -->
+
+        <!-- Features Section -->
+     
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Call to Action Section -->
+        <div class="well">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>Adventure Sport StartUp providing unique and  specialized in experience and activity type vacations.</p>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-lg btn-default btn-block" href="#">Call at 9886326669 Email @contact@gimmewings.com</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; GimmeWings.com</p>
+                </div>
+            </div>
+        </footer>
+
+
+
+	
+   
+
+
+
+
+
+	
+	<body style="padding-top: 0%">
+	 
+</html>

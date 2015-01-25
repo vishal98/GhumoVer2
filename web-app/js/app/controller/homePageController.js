@@ -10,9 +10,54 @@ var phonecatControllers = angular.module('homePage', ['duScroll','ngAnimate']);
 
 
 
-phonecatControllers.controller('SearchContrl', [ '$scope','$location','preloader','dataService','$anchorScroll','anchorSmoothScroll',
-                                                 function($scope,$location,preloader,dataService,$anchorScroll,anchorSmoothScroll) {
+phonecatControllers.controller('SearchContrl', [ '$scope','$location','preloader','dataService','$anchorScroll','anchorSmoothScroll','Restangular','ngDialog',
+                         function($scope,$location,preloader,dataService,$anchorScroll,anchorSmoothScroll,Restangular,ngDialog) {
 	
+	$scope.isCollapsed = true;
+	
+$scope.description=	{
+		name : "What GimmeWings Does",
+		place1:"GimeWings brings you various adventure travel activities in Himachal Pradesh, ranging from Trekking the amazing treks of Himalayas, Camping in beautiful and serene places.",
+		place2:"We put together our learning of adventure travel destinations to help you make wiser choices.",
+		place3:"You can also join our travellers community and share your experiences and help fellow travellers",
+		place4:"We connect you to authorised, competent travel guides and tour operators. Our platform helps you to make wise and safe travel choices",	
+		
+		show:"false",
+		showDesc:"true"
+			
+	};
+	
+	var baseAccounts = Restangular.all('user');
+	$scope.submit= function(user){
+			console.log("testScope"+user.name)
+			
+		baseAccounts.one("name",user.name).one("email",user.emailAddr).one("message",user.message).post().then(function() {
+		    
+		    $scope.message="data saved successfully"
+		  }, function() {
+			    $scope.message="There was an error saving"
+		   
+		  });
+	}
+	
+	
+	   $scope.clickToOpen = function (place) {
+		   $scope.value = false;
+		   $scope.place = place;
+		   console.log("Object saved OK" +place.name);
+	        ngDialog.open({ template: 'partials/externalTemplate.html',  className: 'ngdialog-theme-plain ngdialog-theme-custom',
+	            scope: $scope
+				});
+	    };
+	    
+		$scope.next = function () {
+			ngDialog.close('ngdialog1');
+			ngDialog.open({
+				template: 'secondDialog',
+				className: 'ngdialog-theme-flat ngdialog-theme-custom'
+			});
+		};
+	$scope.name = "Calvin";
 	//method for scrolling down
 	$scope.cntctUs=function() {
 		$location.hash('contactUs');
@@ -21,10 +66,21 @@ phonecatControllers.controller('SearchContrl', [ '$scope','$location','preloader
 		  
 	   // $anchorScroll();
 		}
+		
+		$scope.scrollToTop=function() {
+			$location.hash('scrollToTop');
+			 anchorSmoothScroll.scrollTo('scrollToTop');
+			 // $scope.showContact = true;
+	
+		    $anchorScroll();
+			}
+	
+	
 	    $scope.services=function() {
 			$location.hash('cnt1');
 			  anchorSmoothScroll.scrollTo('cnt1');
 			  $scope.showContact = false;
+	
 		   
 	}
 	
@@ -65,40 +121,82 @@ phonecatControllers.controller('SearchContrl', [ '$scope','$location','preloader
   	            		place : "all places",
   	            		event : "camping",
   	            		verb : "in",
-  	            		name : "ChanderTaal Camp ",
+  	            		name : "ChanderTaal Camping ",
   	            			eventCode:"CampChander",
-	            		pic : "img/homePageScroll/ckc.jpg"
+	            		pic : "img/homePageScroll/ckc.jpg",
+	            		place1:"Chandra taal means lake of moon. It is situated at an altitude of about 4300 meters in Himalaya. " +
+	            				"Mountains of scree overlook the lake on one side, and a magnificent cirque presents a view on the other side.",
+	            		place2:"Manali - Chandratal : 140 hms (drive) + 3.5 kms (hike) - 10.5 hours",
+	            		place3:"Mid June-October",
+	            		place4:"Camping start at 2250 per person including meals"	,
+	            		place5:"beautiful lake and hill,peace of mind	",
+	            		show:"true"	,
+	            		showDesc:"false"
+	            			
 	            	},
 	            	{
 	            		id:"2",
   	            		place : "all places",
   	            		event : "trekking",
   	            		verb : "in",
-  	            		name : "Triund ",
+  	            		name : "Triund Trekking and Camping",
   	            			eventCode:"TrekTriund",
 	            	
-	            		pic : "img/homePageScroll/triund_trek.jpg"
+	            		pic : "img/homePageScroll/triund_trek.jpg",
+	            			place1:"Triund is beautiful hill top near Dharamshala . It is situated at an altitude of about Height 2975m meters in Himalaya. " +
+            				"Mountains of scree overlook the lake on one side, and a magnificent cirque presents a view on the other.",
+            		place2:"Dharamshala - Triund : 3-4 hours of trek (upside) + 1.5 hours(Downside)",
+            		place3:"Whole Year",
+            		place4:"Trekking with Night Stay start at 2450 per person including meals",	
+            		place5:"best trek for starters,beautiful view",
+            		show:"true"	,
+            		showDesc:"false"
 	            	},
 	            	{
 	            		id:"3",
   	            		place : "all places",
   	            		event : "camp",
   	            		verb : "in",
-  	            		name : "Triund",
+  	            		name : "Triund Trekking",
   	            		
   	            			eventCode:"TrekCamp",
 	            		
-	            		pic : "img/homePageScroll/triundCamping.jpg"
+	            		pic : "img/homePageScroll/triundCamping.jpg",
+	            	place1:"Triund is beautiful hill top near Dharamshala . It is situated at an altitude of about Height 2975m meters in Himalaya. " +
+            				"Mountains of scree overlook the lake on one side, and a magnificent cirque presents a view on the other.",
+            		place2:"Dharamshala - Triund : 3-4 hours of trek (upside) + 1.5 hours(Downside)",
+            		place3:"Whole Year",
+            		place4:"Camping start at 1500 person including meals"	,
+            		place5:"snow covered mountains in clear night,serene beauty and peace"	,
+            		show:"true"	,
+            		showDesc:"false"
+	            			
 	            	},
 	            	{
 	            		id:"4",
   	            		place : "all places",
-  	            		event : "Rafting",
+  	            		event : "Trekking all Himachal",
   	            		verb : "in",
-  	            		name : "Manali ",
+  	            		name : "Treks in Kinnaur ",
   	            		
   	            			eventCode:"TrekRaft",
-	            		pic : "img/homePageScroll/rafting-manali.jpg"
+	            		pic : "img/homePageScroll/rafting-manali.jpg",
+	            			place1:"Bawa-pin trek 5 days",
+	            			place2:" kinner  Kailash parikarma 4 to 5 Days",
+	                		place3:"Trek to Shivalinga 4 days",
+	                		place4:"Bhawa Wild Life Sanctuary 6 to 8 days"	,
+	                		place5:"Chitkul -  Harshil trek 8 days"	,
+	            			place6:"Chitkul to chanshal valley trek three treks 3 to 5 days",
+	            			place7:"Trek to Manirang Pass 8 days",
+	            			place8:"Ropa to Mane (pin valley) 5-6days",
+	            			place9:"kanam to sunnam to nako trek 4-5days",
+	            			place10:"Sangla valley n kalpa has more than 5 treks which r not more than three days",
+	            			place11:"Mainly all treks starts from 3rd week of June until Oct 2nd week.", 
+	            			place12:"Fix price of all treks all includes 3500 INR/day/pax",
+	            			place12:"A group consists minimum no of pax four. Package includes accommodation in kinnaur n pin valley .Special offer for groups",
+	            				show:"false"	,
+	                    		showDesc:"true",
+	                    			showDescMan:"true"
 	            	},
 	            	
 	]

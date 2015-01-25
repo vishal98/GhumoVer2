@@ -8,16 +8,22 @@ modules = {
 	   resource url: 'css/bootstrap.css'
 		resource url:'css/font-awesome.css'
 		resource url:'css/style.css'
+		resource url:'css/ngDialog.css'
+		resource url:'css/ngDialog-theme-plain.css'
+		resource url:'css/ngDialog-theme-default.css'
+		resource url:'css/soap-icon.css'
 		
 		
-		//resource url:'css/compCss.css'
+	//	resource url:'css/compCss.css'
 		
 		
 		//resource url:'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css'
 		//resource url: 'css/animations.css'
 		
 		//js
-		/*resource url:'js/jquery.js'
+		
+		resource url:'js/jquery.js'
+		resource url:'js/fblogin.js'
 		
 		resource url:'js/angular.js'
 		resource url:'js/angular-animate.js'
@@ -45,7 +51,7 @@ modules = {
 
 		//resource url:'css/responsive.css'
 	
-		resource url:'js/ui-bootstrap-tpls-0.11.0.js'
+		resource url:'js/collapse.js'
 	
 	
 		resource url:'js/app/angucomplete-alt.js'
@@ -55,8 +61,10 @@ modules = {
 		resource url:'js/restangular.js'
 		resource url:'js/lodash.js'
 		resource url:'js/angular-spinner.js'
-		resource url:'js/spin.js'*/
-		resource url:'js/miniEx.js'
+		resource url:'js/spin.js'
+		resource url:'js/app/ngDialog.js'
+		resource url:"js/angular-easyfb.min.js"
+//	resource url:'js/miniEx.js'
 		
 		
 	
