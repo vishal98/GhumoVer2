@@ -23,7 +23,7 @@ modules = {
 		//js
 		
 		resource url:'js/jquery.js'
-		resource url:'js/fblogin.js'
+	//	resource url:'js/fblogin.js'
 		
 		resource url:'js/angular.js'
 		resource url:'js/angular-animate.js'
@@ -52,7 +52,7 @@ modules = {
 		//resource url:'css/responsive.css'
 	
 		resource url:'js/collapse.js'
-	
+		resource url:'js/ui-bootstrap-tpls-0.11.0.js'
 	
 		resource url:'js/app/angucomplete-alt.js'
 		resource url:'js/app/angular.rangeSlider.js'
@@ -64,6 +64,7 @@ modules = {
 		resource url:'js/spin.js'
 		resource url:'js/app/ngDialog.js'
 		resource url:"js/angular-easyfb.min.js"
+		resource url:'js/fblogin.js'
 //	resource url:'js/miniEx.js'
 		
 		
