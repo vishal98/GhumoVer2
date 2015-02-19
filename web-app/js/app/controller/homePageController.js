@@ -15,6 +15,8 @@ phonecatControllers.controller('SearchContrl', [ '$scope','$location','preloader
 	
 	$scope.isCollapsed = true;
 	
+
+	
 $scope.description=	{
 		name : "What GimmeWings Does",
 		place1:"GimeWings brings you various adventure travel activities in Himachal Pradesh, ranging from Trekking the amazing treks of Himalayas, Camping in beautiful and serene places.",
@@ -26,7 +28,7 @@ $scope.description=	{
 		showDesc:"true"
 			
 	};
-	
+
 	var baseAccounts = Restangular.all('user');
 	$scope.submit= function(user){
 			console.log("testScope"+user.name)
@@ -42,10 +44,11 @@ $scope.description=	{
 	
 	
 	   $scope.clickToOpen = function (place) {
+		
+	//	   setPlacePopUpDetails(place);
 		   $scope.value = false;
 		   $scope.place = place;
-		   console.log("Object saved OK" +place.name);
-	        ngDialog.open({ template: 'partials/externalTemplate.html',  className: 'ngdialog-theme-plain ngdialog-theme-custom',
+	        ngDialog.open({ template: 'partials/externalTemplate.html',  className: 'ngdialog-theme-plain ngdialog-theme-custom ',
 	            scope: $scope
 				});
 	    };
@@ -85,8 +88,10 @@ $scope.description=	{
 	}
 	
 //adding image for carousal
+//	 $scope.images=[{src:'img1.jpg',title:'Pic 1'},{src:'img3.jpg',title:'Pic 2'},{src:'img2.jpg',title:'Pic 3'},{src:'img4.jpg',title:'Pic 4'}]; 
 	 $scope.images=[{src:'img1.jpg',title:'Pic 1'},{src:'img3.jpg',title:'Pic 2'},{src:'img2.jpg',title:'Pic 3'},{src:'img4.jpg',title:'Pic 4'}]; 
-	// console.log("img/"+$scope.images[0].src);
+
+	 // console.log("img/"+$scope.images[0].src);
 	 $scope.imageLocations=[("img/"+$scope.images[0].src)]; 
 
 	 $scope.showDropdown = true;
@@ -116,6 +121,7 @@ $scope.description=	{
 
 	//hardcoded dropdown values
 	$scope.place1=[
+	               
 	            	{
 	            		id:"1",
   	            		place : "all places",
@@ -152,6 +158,30 @@ $scope.description=	{
             		show:"true"	,
             		showDesc:"false"
 	            	},
+	            	
+	            	{
+	            		id:"4",
+  	            		place : "all places",
+  	            		event : "Trekking all Himachal",
+  	            		verb : "in",
+  	            		name : "Treks in Kinnaur ",
+  	            		
+  	            			eventCode:"TrekRaft",
+	            		pic : "img/homePageScroll/rafting-manali.jpg",
+	            			place1:"Bawa-pin trek 5 days && kinner  Kailash parikarma 4 to 5 Days",
+	                		place2:"Trek to Shivalinga 4 days && Bhawa Wild Life Sanctuary 6 to 8 days"	,
+	                		place3:"Chitkul - Harshil trek 8 days and Chitkul to chanshal valley trek three treks 3 to 5 days",
+	            			place4:"Trek to Manirang Pass 8 days",
+	            			place5:"Ropa to Mane (pin valley) 5-6days",
+	            			place6:"kanam to sunnam to nako trek 4-5days",
+	            			place7:"Sangla valley n kalpa has more than 5 treks which r not more than three days",
+	            			place8:"all treks starts from 3rd week of June to Oct 2nd week && Price starts from 3500 INR/day/pax",
+	            			place9:"Minimum Group $r. Package includes accommodation in kinnaur n pin valley ",
+	            				show:"false"	,
+	                    		showDesc:"false",
+	                    			showDescMan:"true"
+	            	},
+	            	
 	            	{
 	            		id:"3",
   	            		place : "all places",
@@ -171,32 +201,6 @@ $scope.description=	{
             		show:"true"	,
             		showDesc:"false"
 	            			
-	            	},
-	            	{
-	            		id:"4",
-  	            		place : "all places",
-  	            		event : "Trekking all Himachal",
-  	            		verb : "in",
-  	            		name : "Treks in Kinnaur ",
-  	            		
-  	            			eventCode:"TrekRaft",
-	            		pic : "img/homePageScroll/rafting-manali.jpg",
-	            			place1:"Bawa-pin trek 5 days",
-	            			place2:" kinner  Kailash parikarma 4 to 5 Days",
-	                		place3:"Trek to Shivalinga 4 days",
-	                		place4:"Bhawa Wild Life Sanctuary 6 to 8 days"	,
-	                		place5:"Chitkul -  Harshil trek 8 days"	,
-	            			place6:"Chitkul to chanshal valley trek three treks 3 to 5 days",
-	            			place7:"Trek to Manirang Pass 8 days",
-	            			place8:"Ropa to Mane (pin valley) 5-6days",
-	            			place9:"kanam to sunnam to nako trek 4-5days",
-	            			place10:"Sangla valley n kalpa has more than 5 treks which r not more than three days",
-	            			place11:"Mainly all treks starts from 3rd week of June until Oct 2nd week.", 
-	            			place12:"Fix price of all treks all includes 3500 INR/day/pax",
-	            			place12:"A group consists minimum no of pax four. Package includes accommodation in kinnaur n pin valley .Special offer for groups",
-	            				show:"false"	,
-	                    		showDesc:"true",
-	                    			showDescMan:"true"
 	            	},
 	            	
 	]
@@ -220,7 +224,7 @@ $scope.description=	{
         focusInputElem.classList.add('small-input');
       }
 
-      $scope	.disableInput = true;
+      $scope.disableInput = true;
       
       //preloading
 
@@ -238,42 +242,43 @@ $scope.description=	{
      
 
       // Preload the images; then, update display when returned.
-      preloader.preloadImages( $scope.imageLocations ).then(
-          function handleResolve( imageLocations ) {
-
-              // Loading was successful.
-              $scope.isLoading = false;
-              $scope.isSuccessful = true;
-
-            //  console.info( "Preload Successful" );
-
-          },
-          function handleReject( imageLocation ) {
-
-              // Loading failed on at least one image.
-              $scope.isLoading = false;
-              $scope.isSuccessful = false;
-
-              console.error( "Image Failed", imageLocation );
-              console.info( "Preload Failure" );
-
-          },
-          function handleNotify( event ) {
-
-              $scope.percentLoaded = event.percent;
-
-          //    console.info( "Percent loaded:", event.percent );
-
-          }
-      );
+//      preloader.preloadImages( $scope.imageLocations ).then(
+//          function handleResolve( imageLocations ) {
+//
+//              // Loading was successful.
+//              $scope.isLoading = false;
+//              $scope.isSuccessful = true;
+//            
+//            //  console.info( "Preload Successful" );
+//
+//          },
+//          function handleReject( imageLocation ) {
+//
+//              // Loading failed on at least one image.
+//              $scope.isLoading = false;
+//              $scope.isSuccessful = false;
+//
+//              console.error( "Image Failed", imageLocation );
+//              console.info( "Preload Failure" );
+//
+//          },
+//          function handleNotify( event ) {
+//
+//              $scope.percentLoaded = event.percent;
+//
+//          //    console.info( "Percent loaded:", event.percent );
+//
+//          }
+//    
+//      );
       
    
   	
   	
   //filter place
 	
-	
-	
+      $scope.htmlReady();
+   
 	
 
   

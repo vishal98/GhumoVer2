@@ -3,21 +3,82 @@
 /* App Module */
 
 var phonecatApp = angular.module('phonecatApp', [
+'seo',
   'phonecatControllers',
- // 'phonecatFilters',
-//  'ghumoServices',
- 'ui.bootstrap',
-  'angucomplete-alt',
+// 'ui.bootstrap',
+  'ui.bootstrap.tabs',
+ //'angucomplete-alt',
  // 'ui-rangeSlider',
   'ui.router',
   'ngAnimate',
   'ncy-angular-breadcrumb',
   'restangular',
-  'angularSpinner',
   'ngDialog',
-  'ezfb'
+  'ezfb',
+  'angular-google-analytics',
+  'digitalfondue.dftabmenu'
+  
 ]);
 
+
+
+phonecatApp.config(function(AnalyticsProvider) {
+    // initial configuration
+    AnalyticsProvider.setAccount('UA-59019706-1');
+    // using multiple tracking objects (analytics.js only)
+    // AnalyticsProvider.setAccount([
+    //   { tracker: 'UA-12345-12', name: "tracker1" },
+    //   { tracker: 'UA-12345-34', name: "tracker2" }
+    // ]);
+
+    // track all routes (or not)
+    AnalyticsProvider.trackPages(true);
+
+    // Optional set domain (Use 'none' for testing on localhost)
+    AnalyticsProvider.setDomainName('none');
+
+    // Use display features plugin
+    AnalyticsProvider.useDisplayFeatures(true);
+
+    // url prefix (default is empty)
+    // - for example: when an app doesn't run in the root directory
+    AnalyticsProvider.trackPrefix('my-application');
+
+    // Use analytics.js instead of ga.js
+    AnalyticsProvider.useAnalytics(true);
+
+    // Use cross domain linking
+  //  AnalyticsProvider.useCrossDomainLinker(true);
+   // AnalyticsProvider.setCrossLinkDomains(['domain-1.com', 'domain-2.com']);
+
+    // Ignore first page view... helpful when using hashes and whenever your bounce rate looks obscenely low.
+    AnalyticsProvider.ignoreFirstPageLoad(true);
+
+    // Enabled eCommerce module for analytics.js(uses legacy ecommerce plugin)
+    //AnalyticsProvider.useECommerce(true, false);
+
+    // Enabled eCommerce module for analytics.js(uses ec plugin instead of ecommerce plugin)
+    //AnalyticsProvider.useECommerce(true, true);
+
+    // Enable enhanced link attribution
+    AnalyticsProvider.useEnhancedLinkAttribution(true);
+
+    // Enable analytics.js experiments
+    AnalyticsProvider.setExperimentId('12345');
+
+    // Set custom cookie parameters for analytics.js
+    AnalyticsProvider.setCookieConfig({
+      cookieDomain: 'gimmewings.com',
+      cookieName: 'myNewName',
+      cookieExpires: 20000
+    });
+
+    // change page event name
+    AnalyticsProvider.setPageEvent('$stateChangeSuccess');
+}) .controller('SampleController', function(Analytics) {
+    // create a new pageview event
+    Analytics.trackPage('/search');
+});
 
 phonecatApp.constant('SOCIAL_PLUGINS', [
                              'like', 'share-button', 'send', 'post',
@@ -25,9 +86,12 @@ phonecatApp.constant('SOCIAL_PLUGINS', [
                              'recommendations-bar', 'like-box', 'facepile'
                            ]);
 
-phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvider,ezfbProvider, SOCIAL_PLUGINS){
+phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvider,ezfbProvider, SOCIAL_PLUGINS,$locationProvider){
                     
 	//$urlRouterProvider.otherwise("/checkOutStep1")
+	
+
+
 	
 		  ezfbProvider.setInitParams({
 		    appId: '724770587622152'
@@ -60,12 +124,22 @@ phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvid
                           controller: 'PlaceDetailCtrl',
                           ncyBreadcrumb: {
                               label: 'Details',
-                              //parent: 'trekList'
+                              //parent: 'trekList'	
                             	  parent: function ($scope) {
                                     var param = $scope.slug; // Or wherever is the slug value.
                                       return 'trekList({placeName:' + param + '})';
                                   }
                               
+                            }
+                      })
+                        .state('blog', {
+                          url: "/blog",
+                          templateUrl: 'partials/pages-blog-rightsidebar.html',
+                          controller: 'blogCtrl',
+                          ncyBreadcrumb: {
+                              label: 'blog',
+                              parent: 'search'
+                            	  
                             }
                       })
                         $stateProvider.state('checkout', {
@@ -99,8 +173,9 @@ phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvid
                         
                      
                        
-                       
-                            RestangularProvider.setBaseUrl('http://localhost:8080/GhumoVer2/');
+                    $locationProvider.html5Mode(false);
+                        $locationProvider.hashPrefix('!');
+                            RestangularProvider.setBaseUrl('GhumoVer2/');
                           
                     
 }
@@ -420,6 +495,8 @@ phonecatApp.factory(
         }
     );
 
+//fb login
+
 
 phonecatApp
 .directive('bsActiveLink', ['$location', function ($location) {
@@ -448,13 +525,15 @@ return {
 }]);
 
 phonecatApp.factory('dataService', function($location) {
+	
+	
 	 //   var stateData = window.jsObjFromBackend.weather.data;
 	    return {
 	        // default to A2 Michigan
 	        listName : '',
 	        searchObj :'',
 	        placeDetails :'',     
-	     
+	        placePopUp :'',  
 	        //places data
 	     // autocomeplete data
 	      	places: [
@@ -609,6 +688,12 @@ phonecatApp.factory('dataService', function($location) {
 		 		   console.log("seTobj");
 		 	            this.placeDetails=placeDetails;
 		 	        },
+		 	        
+		 	       setPlacePopUpDetails : function(placeDetails) {
+			 		   console.log("seTobj");
+			 	            this.placePopUp=placeDetails;
+			 	        },  
+		 	       
 	 	        
 	    };
 	});
@@ -684,6 +769,8 @@ phonecatApp.run(['Restangular', '$window', function(Restangular, $window){
         }
     );
 }]);
+
+
 
 
 

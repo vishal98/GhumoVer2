@@ -1,127 +1,113 @@
-      <!-- Navigation -->
-    <div ng-switch="isLoading">
- 
-		<!-- BEGIN: Loading View. -->
-		<p ng-switch-when="true">
 
-		 <span us-spinner="{radius:30, width:8, length: 16}" ></span>
+<!-- Navigation -->
+<script>
+$('#spinKit').hide();
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-		</p>
-		<!-- END: Loading View. -->
- 
-		<!-- BEGIN: Results View. -->
-		
-		
-		<div
-			ng-switch-when="false"
-			ng-switch="isSuccessful">
- 
-			<div ng-switch-when="true">
-
-
+  ga('create', 'UA-59019706-1', 'auto');
   
-    <div class="container-full" >
-   <nav id="navbar-example" class="navbar  navbar-fixed-top" role="navigation" >
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"></a>
-        </div>
-        <div collapse="isCollapsed" class="navbar-collapse bs-js-navbar-collapse">
-          
-         <ul class="nav navbar-nav navbar-right">
-        
-            <li id="fat-menu" class="dropdown">
-              <a href="#" id="drop3" role="button" class="dropdown-toggle" ng-click="services()"  style="color: white;font-size: medium;">Activities<b class="caret"></b></a>
-            </li>
-            <li id="fat-menu" class="dropdown">
-              <a href="#" id="drop3" role="button" class="dropdown-toggle"  ng-click="cntctUs()"   style="color: white;font-size: medium;">Contact Us<b class="caret"></b></a>
-            </li>
-          </ul>
-        </div><!-- /.nav-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+  ga('send', 'pageview');
 
-<!-- <nav class="navbar navbar-default navbar-fixed-top" id="scrollToTop">
-        <div class="container">
-            Brand and toggle get grouped for better mobile display
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                  
-               
-                <a class="navbar-brand page-scroll" href="#page-top" ng-click="scrollToTop()" ></a>
-                
-            </div>
+</script>
 
-            Collect the nav links, forms, and other content for toggling
-            <div class="collapse " id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                                                <a class="page-scroll" href="#services" ng-click="services()" style="color: black;font-size: x-medium; ">Activities</a>
+<!-- <div ng-switch="isLoading">
 
-                    </li>
-                    <li class="page-scroll">
-                         <a class="page-scroll" href="#contact"  ng-click="cntctUs()" style="color: black;font-size: x-medium;" >Contact Us</a>
-                    </li>
-                    <li class="page-scroll">
-                        
-                    </li>
-                </ul>
-            </div>
-            /.navbar-collapse
-        </div>
-        /.container-fluid
-    </nav>
+	BEGIN: Loading View.
+	<p ng-switch-when="true">
+
+		<span us-spinner="{radius:30, width:8, length: 16}"></span>
+
+	</p>
+	END: Loading View.
+
+	BEGIN: Results View.
+
+
+	<div ng-switch-when="false" ng-switch="isSuccessful">
+
+		<div ng-switch-when="true">
  -->
 
- 
-     <div class="container-full" >
-	    
- 
-    
-      <!-- Collect the nav links, forms, and other content for toggling -->
-     
-    <!-- Header Carousel -->
-    <header id="myCarousel" >
-        <slider images="images" indexT="indext"/>
-        </header>
-        <!-- Controls -->
-      <div class="search"  >
-   	 	
-<div class="fb-login-button"  scope="public_profile,email" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
 
-<div id="status">
-</div>
+			<div class="container-full">
+				<nav id="navbar-example"
+					class="navbar navbar-default  navbar-fixed-top" role="navigation">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button class="navbar-toggle" type="button"   ng-click="isCollapsed = !isCollapsed">
+								<span class="sr-only">Click</span> <span class="icon-bar"></span>
+								<span class="icon-bar"></span> <span class="icon-bar"></span>
+							</button>
+							<div class="col-md-6 col-xs-6">
+								<a class="navbar-brand" href="#" ng-click="scrollToTop()"
+									id="scrollToTop"></a>
+							</div>
+							<div class="col-md-6 col-xs-6">
+								<div class="fb-like"
+									data-href="https://www.facebook.com/gimmeWings"
+									data-layout="button_count" data-action="like"
+									data-show-faces="true" data-share="true"></div>
+							</div>
+						</div>
 
-     <div class="special"    >
-          
-             <div class="col-md-12 col-xs-12"> 	
-              <div class="form-section">
-             
-                <div class="clearfix" style="width: 100%;height: 100%">
-                <div style="text-align: center;">
-                <h1 style="color: white;">Welcome to New Home of Adventure Travel</h1>
-                    <button  style="background-color: #c74529;border-color: #c74529;" class="btn-md" title="Click Here To Know More" ng-click="clickToOpen(description)">
-                   Find Out More
-                    </button>
-                
-                </div>
-          
 
-      <!--  <div >
+
+
+						<div collapse="isCollapsed"
+							class="navbar-collapse bs-js-navbar-collapse">
+
+							<ul class="nav navbar-nav navbar-right" style="color: white;">
+
+								<li id="fat-menu"><a href="#" id="drop3" role="button"
+									class="dropdown-toggle" ng-click="services()"
+									style="color: white; font-size: medium;">Activities<b
+										class="caret"></b></a></li>
+								<li id="fat-menu"><a href="#" id="drop3" role="button"
+									class="dropdown-toggle" ng-click="cntctUs()"
+									style="color: white; font-size: medium;">Contact Us<b
+										class="caret"></b></a></li>
+								<li id="fat-menu">
+									                          <a ng-href="#!/blog" id="drop3" role="button" class="dropdown-toggle"     style="color: white;font-size: medium;">Blog<b class="caret"></b></a>
+								</li>
+							</ul>
+						</div>
+						<!-- /.nav-collapse -->
+					</div>
+					<!-- /.container-fluid -->
+				</nav>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<!-- Header Carousel -->
+				<header id="myCarousel">
+					<slider images="images" indexT="indext" />
+				</header>
+				<!-- Controls -->
+				<div class="search">
+
+
+					<div id="status"></div>
+
+					<div class="special">
+
+						<div class="col-md-12 col-xs-12">
+							<div class="form-section">
+
+								<div class="clearfix" style="width: 100%; height: 100%;background-color: 009900;">
+									<div style="text-align: center;">
+										<h1 style="color: white;">Welcome to Home of
+											Adventure Travel</h1>
+										<button
+											style="background-color: #c74529; border-color: #c74529;"
+											class="btn-md" title="Click Here To Know More"
+											ng-click="clickToOpen(description)">Find Out More</button>
+
+									</div>
+
+
+									<!--  <div >
               <h1 style="color: white;">
               Welcome to GimmeWings,
              While you are busy packing your bags for next adventure trip, our engineers are pacing up to get us updated website. </h1>
@@ -137,71 +123,90 @@
 </h1>
 </div>
   </div> -->
-  </div>
-           
-                    <form role="form" ng-submit="customNavigate(selectedPlace.originalObject)" ng-show="false" >
-                      <div class="padded-row">
-                      <div class="custom-collapse">
-                                      <ul class="list-inline collapse" style="border: medium;color: activeborder;font: bold;font-size: medium;font:fantasy;text-shadow: aqua;margin-left:30px;color: yellow;">
-  <li><a tabindex="-1" href=""  ng-click="chngeSearch()">Search</a></li>
-  <li><a tabindex="-1" href="#" ng-click="chngeSearch('trekking')">Trekking</a></li>
-  <li><a tabindex="-1" href="#"  ng-click="chngeSearch('Camping')">Camping</a></li>
-  <li class="divider"></li>
-  <li><a tabindex="-1" href="#" ng-click="chngeSearch('Surfing')">Surfing</a></li>
-</ul>
-                      </div>
-                      <div class="col-md-10 col-xs-10" >
-                     
-           
-          <div angucomplete-alt id="ex2"  select-resultd="customNavigate(selectedEvent)"  placeholder="{{placeholder}}" pause="300" selected-object="selectedPlace" local-data="selectedPlaced" search-fields="{{search}}" 
-          title-field="event,verb,name" description-field="placeName"  minlength="1" input-class="form-control form-control-small" match-class="highlight">
-          </div>
-        
-        <div class="result">
-          <div class="" ng-show="selectedPlace">
-            You selected <span class="bold-span">{{selectedPlace.originalObject.name}}</span>
-          </div>
-        </div>
-             
-                    </div>
-                      <div class="col-md-2 col-xs-2">
-                      <div class="hideCl"> 
-                        <input  type="submit" class="btn btn-default btn-primary" style="width: 100%">
-                        </div>
-                        <div class="hideCl2"> 
-                    <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size: 25px;background: windowframe;"></span>
+								</div>
 
-                        </div>
-                      </div>
-                      
-                </div>
-                    </form>
-                   	 
-              </div>
-            </div>
-            </div>
-             
-         </div>
-    </div>
+								<form role="form"
+									ng-submit="customNavigate(selectedPlace.originalObject)"
+									ng-show="false">
+									<div class="padded-row">
+										<div class="custom-collapse">
+											<ul class="list-inline collapse"
+												style="border: medium; color: activeborder; font: bold; font-size: medium; font: fantasy; text-shadow: aqua; margin-left: 30px; color: yellow;">
+												<li><a tabindex="-1" href="" ng-click="chngeSearch()">Search</a></li>
+												<li><a tabindex="-1" href="#"
+													ng-click="chngeSearch('trekking')">Trekking</a></li>
+												<li><a tabindex="-1" href="#"
+													ng-click="chngeSearch('Camping')">Camping</a></li>
+												<li class="divider"></li>
+												<li><a tabindex="-1" href="#"
+													ng-click="chngeSearch('Surfing')">Surfing</a></li>
+											</ul>
+										</div>
+										<div class="col-md-10 col-xs-10">
 
-    </header>
-    <div class="row" style="padding-top:0%"></div>
-	
-    
-    
-      <div ng-repeat="plac in place1">
-    <div class="col-md-3 col-sm-4 col-xs-12 col-lg-3" style=" padding-right: 0px; padding-left: 0px;" >
-                                                <article class="box">
-                                                
-<!--                 <a  ng-href="#/trekDetail/{{plac.eventCode}}"  title="{{plac.name}}"> -->
-<a  ng-href="#"  title="{{plac.name}}" >
-                    <img class="img-responsive" src="{{plac.pic}}"  alt="" ng-click='clickToOpen(plac)' style="padding: 2px;border-bottom-style: solid; width:100%;height: 100%;border-top-style: solid;padding-top:10px;background-color: white;			">
-                </a>
-                </article>
-            </div>
-           </div>
-            </tab>
-   <!--  <tab heading="Trending">
+
+<!-- 											<div angucomplete-alt id="ex2" -->
+<!-- 												select-resultd="customNavigate(selectedEvent)" -->
+<!-- 												placeholder="{{placeholder}}" pause="300" -->
+<!-- 												selected-object="selectedPlace" local-data="" -->
+<!-- 												search-fields="{{search}}" title-field="event,verb,name" -->
+<!-- 												description-field="placeName" minlength="1" -->
+<!-- 												input-class="form-control form-control-small" -->
+<!-- 												match-class="highlight"></div> -->
+
+											<div class="result">
+												<div class="" ng-show="selectedPlace">
+													You selected <span class="bold-span">{{selectedPlace.originalObject.name}}</span>
+												</div>
+											</div>
+
+										</div>
+										<div class="col-md-2 col-xs-2">
+											<div class="hideCl">
+												<input type="submit" class="btn btn-default btn-primary"
+													style="width: 100%">
+											</div>
+											<div class="hideCl2">
+												<span class="glyphicon glyphicon-search" aria-hidden="true"
+													style="font-size: 25px; background: windowframe;"></span>
+
+											</div>
+										</div>
+
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div ng-repeat="plac in place1">
+					<div class="col-md-3 col-sm-4 col-xs-12 col-lg-3"
+						style="padding-right: 0px; padding-left: 0px;">
+						<article class="box">
+<div style="
+		display: none;">
+{{plac}}
+</div>
+
+							            <a   title="{{plac.name}}" ng-href="#!/trekDetail/{{plac.eventCode}}" > 
+							            <img
+								class="img-responsive" src="{{plac.pic}}" alt=""
+								  ng-click='' 
+								style="padding: 2px; border-bottom-style: solid; width: 100%; height: 100%; border-top-style: solid; padding-top: 10px; background-color: white;">
+						
+						<!-- 	<a ng-href="#" title="{{plac.name}}">  <img
+								class="img-responsive" src="{{plac.pic}}" alt=""
+								ng-click='clickToOpen(plac)'  
+								style="padding: 2px; border-bottom-style: solid; width: 100%; height: 100%; border-top-style: solid; padding-top: 10px; background-color: white;">
+							--></a>
+						</article>
+					</div>
+				</div>
+				<!--           </tab>
+  <tab heading="Trending">
    
       <div ng-repeat="plac in place">
    <label>testt india</label>
@@ -235,7 +240,7 @@
                                            
     </tab>
   </tabset> -->
- <!--    <div class="row" style="padding-top:3px">
+				<!--    <div class="row" style="padding-top:3px">
       <div ng-repeat="plac in place">
            <div class="col-md-2 col-sm-4 col-xs-12" style=" padding-right: 0px; padding-left: 0px;" >
                 <a href="portfolio-item.html">
@@ -245,59 +250,63 @@
             </div>
      </div>
       -->
-     
-      <div class="container" id="cnt1" style="width: 100%;">
-    <div class="row feature">
-        <div class="col-md-4">
-            <div>
-                <img src="img/triund2.jpg" alt="Texto Alternativo" class="img-circle img-thumbnail" style="width: 250px">
-                <h2>Camping</h2>
-                <p>
-                  We have camping activities in whole himachal ex places like triund near dharamshala,manali ,near chandertaal lake and lahual spiti.
-                  Comfortable accomadation and hygenic food is provided in camps                      
-                </p>
-            
-            </div>
-        </div>
 
-        <div class="col-md-4">
-            <div>		
-                <img src="img/img2t.jpg
-                " alt="Texto Alternativo" class="img-circle img-thumbnail" style="width: 250px">
-                <h2>Trekking</h2>
-                <p>
-                    Treks services is available in whole himachal in small group of 5-10 peoples with experienced guides.
-                    All the guides are local ,understand areas well and approved by govt     
-                </p>
-             
-            </div>
-        </div>
+				<section class="container" id="cnt1" style="width: 100%;">
+					<div class="row feature">
+						<div class="col-md-6">
+							<div>
+								<img src="img/triund2.jpg" alt="Texto Alternativo"
+									class="img-circle img-thumbnail" style="width: 250px">
+								<h2>Camping</h2>
+								<p>We allows adventurous people to connect with the authorized guides who are authorized in 
+guiding people in various adventures available in the Magnificent Himalayas.
+We cater to camping activities in Himachal Pradesh, India. 
+Camping at picturesque sites like Triund, Dharamshala, Manali, Kullu valley, Parvati valley, 
+Chandertaal Lake and Lahual Spiti and many more. 
+Comfortable accommodations and hygienic food is provided in camps</p>
 
-        <div class="col-md-4">
-            <div>
-                <img src="img/imgCol.jpg" alt="Texto Alternativo" class="img-circle img-thumbnail" style="width: 250px;height: 200px">
-                <h2>Rafting</h2>
-                <p>
-                Manali is known for rafting.
-                We provides camps along with rafting in manali    
-                </p>
-        
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<
-    <form>
-        <input type="text" name="firstName" ng-model="myForm.firstName"> First name <br/>
-        <input type="text" name="lastName"  ng-model="myForm.lastName"> Last name <br/>
-    </form>
+							</div>
+						</div>
 
-    <div>
-        
-    </div>
-		<section id="contactUs"  ng-show="showContact" >
-    <div class="row" >
+						<div class="col-md-6">
+							<div>
+								<img src="img/img2t.jpg
+                "
+									alt="Texto Alternativo" class="img-circle img-thumbnail"
+									style="width: 250px">
+								<h2>Trekking</h2>
+								<p>We organize Trekking through mysterious Himalayas in Himachal Pradesh such as Lahual Spiti, 
+Manali, Dharamshala, Triund, Chamba etc. We have a team of experienced guides, who can 
+lead small groups on trekking expedition in Himachal Pradesh
+All the guides are govt. approved and understand the trek well.</p>
+
+							</div>
+						</div>
+
+						
+					</div>
+				</section>
+
+
+
+
+				<section id="contactUs" ng-show="showContact" style="padding: 2%">
+					<div class="mt"
+						style="font-size: large; color: green; font-style: italic;">
+						Interested in planning your adventure trip with us?
+						<ul class="mt" style="color: rgb(121, 47, 15); font-size: medium;">
+							<li style="list-style: none; font-family: sans-serif;">Call
+								or WhatsApp us at +91-8105363899 <br> Mail at
+								contact@gimmewings.com <br>
+							</li>
+							<li style="list-style: none;">We are still working on beta
+								version of website to provide you Super Cool Interface ,Full
+								Info, Lively Community, Local Experts and of course Online
+								Booking! <br> Meanwhile contact us by email or phone.
+							</li>
+						</ul>
+					</div>
+					<!--    <div class="row" >
         <div class="col-md-12">
             <div class="well well-sm">
                 <form class="form-horizontal"   ng-submit="submit(user)"   >
@@ -343,64 +352,65 @@
   {{user.name}} {{user.emailAddr}}
             </div>
         </div>
-    </div>
-   
-    </section>
-     
-        <!-- /.row -->
+    </div> -->
 
-        <!-- Features Section -->
-     
-        <!-- /.row -->
+				</section>
+
+				<!-- /.row -->
+
+				<!-- Features Section -->
+
+				<!-- /.row -->
 
 
-        <!-- Call to Action Section -->
-        <div class="well">
-            <div class="row">
-                <div class="col-md-8">
-                    <p>Adventure Sport StartUp providing unique and  specialized in experience and activity type vacations.</p>
-                </div>
-                <div class="col-md-4">
-                    <a class="btn btn-lg btn-default btn-block" href="#">Call at 9886326669 Email @contact@gimmewings.com</a>
-                </div>
-            </div>
-        </div>
+				<!-- Call to Action Section -->
+				<div class="well">
+					<div class="row">
+						<div class="col-md-8">
+							<p style="font-size: 28; font-style: italic;">Gimmewings is
+								passionate about connecting people to off the beaten path
+								experiences around the world using trusted community
+								network,curated experiences and authenticated local guides .
+								Gimmewings is a community marketplace to explore,share,book
+								unique local adventures while it allows authorized
+								guides/agent/agencies to list their activities on a common
+								platform..</p>
+						</div>
 
-        <hr>
+					</div>
+				</div>
 
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; GimmeWings.com</p>
-                </div>
-            </div>
-        </footer>
+		
+
+				<!-- Footer -->
+				<footer>
+					<div class="row">
+						<div class="col-lg-12">
+							<p>Copyright &copy; GimmeWings.com</p>
+						</div>
+					</div>
+				</footer>
+
+			</div>
+	
+<!-- 	</div>
+	</div>
+	<div ng-switch-when="false">
+
+		<strong>Oops</strong>: One of your images failed to load :(
 
 </div>
-
-			</div> 
-			<p ng-switch-when="false">
- 
-				<strong>Oops</strong>: One of your images failed to load :(
-			
-	
-    
+	</div> -->
 
 
- 
-			</p>
-			
-			
-		</div>
-		
-		   
-    
 
-	
-		<!-- END: Results View. -->
 
-   
+
+
+
+<!-- END: Results View. -->
+
+
 
 
 

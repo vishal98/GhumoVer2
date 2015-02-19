@@ -2,15 +2,23 @@
 
 /* Controllers */
 
-var phonecatControllers = angular.module('detailPage', ['duScroll','ngAnimate','ui-rangeSlider','ui.bootstrap','phonecatFilters']);
+var phonecatControllers = angular.module('detailPage', ['duScroll','ngAnimate','ui-rangeSlider','phonecatFilters']);
 
 
 
 phonecatControllers.controller('HeadertCtrl', [ '$scope',
                                                      '$stateParams','$location', '$timeout', function($scope,$stateParams,$location,$timeout) {
 	  
-	
-	  
+	$scope.navigationState='home';
+	$scope.change=function (state) {
+		console.log("vs"+state);
+		$scope.navigationState=state;
+		  this.tab = state;
+    };  
+    
+    $scope.isSet = function (tabId) {
+        return this.tab === tabId;
+    };
 	$scope.navClass = function (page) {
 	        var currentRoute = $location.path().substring(1) || 'search';
 	        return page === currentRoute ? 'active' : '';
@@ -25,7 +33,19 @@ phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$stateParams',
 	 $scope.images=[{src:'img3.jpg',title:'Piscf 2'},{src:'img2.jpg',title:'Picoda'},{src:'img4.jpg',title:'Pic 4'}]; 	
 	 var result;
 	//todo
-	
+	 $scope.navigationState='home';
+	  this.tab = 'home';
+		$scope.change=function (state) {
+		
+			$scope.navigationState=state;
+			  this.tab = state;
+	    };  
+	    
+	    $scope.isSet = function (tabId) {
+	    	console.log(this.tab+ ":: tabId :: "+ tabId);
+	    	console.log(this.tab === tabId);
+	        return this.tab === tabId;
+	    };
 		var placeD=$stateParams.trek;
 		
 		

@@ -1,6 +1,16 @@
-
-<body>
-   <div id="header" ng-include="'partials/header.html'"></div>
+    <div id="page-wrapper">
+  
+        <div class="page-title-container">
+            <div class="container">
+                <div class="page-title pull-left">
+                    <h2 class="entry-title">Blog Right Sidebar</h2>
+                </div>
+                <ul class="breadcrumbs pull-right">
+                    <li><a href="#!/search">HOME</a></li>
+                    <li class="active">Blog</li>
+                </ul>
+            </div>
+        </div>
         <section id="content">
             <div class="container">
                 <div class="row">
@@ -55,20 +65,26 @@
                                 </div>
                             </div>
                         </div>
-                        
+                  <div>
+                   <ol df-tab-menu menu-control="{{navigationState}}">
+				<li data-menu-item="home"><a data-ng-href="#" data-ng-click="change('home')"><span>Home</span></a></li>
+				<li data-menu-item="products"><a  data-ng-click="change('products')"><span>Search</span></a></li>
+				<li data-menu-item="gallery"><a data-ng-href="#" data-ng-click="navigationState = 'gallery'"><span>Gallery</span></a></li>
+				<li data-menu-item="sustainability"><a data-ng-href="#" data-ng-click="navigationState = 'sustainability'"><span>Sustainability</span></a></li>
+				<li data-menu-item="innovation"><a data-ng-href="#" data-ng-click="navigationState = 'innovation'"><span>Innovation</span></a></li>
+				<li data-menu-item="blog"><a data-ng-href="#" data-ng-click="navigationState = 'blog'"><span>Blog</span></a></li>
+				<li data-menu-item="contactus"><a data-ng-href="#" data-ng-click="navigationState = 'contactus'"><span>Contact Us</span></a></li>
+				<li data-menu-item="about"><a data-ng-href="#" data-ng-click="navigationState = 'about'"><span>About</span></a></li>
+				<li data-more-menu-item><a data-ng-href="#">More +</a></li>
+			</ol>
+                  </div>
                         <div id="cruise-features" class="tab-container">
-                            <ul class="tabs">
-                                <li class="active"><a href="#cruise-description" data-toggle="tab">Description</a></li>
-                                <li ><a href="#cruise-amenities" ng-click="getPlaylist('2')">Book </a></li>
-                                <li><a href="#cruise-amenities" ng-click="getPlaylist('2')">Amenities</a></li>
-                                <li><a ng-click="getPlaylist('2')" >Food &amp; Dinning</a></li>
-                                <li><a href="#cruise-reviews" data-toggle="tab">Reviews</a></li>
-                                <li><a href="#cruise-write-review" data-toggle="tab">Write a Review</a></li>
-                            </ul>
+                             
+                         
                             
                             <div class="tab-content">
-                                <div class="tab-pane1" id="cruise-description">
-                                    <div class="intro table-wrapper full-width hidden-table-sms">
+                                <div class="tab-pane1" id="cruise-description"  ng-show="isSet('home')">
+                                    <div class="intro table-wrapper full-width hidden-table-sms" >
                                         <div class="col-sm-5 col-lg-4 features table-cell">
                                             <ul>
                                                 <li><label>Name</label>{{activity.activityKeyWord}}</li>
@@ -134,7 +150,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="cruise-availability">
+                                <div  id="cruise-availability"  ng-show="isSet('products')">
                                     <div class="border-box travelo-box clearfix">
                                         <h4 class="title col-xs-12">Select a Stateroom Category</h4>
                                         <form class="update-search-form">
@@ -878,10 +894,10 @@
                 </div>
             </div>
         </footer>
-    </div>
+
+</div>
 
 
-</body>
 
 
 	

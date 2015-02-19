@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var phonecatControllers = angular.module('listPage', ['duScroll','ngAnimate','angucomplete-alt']);
+var phonecatControllers = angular.module('listPage', ['duScroll','ngAnimate']);
 
 
 

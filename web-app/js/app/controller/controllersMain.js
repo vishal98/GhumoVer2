@@ -1,1 +1,1 @@
-var phonecatControllers = angular.module('phonecatControllers', ['homePage','listPage','detailPage','checkOutPage']);
+var phonecatControllers = angular.module('phonecatControllers', ['homePage','listPage','detailPage','checkOutPage','blogPage']);
