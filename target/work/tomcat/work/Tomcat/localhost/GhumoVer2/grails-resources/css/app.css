@@ -318,6 +318,12 @@ h1 {
     line-height: 1.35em;
     margin: 0.25em 0;
     }
+    
+      li1 {
+    font-size: 1.3em;
+    line-height: 1.35em;
+    margin: 0.25em 0;
+    }
    
     user agent stylesheetul, menu, dir {
     display: block;
@@ -488,9 +494,9 @@ body {
 }
 
 .ngdialog.ngdialog-theme-custom .ngdialog-message {
-	font-size: 16px;
+	  font-size: 1.7vh;
 	font-family: 'Source Sans Pro';
-	line-height: 22px;
+	line-height: 1.8vh;
 }
 
 .ngdialog.ngdialog-theme-custom .ngdialog-message ul {
@@ -563,10 +569,7 @@ code {
 	width: 90px !important;
 }
 
-.p1 {
-    font-size: 30px;
-    font-size: 3.5vw;
-}
+
 
 @media (max-width: @screen-xs) {
     body{font-size: 10px;}
@@ -580,5 +583,6 @@ code {
 .h9{
     font-size: 1.4em;
 }
+
 
     

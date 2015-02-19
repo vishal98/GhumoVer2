@@ -1,0 +1,191 @@
+<!DOCTYPE html5>
+
+ <div id="page-wrapper">
+
+  
+        <div class="page-title-container">
+            <div class="container">
+                <div class="page-title pull-left">
+                    <h2 class="entry-title">Blog Right Sidebar</h2>
+                </div>
+                <ul class="breadcrumbs pull-right">
+                    <li><a href="#!/search">HOME</a></li>
+                    <li class="active">Blog</li>
+                </ul>
+            </div>
+        </div>
+   
+        <section id="content">
+            <div class="container">
+                <div class="row">
+                    <div id="main" class="col-sm-8 col-md-9">
+                           <div class="page">
+                            <span style="display: none;" class="entry-title page-title">Blog Right Sidebar</span>
+                            <span style="display: none;" class="vcard"><span class="fn"><a rel="author" title="Posts by admin" href="#">admin</a></span></span>
+                            <span style="display:none;" class="updated">2014-06-20T13:35:34+00:00</span>
+                            <div class="post-content">	
+                                <div class="blog-infinite">
+                                    <div class="post">
+                                        <div class="post-content-wrapper">
+                                            <figure class="image-container">
+                                                <a href="pages-blog-read.html" ><img src="img/blog/kheerGanga/kheerganga.jpg" alt="" style="max-height: 400px;	" /></a>
+                                            </figure>
+                                            <div class="details">
+                                                <h2 class="entry-title"><a href="pages-blog-read.html">{{blog.title}}</a></h2>
+                                                <div class="excerpt-container">
+                                                    <p>{{blog.details}} 
+                                                    
+                                                    </p>
+                                                
+                                              	 <h4 style="color: green;font-weight: bold;">{{blogEr.title}}</h4>
+                                                  <p>{{blogEr.post}} <a href="" ng-click="moreBlog(blog.articleId)"
+                                                     style="font-size: medium;color: green; " ng-hide="isSet('hide')">Read More</a>
+                                                    </p>
+				<div ng-repeat="plac in blogdetails.articleDetails">
+                                               	  <figure class="image-container">
+                                               	  <div class="row">
+                                               	 
+                                                <a href="pages-blog-read.html" ><img src="{{plac.image[0].imagePath}}{{plac.image[0].imageName}}" alt="" style="max-height: 300px;"  /></a>
+                                          
+                                                
+                                                <a href="pages-blog-read.html" ><img src="{{plac.image[1].imagePath}}{{plac.image[1].imageName}}" alt="" style="max-height: 300px;" /></a>
+                                             
+                                                    <a href="pages-blog-read.html" ><img src="{{plac.image[2].imagePath}}{{plac.image[2].imageName}}" alt="" style="max-height: 300px;"  /></a>
+                                                
+                                                </div>
+                                                
+                                                
+                                                    <h4 style="color: green;font-weight: bold;">{{plac.title}}</h4>
+                                                  <p>{{plac.post}} 
+                                                    </p>
+                                            </figure>
+                                      </div> 
+                                     
+                                    
+                                       <a href="" ng-click="moreBlogT('vg')"
+                                                     style="font-size: medium;color: green; " ng-show="isSetv('hide')">Read More</a>  
+                                      
+                                      		<div ng-repeat="plac in blogdetailsT.articleDetails">
+                                               	  <figure class="image-container">
+                                               	  <div class="row">
+                                               	 
+                                                <a href="pages-blog-read.html" ><img src="{{plac.image[0].imagePath}}{{plac.image[0].imageName}}" alt="" style="max-height: 300px;"  /></a>
+                                          
+                                                
+                                                <a href="pages-blog-read.html" ><img src="{{plac.image[1].imagePath}}{{plac.image[1].imageName}}" alt="" style="max-height: 300px;" /></a>
+                                             
+                                                    <a href="pages-blog-read.html" ><img src="{{plac.image[2].imagePath}}{{plac.image[2].imageName}}" alt="" style="max-height: 300px;"  /></a>
+                                                
+                                                </div>
+                                                
+                                                
+                                                    <h4 style="color: green;font-weight: bold;">{{plac.title}}</h4>
+                                                  <p>{{plac.post}} 
+                                                    </p>
+                                            </figure>
+                                      </div>   
+                                        </div >     
+                                                </div>
+                                                <div class="post-meta">
+                                                    <div class="entry-date">
+                                                        <label class="date">{{ blog.updatedAt| date:'DD'}}</label>
+                                                        <label class="month">{{blog.updatedAt| date:'MMMM'}}</label>
+                                                    </div>
+                                                    <div class="entry-author fn">
+                                                        <i class="icon soap-icon-user"></i> Posted By:
+                                                        <a href="https://www.facebook.com/ishh.hmr" class="author">{{blog.author}}</a>
+                                                    </div>
+                                                    <div class="entry-action">
+                                                        <a href="#" class="button entry-comment btn-small"><i class="soap-icon-comment"></i><span>30 Comments</span></a>
+                                                      <div class="fb-comments" data-href="{{blog.fbUrl}}" data-numposts="5" data-colorscheme="light"></div>
+                                                        
+                                                        <a href="#" class="button btn-small"><i class="soap-icon-wishlist"></i><span>22 Links</span></a>
+                                                        <span class="entry-tags"><i class="soap-icon-features"></i><span><a href="#">Adventure</a>, <a href="#">Mountains</a></span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                    
+                           
+                               
+                                </div>
+                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar col-sm-4 col-md-3">
+                        
+                        <div class="travelo-box">
+                            <h5 class="box-title" style="color: green;font-weight: bold;font-size: medium;"><a href="">About GimmeWings.com</h5>
+                            <p>Gimmewings is passionate about connecting people to off the beaten path experiences around the world using trusted community network,curated experiences and authenticated local guides . Gimmewings is a community marketplace to explore,share,book unique local adventures while it allows authorized guides/agent/agencies to list their activities on a common platform..</p>
+                        </div>
+                      
+                        
+                        <div class="travelo-box contact-box">
+                            <h4 class="box-title">Need Our Help?</h4>
+                            <p>You can reach us through phone or email. We would be more than happy to help you.</p>
+                            <address class="contact-details">
+                                <span class="contact-phone"><i class="soap-icon-phone"></i> +91-8105363899 </span>
+                                <br />
+                                <a href="#" class="contact-email">contact@gimmewings.com</a>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer id="footer">
+            <div class="footer-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <h2>Discover</h2>
+                            <ul class="discover triangle hover row">
+                                <li class="col-xs-6"><a href="#">About</a></li>
+                                <li class="col-xs-6"><a href="#">Why Host</a></li>
+                                <li class="col-xs-6"><a href="#">Blog Posts</a></li>
+                                <li class="col-xs-6"><a href="#">Social Connect</a></li>
+                                <li class="col-xs-6"><a href="#">Help Topics</a></li>
+                                <li class="col-xs-6"><a href="#">Site Map</a></li>
+                                </ul>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <h2>About GimmeWings.com</h2>
+                            <p>Gimmewings is passionate about connecting people to off the beaten path experiences around the world using trusted community network,curated experiences and authenticated local guides . Gimmewings is a community marketplace to explore,share,book unique local adventures while it allows authorized guides/agent/agencies to list their activities on a common platform..</p>
+                            <br />
+                            <address class="contact-details">
+                                <span class="contact-phone"><i class="soap-icon-phone"></i> +91-8105363899</span>
+                                <br />
+                                <a href="#" class="contact-email">contact@gimmewings.com</a>
+                            </address>
+                            <ul class="social-icons clearfix">
+                                <li class="twitter"><a title="twitter" href="#" data-toggle="tooltip"><i class="soap-icon-twitter"></i></a></li>
+                                <li class="googleplus"><a title="googleplus" href="#" data-toggle="tooltip"><i class="soap-icon-googleplus"></i></a></li>
+                                <li class="facebook"><a title="facebook" href="#" data-toggle="tooltip"><i class="soap-icon-facebook"></i></a></li>
+                               </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom gray-area">
+              
+                    <div class="pull-right">
+                        <a id="back-to-top" href="#" class="animated" data-animation-type="bounce"><i class="soap-icon-longarrow-up circle"></i></a>
+                    </div>
+                    <div class="copyright pull-right">
+                        <p>&copy; GimmeWings.com</p>
+                    </div>
+                </div>
+          
+        </footer>
+    
+
+
+
+    
+
+
+

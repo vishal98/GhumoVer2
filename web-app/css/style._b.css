@@ -1,0 +1,444 @@
+/*
+ * Title:   Travelo | Responsive HTML5 Travel Template - Main CSS file
+ * Author:  http://themeforest.net/user/soaptheme
+ */
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[Table of contents]
+
+1. Base Styles
+  1.1. Basic Styles
+  1.2. Layout
+2. Global Styles
+  2.1. Form Elements
+    2.1.1. Select box
+    2.1.2. File input box
+    2.1.3. Checkbox and Radio
+    2.1.4. Form
+  2.2. Buttons
+    2.2.1. Buttons
+    2.2.2. Alert message
+    2.2.3. Info box
+    2.2.4. Term Description
+    2.2.5. Dropcap
+    2.2.6. Blockquote
+    2.2.7. Pagination
+    2.2.8. Hover effect
+    2.2.9. Social icons
+    2.2.10. Five Stars
+    2.2.11. Price section
+    2.2.12. Time section
+    2.2.13. Badge
+  2.3. Travelo Elements
+  2.4. Skin Color
+  2.5. Positioning
+  2.6. Unordered lists
+  2.7. Ordered lists
+  2.8. Toggle & Accordion
+    2.8.1. Style1
+    2.8.2. Style2
+    2.8.3. Accordion with image
+  2.9. Tabs
+    2.9.1. Style 1
+    2.9.2. Transparent Tab
+    2.9.3. Full Width Tab
+  2.10. Promo box
+  2.11. Photo Gallery
+  2.12. Image Style
+  2.13. Image Box Styles
+  2.14. Icon Box
+  2.15. Listing Styles
+  2.16. Pricing Tables
+  2.17. Post
+  2.18. Testimonial
+  2.19. Our Team Section
+  2.20. Gallery popup
+  2.21. Style changer
+  2.22. Animated effect
+  2.23. Parallax
+  2.24. Page Loader
+3. Header
+  3.1. Main Header
+    3.1.1. Mobile navigation
+    3.1.2. Header Styles
+    3.1.3. Navigation
+    3.1.4. Language flags
+    3.1.5. Main Menu
+    3.1.6. Mega Menu
+    3.1.7. Mini Menu
+    3.1.8. Mobile Menu
+    3.1.9. Sticky Header
+    3.2.0. Sign up & Login box
+  3.2. Slideshow
+  3.3. Page Title
+  3.4. Word Map Section
+4. Search Form
+  4.1. Default Style
+  4.2. Style1
+  4.3. Style2
+  4.4. Map Search
+5. Search Results
+  5.1. Hotel
+    5.1.1. Sort by
+    5.1.2. Filters
+    5.1.3. Detailed
+    5.1.4. Hotel main content, Flight main content
+    5.1.5. Booking page
+    5.1.6. Thankyou page
+  5.2. Flight
+  5.3. Car
+  5.4. Cruise
+6. Dashboard
+  6.1. Default
+    6.1.1. User profile
+    6.1.2. Booking history
+  6.2. Style1
+  6.3. Style2
+7. jQuery UI Elements
+  7.1. UI Slider
+  7.2. DatePicker
+8. Footer
+9. Page Content
+  9.1. Home page content
+    9.1.1. Popular Destinations Section
+    9.1.2. Honeymoon section
+    9.1.3. Offers Section
+    9.1.4. Features Section
+    9.1.5. Mobile Section
+    9.1.6. Homepage 9
+  9.2. Pages
+    9.2.1. Service page
+    9.2.2. Photo gallery page
+    9.2.3. Blog page
+    9.2.4. Faq page
+    9.2.5. Contact us page
+    9.2.6. Travelo polices page
+    9.2.7. Sitemap page
+  9.3. Special Pages
+    9.3.1. 404 page
+    9.3.2. Coming soon page
+    9.3.3. Loading page
+    9.3.4. Login page
+  9.4. Extra Pages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 1. Base Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 1.1. Basic Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 1) Reset */
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  /* Firefox */
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  zoom: 1;
+}
+
+html {
+  font-size: 16px;
+  min-height: 100%;
+}
+
+body {
+  font: 75%/150% "Lato", Arial, Helvetica, sans-serif;
+  background-color: #fff;
+  color: #838383;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -ms-overflow-style: scrollbar;
+  oveflow-y: scroll;
+}
+
+/* 2) Heading */
+
+/* 3) Lists */
+
+/* 4) Contents */
+
+/* 5) Table */
+
+/* 6) HTML5 & CSS3 Styles for older browsers */
+
+/* 7) Tools */
+
+/* 8) Colors */
+
+/* Icons */
+
+@font-face {
+  font-family: 'soap-icons';
+  src: url("../fonts/soap-icons.eot?26664784");
+  src: url("../fonts/soap-icons.eot?26664784#iefix") format("embedded-opentype"), url("../fonts/soap-icons.woff?26664784") format("woff"), url("../fonts/soap-icons.ttf?26664784") format("truetype"), url("../fonts/soap-icons.svg?26664784#soap-icons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'soap-icons';
+    src: url('../font/soap-icons.svg?26664784#soap-icons') format('svg');
+  }
+}
+*/
+
+/* font */
+
+@font-face {
+  font-family: 'NexaBlack';
+  src: url("../fonts/NexaBlack.eot?") format("eot"), url("../fonts/NexaBlack.otf") format("opentype"), url("../fonts/NexaBlack.woff") format("woff"), url("../fonts/NexaBlack.ttf") format("truetype"), url("../fonts/NexaBlack.svg#NexaBlack") format("svg");
+}
+
+/* 1.2. Layout ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2. Global Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* box title */
+
+/*#slideshow, */
+
+/* 2.1. Form Elements ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.1.1. Select box */
+
+/* 2.1.2. File input box */
+
+/* 2.1.3. Checkbox and Radio */
+
+/* checkbox */
+
+/* radio */
+
+/* 2.1.4. Form */
+
+/* Fourty space */
+
+/* 2.2. Buttons ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.2.1. Buttons */
+
+/* 2.2.2. Alert message */
+
+/* 2.2.3. Info box */
+
+/* 2.2.4. Term Description */
+
+/* 2.2.5. Dropcap */
+
+/* 2.2.6. Blockquote */
+
+/* 2.2.7. Pagination */
+
+/* 2.2.8. Hover effect */
+
+/* 2.2.9. Social icons */
+
+/* 2.2.10. Five Stars */
+
+/* 2.2.11. Price section */
+
+/* 2.2.12. Time section */
+
+/* 2.2.13. Badge */
+
+/* 2.3. Travelo Elements ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.4. Skin Color ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.5. Positioning ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.6. Unordered lists ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* colored */
+
+/* 2.7. Ordered lists ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.8. Toggle & Accordion ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.9. Tabs ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.10. Promo box ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.11. Photo Gallery ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.12. Image Style ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.13. Image Box Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.14. Icon Box ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* Icon Box */
+
+/* 2.15. Listing Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.16. Pricing Tables ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.17. Post ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* comment */
+
+/* 2.18. Testimonial ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.19. Our Team Section ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* contact form */
+
+/* 2.20. Gallery popup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.21. Style changer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.22. Animated effect ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.23. Parallax ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 2.24. Page Loader ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/*.pace-running > div {
+  visibility: hidden;
+  &.pace { visibility: visible; }
+}*/
+
+/* 3. Header ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 3.1. Main Header ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/*  3.1.3. Navigation */
+
+/* 3.1.4. Language flags */
+
+/* 3.1.5. Main Menu */
+
+/* 3.1.7. Mini Menu */
+
+/* 3.1.8. Mobile Menu */
+
+/* 3.1.9. Sticky Header */
+
+/* 3.2.0. Sign up & Login box */
+
+/* 3.2. Slideshow ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* background slideshow */
+
+/* 3.3. Page Title ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 3.4. Word Map Section ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 4. Search Form ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 4.1. Default Style ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* search box for mobile */
+
+/* 4.2. Style1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 4.3. Style2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 4.4. Map Search ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 5. Search Results ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 5.1. Hotel ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 5.1.1. Sort by */
+
+/* 5.1.2. Filters */
+
+/* 5.1.3. Detailed */
+
+/* 5.1.4. Hotel main content, Flight main content */
+
+/* 5.1.5. Booking page */
+
+/* 5.1.6. Thankyou page */
+
+/* 5.2. Flight ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 5.3. Car ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 5.4. Cruise ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 6. Dashboard ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 6.1. Default ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 6.1.1. User profile */
+
+/* 6.1.2. Booking history */
+
+/* 6.2. Style1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 6.3. Style2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 7. jQuery UI Elements ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 7.1. UI Slider ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 7.2. DatePicker ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+button.ui-button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* 8. Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 9. Page Content ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 9.1. Home page content ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 9.1.1. Popular Destinations Section */
+
+/* 9.1.2. Honeymoon section */
+
+/* 9.1.3. Offers Section */
+
+/* 9.1.4. Features Section */
+
+/* 9.1.5. Mobile Section */
+
+/* 9.1.6. Homepage 9 */
+
+/* 9.2. Pages ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 9.2.1. Service page */
+
+/* 9.2.2. Photo gallery page */
+
+/* 9.2.3. Blog page */
+
+/* 9.2.4. Faq page */
+
+/* 9.2.5. Contact us page */
+
+/* 9.2.6. Travelo polices page */
+
+/* 9.2.7. Sitemap page */
+
+/* 9.3. Special Pages ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* 9.3.1. 404 page */
+
+/* 9.3.2. Coming soon page */
+
+/* 9.3.3. Loading page */
+
+/* 9.3.4. Login page */
+
+/* 9.4. Extra Pages ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  ::i-block-chrome {
+    margin-right: -19px;
+  }
+}
+
+/* revolution slider fix */

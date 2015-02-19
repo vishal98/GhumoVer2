@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<installs>
+<install is-default="true">
+<home>D:\New folder\KTSession\groovy-grails-tool-suite-3.6.3.SR1-e4.4.1-win32-x86_64\ggts-bundle\grails-2.4.4\</home>
+<name>Grails 2.4.4</name>
+</install>
+</installs>

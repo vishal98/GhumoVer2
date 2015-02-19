@@ -9788,6 +9788,89 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 
 })( window );
 
+
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+    	
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into Facebook.';
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '724770587622152',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.2' // use version 2.1
+  });
+
+  // Now that we've initialized the JavaScript SDK, we call 
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+
+  // Load the SDK asynchronously
+ 
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+  
+  (function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=724770587622152&version=v2.0";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
 /**
  * @license AngularJS v1.2.16-build.70+sha.6e420ff
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -33360,21 +33443,82 @@ angular.module('ngResource', ['ng']).
 /* App Module */
 
 var phonecatApp = angular.module('phonecatApp', [
+'seo',
   'phonecatControllers',
- // 'phonecatFilters',
-//  'ghumoServices',
- 'ui.bootstrap',
-  'angucomplete-alt',
+// 'ui.bootstrap',
+  'ui.bootstrap.tabs',
+ //'angucomplete-alt',
  // 'ui-rangeSlider',
   'ui.router',
   'ngAnimate',
   'ncy-angular-breadcrumb',
   'restangular',
-  'angularSpinner',
   'ngDialog',
-  'ezfb'
+  'ezfb',
+  'angular-google-analytics',
+  'digitalfondue.dftabmenu'
+  
 ]);
 
+
+
+phonecatApp.config(function(AnalyticsProvider) {
+    // initial configuration
+    AnalyticsProvider.setAccount('UA-59019706-1');
+    // using multiple tracking objects (analytics.js only)
+    // AnalyticsProvider.setAccount([
+    //   { tracker: 'UA-12345-12', name: "tracker1" },
+    //   { tracker: 'UA-12345-34', name: "tracker2" }
+    // ]);
+
+    // track all routes (or not)
+    AnalyticsProvider.trackPages(true);
+
+    // Optional set domain (Use 'none' for testing on localhost)
+    AnalyticsProvider.setDomainName('none');
+
+    // Use display features plugin
+    AnalyticsProvider.useDisplayFeatures(true);
+
+    // url prefix (default is empty)
+    // - for example: when an app doesn't run in the root directory
+    AnalyticsProvider.trackPrefix('my-application');
+
+    // Use analytics.js instead of ga.js
+    AnalyticsProvider.useAnalytics(true);
+
+    // Use cross domain linking
+  //  AnalyticsProvider.useCrossDomainLinker(true);
+   // AnalyticsProvider.setCrossLinkDomains(['domain-1.com', 'domain-2.com']);
+
+    // Ignore first page view... helpful when using hashes and whenever your bounce rate looks obscenely low.
+    AnalyticsProvider.ignoreFirstPageLoad(true);
+
+    // Enabled eCommerce module for analytics.js(uses legacy ecommerce plugin)
+    //AnalyticsProvider.useECommerce(true, false);
+
+    // Enabled eCommerce module for analytics.js(uses ec plugin instead of ecommerce plugin)
+    //AnalyticsProvider.useECommerce(true, true);
+
+    // Enable enhanced link attribution
+    AnalyticsProvider.useEnhancedLinkAttribution(true);
+
+    // Enable analytics.js experiments
+    AnalyticsProvider.setExperimentId('12345');
+
+    // Set custom cookie parameters for analytics.js
+    AnalyticsProvider.setCookieConfig({
+      cookieDomain: 'gimmewings.com',
+      cookieName: 'myNewName',
+      cookieExpires: 20000
+    });
+
+    // change page event name
+    AnalyticsProvider.setPageEvent('$stateChangeSuccess');
+}) .controller('SampleController', function(Analytics) {
+    // create a new pageview event
+    Analytics.trackPage('/search');
+});
 
 phonecatApp.constant('SOCIAL_PLUGINS', [
                              'like', 'share-button', 'send', 'post',
@@ -33382,9 +33526,12 @@ phonecatApp.constant('SOCIAL_PLUGINS', [
                              'recommendations-bar', 'like-box', 'facepile'
                            ]);
 
-phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvider,ezfbProvider, SOCIAL_PLUGINS){
+phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvider,ezfbProvider, SOCIAL_PLUGINS,$locationProvider){
                     
 	//$urlRouterProvider.otherwise("/checkOutStep1")
+	
+
+
 	
 		  ezfbProvider.setInitParams({
 		    appId: '724770587622152'
@@ -33417,12 +33564,22 @@ phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvid
                           controller: 'PlaceDetailCtrl',
                           ncyBreadcrumb: {
                               label: 'Details',
-                              //parent: 'trekList'
+                              //parent: 'trekList'	
                             	  parent: function ($scope) {
                                     var param = $scope.slug; // Or wherever is the slug value.
                                       return 'trekList({placeName:' + param + '})';
                                   }
                               
+                            }
+                      })
+                        .state('blog', {
+                          url: "/blog",
+                          templateUrl: 'partials/pages-blog-rightsidebar.html',
+                          controller: 'blogCtrl',
+                          ncyBreadcrumb: {
+                              label: 'blog',
+                              parent: 'search'
+                            	  
                             }
                       })
                         $stateProvider.state('checkout', {
@@ -33456,8 +33613,9 @@ phonecatApp.config(function($stateProvider, $urlRouterProvider,RestangularProvid
                         
                      
                        
-                       
-                            RestangularProvider.setBaseUrl('http://localhost:8080/GhumoVer2/');
+                    $locationProvider.html5Mode(false);
+                        $locationProvider.hashPrefix('!');
+                            RestangularProvider.setBaseUrl('GhumoVer2/');
                           
                     
 }
@@ -33777,6 +33935,8 @@ phonecatApp.factory(
         }
     );
 
+//fb login
+
 
 phonecatApp
 .directive('bsActiveLink', ['$location', function ($location) {
@@ -33805,13 +33965,15 @@ return {
 }]);
 
 phonecatApp.factory('dataService', function($location) {
+	
+	
 	 //   var stateData = window.jsObjFromBackend.weather.data;
 	    return {
 	        // default to A2 Michigan
 	        listName : '',
 	        searchObj :'',
 	        placeDetails :'',     
-	     
+	        placePopUp :'',  
 	        //places data
 	     // autocomeplete data
 	      	places: [
@@ -33966,6 +34128,12 @@ phonecatApp.factory('dataService', function($location) {
 		 		   console.log("seTobj");
 		 	            this.placeDetails=placeDetails;
 		 	        },
+		 	        
+		 	       setPlacePopUpDetails : function(placeDetails) {
+			 		   console.log("seTobj");
+			 	            this.placePopUp=placeDetails;
+			 	        },  
+		 	       
 	 	        
 	    };
 	});
@@ -34045,6 +34213,8 @@ phonecatApp.run(['Restangular', '$window', function(Restangular, $window){
 
 
 
+
+
 var phonecatAnimations = angular.module('phonecatAnimations', ['ngAnimate']);
 
 phonecatAnimations.animation('.phone', function() {
@@ -34098,7 +34268,7 @@ phonecatAnimations.animation('.phone', function() {
   };
 });
 
-var phonecatControllers = angular.module('phonecatControllers', ['homePage','listPage','detailPage','checkOutPage']);
+var phonecatControllers = angular.module('phonecatControllers', ['homePage','listPage','detailPage','checkOutPage','blogPage']);
 'use strict';
 
 /* Controllers */
@@ -34116,6 +34286,8 @@ phonecatControllers.controller('SearchContrl', [ '$scope','$location','preloader
 	
 	$scope.isCollapsed = true;
 	
+
+	
 $scope.description=	{
 		name : "What GimmeWings Does",
 		place1:"GimeWings brings you various adventure travel activities in Himachal Pradesh, ranging from Trekking the amazing treks of Himalayas, Camping in beautiful and serene places.",
@@ -34127,7 +34299,7 @@ $scope.description=	{
 		showDesc:"true"
 			
 	};
-	
+
 	var baseAccounts = Restangular.all('user');
 	$scope.submit= function(user){
 			console.log("testScope"+user.name)
@@ -34143,10 +34315,11 @@ $scope.description=	{
 	
 	
 	   $scope.clickToOpen = function (place) {
+		
+	//	   setPlacePopUpDetails(place);
 		   $scope.value = false;
 		   $scope.place = place;
-		   console.log("Object saved OK" +place.name);
-	        ngDialog.open({ template: 'partials/externalTemplate.html',  className: 'ngdialog-theme-plain ngdialog-theme-custom',
+	        ngDialog.open({ template: 'partials/externalTemplate.html',  className: 'ngdialog-theme-plain ngdialog-theme-custom ',
 	            scope: $scope
 				});
 	    };
@@ -34186,8 +34359,10 @@ $scope.description=	{
 	}
 	
 //adding image for carousal
+//	 $scope.images=[{src:'img1.jpg',title:'Pic 1'},{src:'img3.jpg',title:'Pic 2'},{src:'img2.jpg',title:'Pic 3'},{src:'img4.jpg',title:'Pic 4'}]; 
 	 $scope.images=[{src:'img1.jpg',title:'Pic 1'},{src:'img3.jpg',title:'Pic 2'},{src:'img2.jpg',title:'Pic 3'},{src:'img4.jpg',title:'Pic 4'}]; 
-	// console.log("img/"+$scope.images[0].src);
+
+	 // console.log("img/"+$scope.images[0].src);
 	 $scope.imageLocations=[("img/"+$scope.images[0].src)]; 
 
 	 $scope.showDropdown = true;
@@ -34217,6 +34392,7 @@ $scope.description=	{
 
 	//hardcoded dropdown values
 	$scope.place1=[
+	               
 	            	{
 	            		id:"1",
   	            		place : "all places",
@@ -34253,6 +34429,30 @@ $scope.description=	{
             		show:"true"	,
             		showDesc:"false"
 	            	},
+	            	
+	            	{
+	            		id:"4",
+  	            		place : "all places",
+  	            		event : "Trekking all Himachal",
+  	            		verb : "in",
+  	            		name : "Treks in Kinnaur ",
+  	            		
+  	            			eventCode:"TrekRaft",
+	            		pic : "img/homePageScroll/rafting-manali.jpg",
+	            			place1:"Bawa-pin trek 5 days && kinner  Kailash parikarma 4 to 5 Days",
+	                		place2:"Trek to Shivalinga 4 days && Bhawa Wild Life Sanctuary 6 to 8 days"	,
+	                		place3:"Chitkul - Harshil trek 8 days and Chitkul to chanshal valley trek three treks 3 to 5 days",
+	            			place4:"Trek to Manirang Pass 8 days",
+	            			place5:"Ropa to Mane (pin valley) 5-6days",
+	            			place6:"kanam to sunnam to nako trek 4-5days",
+	            			place7:"Sangla valley n kalpa has more than 5 treks which r not more than three days",
+	            			place8:"all treks starts from 3rd week of June to Oct 2nd week && Price starts from 3500 INR/day/pax",
+	            			place9:"Minimum Group $r. Package includes accommodation in kinnaur n pin valley ",
+	            				show:"false"	,
+	                    		showDesc:"false",
+	                    			showDescMan:"true"
+	            	},
+	            	
 	            	{
 	            		id:"3",
   	            		place : "all places",
@@ -34272,32 +34472,6 @@ $scope.description=	{
             		show:"true"	,
             		showDesc:"false"
 	            			
-	            	},
-	            	{
-	            		id:"4",
-  	            		place : "all places",
-  	            		event : "Trekking all Himachal",
-  	            		verb : "in",
-  	            		name : "Treks in Kinnaur ",
-  	            		
-  	            			eventCode:"TrekRaft",
-	            		pic : "img/homePageScroll/rafting-manali.jpg",
-	            			place1:"Bawa-pin trek 5 days",
-	            			place2:" kinner  Kailash parikarma 4 to 5 Days",
-	                		place3:"Trek to Shivalinga 4 days",
-	                		place4:"Bhawa Wild Life Sanctuary 6 to 8 days"	,
-	                		place5:"Chitkul -  Harshil trek 8 days"	,
-	            			place6:"Chitkul to chanshal valley trek three treks 3 to 5 days",
-	            			place7:"Trek to Manirang Pass 8 days",
-	            			place8:"Ropa to Mane (pin valley) 5-6days",
-	            			place9:"kanam to sunnam to nako trek 4-5days",
-	            			place10:"Sangla valley n kalpa has more than 5 treks which r not more than three days",
-	            			place11:"Mainly all treks starts from 3rd week of June until Oct 2nd week.", 
-	            			place12:"Fix price of all treks all includes 3500 INR/day/pax",
-	            			place12:"A group consists minimum no of pax four. Package includes accommodation in kinnaur n pin valley .Special offer for groups",
-	            				show:"false"	,
-	                    		showDesc:"true",
-	                    			showDescMan:"true"
 	            	},
 	            	
 	]
@@ -34321,7 +34495,7 @@ $scope.description=	{
         focusInputElem.classList.add('small-input');
       }
 
-      $scope	.disableInput = true;
+      $scope.disableInput = true;
       
       //preloading
 
@@ -34339,42 +34513,43 @@ $scope.description=	{
      
 
       // Preload the images; then, update display when returned.
-      preloader.preloadImages( $scope.imageLocations ).then(
-          function handleResolve( imageLocations ) {
-
-              // Loading was successful.
-              $scope.isLoading = false;
-              $scope.isSuccessful = true;
-
-            //  console.info( "Preload Successful" );
-
-          },
-          function handleReject( imageLocation ) {
-
-              // Loading failed on at least one image.
-              $scope.isLoading = false;
-              $scope.isSuccessful = false;
-
-              console.error( "Image Failed", imageLocation );
-              console.info( "Preload Failure" );
-
-          },
-          function handleNotify( event ) {
-
-              $scope.percentLoaded = event.percent;
-
-          //    console.info( "Percent loaded:", event.percent );
-
-          }
-      );
+//      preloader.preloadImages( $scope.imageLocations ).then(
+//          function handleResolve( imageLocations ) {
+//
+//              // Loading was successful.
+//              $scope.isLoading = false;
+//              $scope.isSuccessful = true;
+//            
+//            //  console.info( "Preload Successful" );
+//
+//          },
+//          function handleReject( imageLocation ) {
+//
+//              // Loading failed on at least one image.
+//              $scope.isLoading = false;
+//              $scope.isSuccessful = false;
+//
+//              console.error( "Image Failed", imageLocation );
+//              console.info( "Preload Failure" );
+//
+//          },
+//          function handleNotify( event ) {
+//
+//              $scope.percentLoaded = event.percent;
+//
+//          //    console.info( "Percent loaded:", event.percent );
+//
+//          }
+//    
+//      );
       
    
   	
   	
   //filter place
 	
-	
-	
+      $scope.htmlReady();
+   
 	
 
   
@@ -34393,7 +34568,7 @@ $scope.description=	{
 
 /* Controllers */
 
-var phonecatControllers = angular.module('listPage', ['duScroll','ngAnimate','angucomplete-alt']);
+var phonecatControllers = angular.module('listPage', ['duScroll','ngAnimate']);
 
 
 
@@ -34601,15 +34776,23 @@ phonecatControllers.controller('PlaceListCtrl', [ '$scope'
 
 /* Controllers */
 
-var phonecatControllers = angular.module('detailPage', ['duScroll','ngAnimate','ui-rangeSlider','ui.bootstrap','phonecatFilters']);
+var phonecatControllers = angular.module('detailPage', ['duScroll','ngAnimate','ui-rangeSlider','phonecatFilters']);
 
 
 
 phonecatControllers.controller('HeadertCtrl', [ '$scope',
                                                      '$stateParams','$location', '$timeout', function($scope,$stateParams,$location,$timeout) {
 	  
-	
-	  
+	$scope.navigationState='home';
+	$scope.change=function (state) {
+		console.log("vs"+state);
+		$scope.navigationState=state;
+		  this.tab = state;
+    };  
+    
+    $scope.isSet = function (tabId) {
+        return this.tab === tabId;
+    };
 	$scope.navClass = function (page) {
 	        var currentRoute = $location.path().substring(1) || 'search';
 	        return page === currentRoute ? 'active' : '';
@@ -34624,7 +34807,19 @@ phonecatControllers.controller('PlaceDetailCtrl', [ '$scope', '$stateParams',
 	 $scope.images=[{src:'img3.jpg',title:'Piscf 2'},{src:'img2.jpg',title:'Picoda'},{src:'img4.jpg',title:'Pic 4'}]; 	
 	 var result;
 	//todo
-	
+	 $scope.navigationState='home';
+	  this.tab = 'home';
+		$scope.change=function (state) {
+		
+			$scope.navigationState=state;
+			  this.tab = state;
+	    };  
+	    
+	    $scope.isSet = function (tabId) {
+	    	console.log(this.tab+ ":: tabId :: "+ tabId);
+	    	console.log(this.tab === tabId);
+	        return this.tab === tabId;
+	    };
 		var placeD=$stateParams.trek;
 		
 		
@@ -34854,6 +35049,441 @@ phonecatControllers.controller('CheckOutListCtrl', [ '$scope',
 }
 	
 	 ]);
+
+
+'use strict';
+
+/* Controllers */
+
+var phonecatControllers = angular.module('blogPage', ['duScroll','ngAnimate','ui-rangeSlider','phonecatFilters']);
+
+
+
+
+
+phonecatControllers.controller('blogCtrl', [ '$scope', '$stateParams',
+                                                    '$log','$location','$anchorScroll','dataService','Restangular',
+                                                    function($scope, $stateParams,$log,$location,$anchorScroll,dataService,Restangular) {
+	
+	
+	$scope.value=false;
+		  console.log(Restangular.one('blogList').getRestangularUrl());
+		 var oneUser = Restangular.one('blogList');
+	  oneUser.get().then(function(user) {
+		  // GET /users/abc123/inboxes
+		  $scope.blog =user[0]; 
+		 
+	});
+	  
+
+	
+	$scope.appid='724919397607271|hWGSN6mhNYHXcv0jzWwxOB_FOzY';
+	$scope.view_tab = "tab1";
+	$scope.indext=1;
+
+	
+	$scope.hideFlag=function(checkVal){
+		
+		return false;	
+			} 
+    
+   
+
+    
+	 $scope.blogEr=	 {
+	        "class": "ghumover2.ArticleDetails",
+	        "id": 12,
+	        "article": {
+	          "_ref": "../..",
+	          "class": "ghumover2.Article"
+	        },
+	        "articleDetailsId": 1,
+	        "image": [
+	          
+	        ],
+	        "ownerId": 1,
+	        "post": " \n  The water flow was turbulent that it looked like white foam with patches of blue. But it was also very clear and glassy. The mountain at the other side was colored with maple trees, in shades of burgundy, red, orange, yellowish green. The valley was so awe-inspiring that I found myself with my mouth full open and eyes widened double the original size.  ",
+	        "sequence": 2,
+	        "title": "The unbelievable Valley!"
+	      };
+	
+	$scope.moreBlog=function(blogId){
+		 $scope.value=true;
+			$scope.tab='hide'
+				$scope.tab2 = 'hide';
+		  $scope.blogdetails =	
+		  {
+				    "class": "ghumover2.Article",
+				    "id": 1,
+				    "allowComments": "y",
+				    "appidFb": "34",
+				    "articleDetails": [
+
+				  {
+				        "class": "ghumover2.ArticleDetails",
+				        "id": 14,
+				        "article": {
+				          "_ref": "../..",
+				          "class": "ghumover2.Article"
+				        },
+				        "articleDetailsId": 1,
+				        "image": [
+				          {
+				            "class": "ghumover2.Image",
+				            "id": 2,
+				            "articleDetails": [
+				              {
+				                "_ref": "../../..",
+				                "class": "ghumover2.ArticleDetails"
+				              }
+				            ],
+				            "createdBy": "vis",
+				            "creationDate": "9999-12-30T18:30:00Z",
+				            "imageCode": "kherGanga",
+				            "imageName": "kgng12.png",
+				            "imagePath": "img/blog/kheerGanga/",
+				            "imageSeq": "1",
+				            "lastUpdatedDate": "9999-12-30T18:30:00Z",
+				            "updatedBy": "vis"
+				          },
+				          {
+				            "class": "ghumover2.Image",
+				            "id": 1,
+				            "articleDetails": [
+				              {
+				                "_ref": "../../..",
+				                "class": "ghumover2.ArticleDetails"
+				              }
+				            ],
+				            "createdBy": "vis",
+				            "creationDate": "9999-12-30T18:30:00Z",
+				            "imageCode": "kherGanga",
+				            "imageName": "kgng11.png",
+				            "imagePath": "img/blog/kheerGanga/",
+				            "imageSeq": "1",
+				            "lastUpdatedDate": "9999-12-30T18:30:00Z",
+				            "updatedBy": "vis"
+				          }
+				        ],
+				        "ownerId": 1,
+				        "post": " \nWe reached ‘Barshaini’, the last motorable village near to Kheerganga. From there we went further up to Pulga, a remote village with no road access. And to our surprise, locals there were speaking in British and American accent. Later we found that this village received many European tourists, hence villagers adapted to their style. It is a very small village, not even half km in diameter.\nWe found some local restaurants serving Italian cuisines. They baked their own bread in local chullas . And adding more to our surprise, Italian food was better than any good Italian restaurant in Delhi. \n ",
+				        "sequence": 3,
+				        "title": "Pulga, the dream village"
+				      },
+				{
+				        "class": "ghumover2.ArticleDetails",
+				        "id": 15,
+				        "article": {
+				          "_ref": "../..",
+				          "class": "ghumover2.Article"
+				        },
+				        "articleDetailsId": 1,
+				        "image": [
+				          {
+				            "class": "ghumover2.Image",
+				            "id": 5,
+				            "articleDetails": [
+				              {
+				                "_ref": "../../..",
+				                "class": "ghumover2.ArticleDetails"
+				              }
+				            ],
+				            "createdBy": "vis",
+				            "creationDate": "9999-12-30T18:30:00Z",
+				            "imageCode": "kherGanga",
+				            "imageName": "kgng31.png",
+				            "imagePath": "img/blog/kheerGanga/",
+				            "imageSeq": "1",
+				            "lastUpdatedDate": "9999-12-30T18:30:00Z",
+				            "updatedBy": "vis"
+				          },
+				          {
+				            "class": "ghumover2.Image",
+				            "id": 4,
+				            "articleDetails": [
+				              {
+				                "_ref": "../../..",
+				                "class": "ghumover2.ArticleDetails"
+				              }
+				            ],
+				            "createdBy": "vis",
+				            "creationDate": "9999-12-30T18:30:00Z",
+				            "imageCode": "kherGanga",
+				            "imageName": "kgng22.png",
+				            "imagePath": "img/blog/kheerGanga/",
+				            "imageSeq": "1",
+				            "lastUpdatedDate": "9999-12-30T18:30:00Z",
+				            "updatedBy": "vis"
+				          },
+				          {
+				            "class": "ghumover2.Image",
+				            "id": 3,
+				            "articleDetails": [
+				              {
+				                "_ref": "../../..",
+				                "class": "ghumover2.ArticleDetails"
+				              }
+				            ],
+				            "createdBy": "vis",
+				            "creationDate": "9999-12-30T18:30:00Z",
+				            "imageCode": "kherGanga",
+				            "imageName": "kgng21.png",
+				            "imagePath": "img/blog/kheerGanga/",
+				            "imageSeq": "1",
+				            "lastUpdatedDate": "9999-12-30T18:30:00Z",
+				            "updatedBy": "vis"
+				          }
+				        ],
+				        "ownerId": 1,
+				        "post": " \nNext day when we got up, the whole view changed overnight, it became white all over. It had snowed last night and the valley had now become white with some shades of autumn here and there. We could not believe our eyes as the valley became 110 times more beautiful than yesterday. . ",
+				        "sequence": 4,
+				        "title": "Snowfall Yuppies!!"
+				      },
+				      {
+				        "class": "ghumover2.ArticleDetails",
+				        "id": 16,
+				        "article": {
+				          "_ref": "../..",
+				          "class": "ghumover2.Article"
+				        },
+				        "articleDetailsId": 1,
+				        "image": [
+				          
+				        ],
+				        "ownerId": 1,
+				        "post": " \n   We started climbing up for Kheerganga; which is around 15 km trek from Pulga village. As our guide mentioned there was another shortcut, but we did not take it because it was steep and had become slippery due to snow. On the way, scenery was like computer wallpaper, the colorful valley, white gushing Parvati river, one more amusing village, Kalga with distinctive wooden houses.Later we reached a point where there was an end to the valley and we had to cross a little fragile wooden bridge towards the other hill. \nParvati River was very loud under it. And the scary part was that the bridge was very narrow and slippery.But Somehow, we maintained guts and went ahead .It also vibrated when we crossed.\n ",
+				        "sequence": 5,
+				        "title": "The Trek"
+				      },  {
+				        "class": "ghumover2.ArticleDetails",
+				        "id": 17,
+				        "article": {
+				          "_ref": "../..",
+				          "class": "ghumover2.Article"
+				        },
+				        "articleDetailsId": 1,
+				        "image": [
+				          {
+				            "class": "ghumover2.Image",
+				            "id": 6,
+				            "articleDetails": [
+				              {
+				                "_ref": "../../..",
+				                "class": "ghumover2.ArticleDetails"
+				              }
+				            ],
+				            "createdBy": "vis",
+				            "creationDate": "9999-12-30T18:30:00Z",
+				            "imageCode": "kherGanga",
+				            "imageName": "kgng32.png",
+				            "imagePath": "img/blog/kheerGanga/",
+				            "imageSeq": "1",
+				            "lastUpdatedDate": "9999-12-30T18:30:00Z",
+				            "updatedBy": "vis"
+				          }
+				        ],
+				        "ownerId": 1,
+				        "post": " \n     Then there started a steep ascent. My gut feeling told me to go back, because it would get very dangerous to return this way next morning, if it snowed again. I argued with my fellow trekkers, but nobody listened. Anyhow we continued. Trail became difficult, narrower, and more slippery due to snow. There was an abyss, which added to the risk. But we chose to keep on.",
+				        "sequence": 6,
+				        "title": "The Risks"
+				      }
+				   
+				   
+				      
+				    ],
+				    "articleId": 1,
+				    "articleUrl": "4",
+				    "author": "ishita",
+				    "authorId": 1,
+				    "createdAt": "2014-12-31T18:29:59Z",
+				    "details": "Bedi’s action plan includes measures like increased and smart patrolling in vulnerable areas, community policing and neighbourhood watch, safe and healthy nightlife – strengthening of patrolling and police presence in entertainment areas/hubs, stringent driver verification and state-wide centralized criminal database with inter-state coordination, CCTV cameras in public areas and buses, home guards and civil defence escorts on buses on vulnerable routes and at non-peak times, more ladies-special buses by DTC, street lighting in all areas with surprise inspections and full city accountability, and self-defence training among other"
+				  }
+		  
+		  
+		  
+		                      	;
+		  console.log(Restangular.one('id',blogId).one('blog','blogId').getRestangularUrl());
+		// var oneUser = Restangular.one('id',blogId).one('blog','blogId');
+		
+	//  oneUser.get().then(function(user) {
+		  // GET /users/abc123/inboxes
+	/*console.log("tesgggg"+user[0].articleDetails);
+	
+		// JSON.stringify("tesssr"+user[0].articleDetails[0]); 
+		  $scope.blogdetails =$scope.blogt.articleDetails; 
+		 
+		//  console.log("wgre ::"+  $scope.blogdetails.articleDetails[0].post);
+	});*/
+	//		}   
+	}
+	$scope.tab = 'show';
+	$scope.tab2 = 'show';
+	   $scope.isSet = function (tabId) {
+		 
+	        return $scope.tab == tabId;
+	    };
+	    $scope.isSetv = function (tabId) { 
+	    	  console.log($scope.tab  +"::"+ tabId);
+			   console.log($scope.tab == tabId);
+	    	 return $scope.tab2 == tabId; 
+	    }
+	   
+	$scope.moreBlogT=function(blogId){
+
+			$scope.tab2 = 'show';
+	  $scope.blogdetailsT =	
+	  {
+			    "class": "ghumover2.Article",
+			    "id": 1,
+			    "allowComments": "y",
+			    "appidFb": "34",
+			    "articleDetails": [
+    {
+      "class": "ghumover2.ArticleDetails",
+      "id": 18,
+      "article": {
+        "_ref": "../..",
+        "class": "ghumover2.Article"
+      },
+      "articleDetailsId": 1,
+      "image": [
+        {
+          "class": "ghumover2.Image",
+          "id": 7,
+          "articleDetails": [
+            {
+              "_ref": "../../..",
+              "class": "ghumover2.ArticleDetails"
+            }
+          ],
+          "createdBy": "vis",
+          "creationDate": "9999-12-30T18:30:00Z",
+          "imageCode": "kherGanga",
+          "imageName": "kgng33.png",
+          "imagePath": "img/blog/kheerGanga/",
+          "imageSeq": "1",
+          "lastUpdatedDate": "9999-12-30T18:30:00Z",
+          "updatedBy": "vis"
+        },
+        {
+          "class": "ghumover2.Image",
+          "id": 8,
+          "articleDetails": [
+            {
+              "_ref": "../../..",
+              "class": "ghumover2.ArticleDetails"
+            }
+          ],
+          "createdBy": "vis",
+          "creationDate": "9999-12-30T18:30:00Z",
+          "imageCode": "kherGanga",
+          "imageName": "kgng41.png",
+          "imagePath": "img/blog/kheerGanga/",
+          "imageSeq": "1",
+          "lastUpdatedDate": "9999-12-30T18:30:00Z",
+          "updatedBy": "vis"
+        },
+        {
+          "class": "ghumover2.Image",
+          "id": 9,
+          "articleDetails": [
+            {
+              "_ref": "../../..",
+              "class": "ghumover2.ArticleDetails"
+            }
+          ],
+          "createdBy": "vis",
+          "creationDate": "9999-12-30T18:30:00Z",
+          "imageCode": "kherGanga",
+          "imageName": "kgng42.png",
+          "imagePath": "img/blog/kheerGanga/",
+          "imageSeq": "1",
+          "lastUpdatedDate": "9999-12-30T18:30:00Z",
+          "updatedBy": "vis"
+        }
+      ],
+      "ownerId": 1,
+      "post": " \n     Finally, we reached our destination Kheergana, a white mountain with fascinating wooden hermitages and hot water geysers. We rushed into one of the hermitage, a big wooden hall with many Tandoors. We lit fire in one of the Tandoors; sat around it and ordered Pizzas.",
+      "sequence": 7,
+      "title": "Finally Reached"
+    },
+    {
+      "class": "ghumover2.ArticleDetails",
+      "id": 19,
+      "article": {
+        "_ref": "../..",
+        "class": "ghumover2.Article"
+      },
+      "articleDetailsId": 1,
+      "image": [
+        {
+          "class": "ghumover2.Image",
+          "id": 10,
+          "articleDetails": [
+            {
+              "_ref": "../../..",
+              "class": "ghumover2.ArticleDetails"
+            }
+          ],
+          "createdBy": "vis",
+          "creationDate": "9999-12-30T18:30:00Z",
+          "imageCode": "kherGanga",
+          "imageName": "kgng43.png",
+          "imagePath": "img/blog/kheerGanga/",
+          "imageSeq": "1",
+          "lastUpdatedDate": "9999-12-30T18:30:00Z",
+          "updatedBy": "vis"
+        }
+      ],
+      "ownerId": 1,
+      "post": " \n    Then we went to the hot geysers. Oh My God!!! What have you made! Right in the middle of the harsh cold winter land, was the bliss; hot water springs. It was an ecstasy, on earth. We were nude (bathing in hot springs: P), and the snow was all around us, but even though it was exceptionally comfortable. It healed us like somras, all the tiredness vanished. We were rejuvenated. One of the best experiences of my life. I can go there again and again to have it.Kheerganga is the God Shiva’s own place and you can feel it when you get there. It seems that Shiva, himself, is helping you, protecting you at every difficult moment. He’s with you. Even in the ruthless hard conditions of Himalayas, there is a protective, kind and homely feeling.",
+      "sequence": 8,
+      "title": "Hot Springs; a great luxury and delight"
+    },
+    
+    {
+      "class": "ghumover2.ArticleDetails",
+      "id": 20,
+      "article": {
+        "_ref": "../..",
+        "class": "ghumover2.Article"
+      },
+      "articleDetailsId": 1,
+      "image": [
+        
+      ],
+      "ownerId": 1,
+      "post": " \n     When we were returning, our guides showed us silhouette of Lord Shiva on a cliff, just nearby the boisterous waters of the Parvati River. It was the epic moment of the journey, it’s not possible to go so near to the tumultuous river, down the deadly cliff and paint it. The blessing of Lord Shiva is over the valley and that’s why the locals are such content and happy people, despite of not having the worldly acquisitive pleasure..",
+      "sequence": 9,
+      "title": "Seventh heaven"
+    },
+    {
+      "class": "ghumover2.ArticleDetails",
+      "id": 21,
+      "article": {
+        "_ref": "../..",
+        "class": "ghumover2.Article"
+      },
+      "articleDetailsId": 1,
+      "image": [
+        
+      ],
+      "ownerId": 1,
+      "post": " \n     Must try food: Siddu , a local cuisine and Pizzas\nMust do: Trek and bath in hot springs\n",
+      "sequence": 10,
+      "title": "Travelers’ tip"
+    }]
+	  }
+	};				
+	   
+}
+	 ]);
+
+
+
+
+
+
 
 
 /**
@@ -39740,830 +40370,285 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
     "</ul>");
 }]);
 
-/*
- * angucomplete-alt
- * Autocomplete directive for AngularJS
- * This is a fork of Daryl Rowland's angucomplete with some extra features.
- * By Hidenari Nozaki
+
+/**
+ * @ngdoc overview
+ * @name ui.bootstrap.tabs
+ *
+ * @description
+ * AngularJS version of the tabs directive.
  */
 
-/*! Copyright (c) 2014 Hidenari Nozaki and contributors | Licensed under the MIT license */
-
-'use strict';
-
-angular
-		.module('angucomplete-alt', [])
-		.directive(
-				'angucompleteAlt',
-				[
-						'$q',
-						'$parse',
-						'$http',
-						'$sce',
-						'$timeout','dataService',
-						function($q, $parse, $http, $sce, $timeout,dataService) {
-							// keyboard events
-							var KEY_DW = 40;
-							var KEY_RT = 39;
-							var KEY_UP = 38;
-							var KEY_LF = 37;
-							var KEY_ES = 27;
-							var KEY_EN = 13;
-							var KEY_BS = 8;
-							var KEY_DEL = 46;
-							var KEY_TAB = 9;
-
-							var MIN_LENGTH = 3;
-							var PAUSE = 500;
-							var BLUR_TIMEOUT = 200;
-
-							// string constants
-							var REQUIRED_CLASS = 'autocomplete-required';
-							var TEXT_SEARCHING = 'Searching...';
-							var TEXT_NORESULTS = 'No results found';
-
-							return {
-								restrict : 'EA',
-								require : '^?form',
-								scope : {
-									selectedObject : '=',
-									disableInput : '=',
-									initialValue : '@',
-									localData : '=',
-									remoteUrlRequestFormatter : '=',
-									remoteUrlResponseFormatter : '=',
-									remoteUrlErrorCallback : '=',
-									id : '@',
-									placeholder : '@',
-									remoteUrl : '@',
-									remoteUrlDataField : '@',
-									titleField : '@',
-									descriptionField : '@',
-									imageField : '@',
-									inputClass : '@',
-									pause : '@',
-									searchFields : '@',
-									minlength : '@',
-									matchClass : '@',
-									clearSelected : '@',
-									overrideSuggestions : '@',
-									fieldRequired : '@',
-									fieldRequiredClass : '@',
-									inputChanged : '=',
-									autoMatch : '@',
-									focusOut : '&',
-									focusIn : '&',
-									selectResultd: '&'
-								},
-								template : '<div class="angucomplete-holder" ng-class="{\'angucomplete-dropdown-visible\': showDropdown}">'
-										+ '  <input id="{{id}}_value" ng-model="searchStr" ng-disabled="disableInput" type="text" placeholder="{{placeholder}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"/>'
-										+ '  <div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-show="showDropdown">'
-										+ '    <div class="angucomplete-searching" ng-show="searching" ng-bind="textSearching"></div>'
-										+ '    <div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)" ng-bind="textNoResults"></div>'
-										+ '  <div class="angucomplete-row" ng-repeat="resul in results" >'
-										+ '  <div class="angucomplete-title" >{{resul.event}}</div>'
-										+ '    <div class="angucomplete-row" ng-repeat="result in resul.users"  ng-click="selectResultd({selectedEvent:result})" ng-mouseenter="hoverRow(result.id)" ng-class="{\'angucomplete-selected-row\':result.id == currentIndex}">'
-										+ '      <div ng-if="imageField" class="angucomplete-image-holder">'
-										+ '        <img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="angucomplete-image"/>'
-										+ '        <div ng-if="!result.image && result.image != \'\'" class="angucomplete-image-default"></div>'
-										+ '      </div>'
-										+ '      <div class="angucomplete-title1" ng-if="matchClass" ng-bind-html="result.title"></div>'
-										+ '      <div class="angucomplete-title" ng-if="!matchClass">{{ result.title }}</div>'
-										+ '      <div ng-if="matchClass && result.description && result.description != \'\'" class="angucomplete-description" ng-bind-html="result.description">'
-										+  ' <span class="angucomplete-title2">Bookmarks</span>'
-										+ '      </div>'
-										+ '      <div ng-if="!matchClass && result.description && result.description != \'\'" class="angucomplete-description">{{result.description}}</div>'
-										+ '    </div>' + '  </div>' + '</div>'+'</div>',
-								link : function(scope, elem, attrs, ctrl) {
-									var inputField = elem.find('input');
-									// console.log(inputField.val()+"::inputField");
-
-									var minlength = MIN_LENGTH;
-									var searchTimer = null;
-									var hideTimer;
-									var requiredClassName = REQUIRED_CLASS;
-									var responseFormatter;
-									var validState = null;
-									var httpCanceller = null;
-									var dd = elem[0]
-											.querySelector('.angucomplete-dropdown');
-									var isScrollOn = false;
-									var mousedownOn = null;
-									
-
-									elem.on('mousedown', function(event) {
-										mousedownOn = event.target.id;
-									});
-
-									scope.currentIndex = null;
-									scope.searching = false;
-									scope.searchStr = scope.initialValue;
-
-									scope.$watch('initialValue', function(
-											newval, oldval) {
-										scope.searchStr = scope.initialValue;
-										if (newval && newval.length > 0) {
-											handleRequired(true);
-										}
-									});
-
-									scope
-											.$on(
-													'angucomplete-alt:clearInput',
-													function(event, elementId) {
-														if (!elementId) {
-															scope.searchStr = null;
-															clearResults();
-														} else { // id is
-																	// given
-															if (scope.id === elementId) {
-																scope.searchStr = null;
-																clearResults();
-															}
-														}
-													});
-
-									// for IE8 quirkiness about event.which
-									function ie8EventNormalizer(event) {
-										return event.which ? event.which
-												: event.keyCode;
-									}
-     
-									function callOrAssign(value) {
-										if (typeof scope.selectedObject === 'function') {
-											scope.selectedObject(value);
-										} else {
-											scope.selectedObject = value;
-										}
-
-										handleRequired(true);
-									}
-
-									function callFunctionOrIdentity(fn) {
-										return function(data) {
-											return scope[fn] ? scope[fn](data)
-													: data;
-										};
-									}
-
-									function setInputString(str) {
-										callOrAssign({
-											originalObject : str
-										});
-
-										if (scope.clearSelected) {
-											scope.searchStr = null;
-										}
-										clearResults();
-									}
-
-									function extractTitle(data) {
-										// split title fields and run
-										// extractValue for each and join with '
-										// '
-										return scope.titleField.split(',').map(
-												function(field) {
-													return extractValue(data,
-															field);
-												}).join(' ');
-									}
-
-									function extractValue(obj, key) {
-										var keys, result;
-										if (key) {
-											keys = key.split('.');
-											result = obj;
-											keys.forEach(function(k) {
-												result = result[k];
-											});
-										} else {
-											result = obj;
-										}
-										return result;
-									}
-
-									function findMatchString(target, str) {
-										var result, matches, re = new RegExp(
-												str, 'i');
-										if (!target) {
-											return;
-										}
-										matches = target.match(re);
-										if (matches) {
-											result = target.replace(re,
-													'<span class="'
-															+ scope.matchClass
-															+ '">' + matches[0]
-															+ '</span>');
-										} else {
-											result = target;
-										}
-										return $sce.trustAsHtml(result);
-									}
-
-									function handleRequired(valid) {
-										validState = scope.searchStr;
-										if (scope.fieldRequired && ctrl) {
-											ctrl.$setValidity(
-													requiredClassName, valid);
-										}
-									}
-
-									function keyupHandler(event) {
-										var which = ie8EventNormalizer(event);
-										if (which === KEY_LF
-												|| which === KEY_RT) {
-											// do nothing
-											return;
-										}
-
-										if (which === KEY_UP
-												|| which === KEY_EN) {
-											event.preventDefault();
-										} else if (which === KEY_DW) {
-											event.preventDefault();
-											if (!scope.showDropdown
-													&& scope.searchStr
-													&& scope.searchStr.length >= minlength) {
-												initResults();
-												scope.searching = true;
-												searchTimerComplete(scope.searchStr);
-											}
-										} else if (which === KEY_ES) {
-											clearResults();
-											scope
-													.$apply(function() {
-														inputField
-																.val(scope.searchStr);
-													});
-										} else {
-											if (!scope.searchStr
-													|| scope.searchStr === '') {
-												scope.showDropdown = false;
-											} else if (scope.searchStr.length >= minlength) {
-												initResults();
-
-												if (searchTimer) {
-													$timeout
-															.cancel(searchTimer);
-												}
-
-												scope.searching = true;
-
-												searchTimer = $timeout(
-														function() {
-//															if(!scope.localdata){
-//																scope.localData=dataService.places;
-//															}
-//															
-															searchTimerComplete(scope.searchStr);
-														}, scope.pause);
-											}
-
-											if (validState
-													&& validState !== scope.searchStr) {
-												callOrAssign(undefined);
-												handleRequired(false);
-											}
-										}
-									}
-
-									function handleOverrideSuggestions(event) {
-										if (scope.overrideSuggestions) {
-											if (!(scope.selectedObject && scope.selectedObject.originalObject === scope.searchStr)) {
-												event.preventDefault();
-												setInputString(scope.searchStr);
-											}
-										}
-									}
-
-									function dropdownRowOffsetHeight(row) {
-										var css = getComputedStyle(row);
-										return row.offsetHeight
-												+ parseInt(css.marginTop, 10)
-												+ parseInt(css.marginBottom, 10);
-									}
-
-									function dropdownHeight() {
-										return dd.getBoundingClientRect().top
-												+ parseInt(
-														getComputedStyle(dd).maxHeight,
-														10);
-									}
-
-									function dropdownRow() {
-										return elem[0]
-												.querySelectorAll('.angucomplete-row')[scope.currentIndex];
-									}
-
-									function dropdownRowTop() {
-										return dropdownRow()
-												.getBoundingClientRect().top
-												- (dd.getBoundingClientRect().top + parseInt(
-														getComputedStyle(dd).paddingTop,
-														10));
-									}
-
-									function dropdownScrollTopTo(offset) {
-										dd.scrollTop = dd.scrollTop + offset;
-									}
-
-									function updateInputField() {
-										var current = scope.results[scope.currentIndex];
-										if (scope.matchClass) {
-											inputField
-													.val(extractTitle(current.originalObject));
-										} else {
-											inputField.val(current.title);
-										}
-									}
-
-									function keydownHandler(event) {
-										var which = ie8EventNormalizer(event);
-										var row = null;
-										var rowTop = null;
-
-										if (which === KEY_EN && scope.results) {
-											if (scope.currentIndex >= 0
-													&& scope.currentIndex < scope.results.length) {
-												event.preventDefault();
-												scope
-														.selectResult(scope.results[scope.currentIndex]);
-											} else {
-												handleOverrideSuggestions(event);
-												clearResults();
-											}
-											scope.$apply();
-										} else if (which === KEY_DW
-												&& scope.results) {
-											event.preventDefault();
-											if ((scope.currentIndex + 1) < scope.results.length
-													&& scope.showDropdown) {
-												scope.$apply(function() {
-													scope.currentIndex++;
-													updateInputField();
-												});
-
-												if (isScrollOn) {
-													row = dropdownRow();
-													if (dropdownHeight() < row
-															.getBoundingClientRect().bottom) {
-														dropdownScrollTopTo(dropdownRowOffsetHeight(row));
-													}
-												}
-											}
-										} else if (which === KEY_UP
-												&& scope.results) {
-											event.preventDefault();
-											if (scope.currentIndex >= 1) {
-												scope.$apply(function() {
-													scope.currentIndex--;
-													updateInputField();
-												});
-
-												if (isScrollOn) {
-													rowTop = dropdownRowTop();
-													if (rowTop < 0) {
-														dropdownScrollTopTo(rowTop - 1);
-													}
-												}
-											} else if (scope.currentIndex === 0) {
-												scope
-														.$apply(function() {
-															scope.currentIndex = -1;
-															inputField
-																	.val(scope.searchStr);
-														});
-											}
-										} else if (which === KEY_TAB
-												&& scope.results
-												&& scope.results.length > 0) {
-											if (scope.currentIndex === -1
-													&& scope.showDropdown) {
-												scope
-														.selectResult(scope.results[0]);
-												scope.$apply();
-											}
-										}
-									}
-
-									function httpSuccessCallbackGen(str) {
-										return function(responseData, status,
-												headers, config) {
-											scope.searching = false;
-											processResults(
-													extractValue(
-															responseFormatter(responseData),
-															scope.remoteUrlDataField),
-													str);
-										};
-									}
-
-									function httpErrorCallback(errorRes,
-											status, headers, config) {
-										if (status !== 0) {
-											if (scope.remoteUrlErrorCallback) {
-												scope.remoteUrlErrorCallback(
-														errorRes, status,
-														headers, config);
-											} else {
-												if (console && console.error) {
-													console.error('http error');
-												}
-											}
-										}
-									}
-
-									function cancelHttpRequest() {
-										if (httpCanceller) {
-											httpCanceller.resolve();
-										}
-									}
-
-									function getRemoteResults(str) {
-										var params = {}, url = scope.remoteUrl
-												+ str;
-										if (scope.remoteUrlRequestFormatter) {
-											params = {
-												params : scope
-														.remoteUrlRequestFormatter(str)
-											};
-											url = scope.remoteUrl;
-										}
-										cancelHttpRequest();
-										httpCanceller = $q.defer();
-										params.timeout = httpCanceller.promise;
-										$http.get(url, params).success(
-												httpSuccessCallbackGen(str))
-												.error(httpErrorCallback);
-									}
-
-									function clearResults() {
-										scope.showDropdown = false;
-										scope.results = [];
-										if (dd) {
-											dd.scrollTop = 0;
-										}
-									}
-
-									function initResults() {
-										scope.showDropdown = true;
-										scope.currentIndex = -1;
-										scope.results = [];
-									}
-
-									function getLocalResults(str) {
-										var i, match, s, j, k, v, value, newMatch, searchFields = scope.searchFields
-												.split(','), matches = [];
-										newMatch = true;
-										for (i = 0; i < scope.localData.length; i++) {
-											match = false;
-
-											for (s = 0; s < searchFields.length; s++) {
-
-												value = extractValue(
-														scope.localData[i],
-														searchFields[s])
-														|| '';
-
-												match = match
-														|| (value
-																.toLowerCase()
-																.indexOf(
-																		str.toLowerCase()) == 0);
-											}
-
-											if (match) {
-												newMatch = false;
-												matches[matches.length] = scope.localData[i];
-
-											} else if (newMatch) {
-												for (s = 0; s < searchFields.length; s++) {
-													// console.log("::NewMatch::"+scope.localData[i]+":str[v]:"+searchFields[s]);
-													value = extractValue(
-															scope.localData[i],
-															searchFields[s])
-															|| '';
-
-													if (str.length > 2
-															&& value.length >= str.length) {
-														k = 0;
-														var ind = true;
-														for (v = 0; v < str.length; v++) {
-															var counter = 0
-
-															for (j = v; j < value.length; j++) {
-																if (counter > 2) {
-																	break;
-																}
-
-																counter = counter + 1;
-																if (str.length > 4
-																		&& v == str.length - 1) {
-																	ind = true;
-																	if (str[v]
-																			.toLowerCase() == value[j]
-																			.toLowerCase()) {
-
-																		if (str.length < 4) {
-																			if (k >= str.length - 1) {
-																				matches[matches.length] = scope.localData[i];
-																			}
-																		} else if (k >= str.length / 2) {
-																			matches[matches.length] = scope.localData[i];
-																		}
-																	} else {
-																		ind = false;
-																	}
-
-																} else {
-																	// console.log("::value::"+value+":str[v]:"+counter);
-																	if ((str[0]
-																			.toLowerCase() == value[0]
-																			.toLowerCase())
-																			&& (str[1]
-																					.toLowerCase() && value[1]
-																					.toLowerCase())) {
-																		if (str[v]
-																				.toLowerCase() == value[j]
-																				.toLowerCase()) {
-																			k = k + 1;
-																			counter = 0;
-																			// console.log("::counter::"+k+":str[v]:");
-																			break;
-																		}
-																	}
-																}
-
-															}
-														}
-														if (ind) {
-															if (str.length < 4) {
-																if (k >= str.length - 1) {
-																	matches[matches.length] = scope.localData[i];
-																}
-															} else if (k >= str.length / 2) {
-																matches[matches.length] = scope.localData[i];
-															}
-														}
-													}
-												}
-
-											}
-
-										}
-
-										scope.searching = false;
-										processResults(matches, str);
-									}
-
-									function checkExactMatch(result, obj, str) {
-										for ( var key in obj) {
-											if (obj[key].toLowerCase() === str
-													.toLowerCase()) {
-												scope.selectResult(result);
-												return;
-											}
-										}
-									}
-
-									function searchTimerComplete(str) {
-
-										// Begin the search
-										if (str.length < minlength) {
-											return;
-										}
-										if (scope.localData) {
-											scope.$apply(function() {
-												getLocalResults(str);
-											});
-										} else {
-										
-											getRemoteResults(str);
-										}
-									}
-
-									// final funcxtn
-									function processResults(responseData, str) {
-										var i, description, image, text, formattedText, formattedDesc;
-									
-
-
-										
-										//test
-										if (responseData
-												&& responseData.length > 0) {
-											scope.resultsM = [];
-
-											for (i = 0; i < responseData.length; i++) {
-												if (scope.titleField
-														&& scope.titleField !== '') {
-													text = formattedText = extractTitle(responseData[i]);
-												}
-
-												description = '';
-												if (scope.descriptionField) {
-													description = formattedDesc = extractValue(
-															responseData[i],
-															scope.descriptionField);
-												}
-
-												image = '';
-												if (scope.imageField) {
-													image = extractValue(
-															responseData[i],
-															scope.imageField);
-												}
-
-												if (scope.matchClass) {
-													formattedText = findMatchString(
-															text, str);
-													formattedDesc = findMatchString(
-															description, str);
-												}
-											
-												 scope.resultsM[scope.resultsM.length]
-												 = {
-												id:responseData[i]['id'],	
-												event:responseData[i]['event'],		 
-												 title: formattedText,
-												 description: formattedDesc,
-												 image: image,
-												 originalObject:
-												 responseData[i]
-												 };
-												
-
-												if (scope.autoMatch) {
-													checkExactMatch(
-															scope.results[scope.resultsM.length - 1],
-															{
-																title : text,
-																desc : description
-																		|| ''
-															}, scope.searchStr);
-												}
-											}
-
-											scope.results = _.chain(scope.resultsM)
-											.groupBy("event")
-											.pairs()
-											.map(
-													function(currentItem) {
-														return _
-																.object(_
-																		.zip(
-																				[
-																						"event",
-																						"users" ],
-																				currentItem));
-													}).value();
-											
-											//new unique
-											//var results = _.uniq(list, function(item, key, id) { 
-											  //  return item.id;
-											
-											//});
-											
-								//.
-										} 
-										
-										
-										
-										
-										
-										
-							else {
-											scope.results = [];
-										}
-									}
-
-									scope.onFocusHandler = function() {
-										if (scope.focusIn) {
-											scope.focusIn();
-										}
-									};
-
-									scope.hideResults = function(event) {
-										if (mousedownOn === scope.id
-												+ '_dropdown') {
-											mousedownOn = null;
-										} else {
-											hideTimer = $timeout(
-													function() {
-														clearResults();
-														scope
-																.$apply(function() {
-																	inputField
-																			.val(scope.searchStr);
-																});
-													}, BLUR_TIMEOUT);
-											cancelHttpRequest();
-
-											if (scope.focusOut) {
-												scope.focusOut();
-											}
-										}
-									};
-
-									scope.resetHideResults = function() {
-										if (hideTimer) {
-											$timeout.cancel(hideTimer);
-										}
-									};
-
-									scope.hoverRow = function(index) {
-										scope.currentIndex = index;
-									};
-
-									scope.selectResult = function(result) {
-										// Restore original values
-										if (scope.matchClass) {
-											result.title = extractTitle(result.originalObject);
-											result.description = extractValue(
-													result.originalObject,
-													scope.descriptionField);
-										}
-
-										if (scope.clearSelected) {
-											scope.searchStr = null;
-										} else {
-											scope.searchStr = result.title;
-										}
-										
-										callOrAssign(result);
-										clearResults();
-									};
-
-									scope.inputChangeHandler = function(str) {
-										if (str.length < minlength) {
-											clearResults();
-										}
-										if (scope.inputChanged) {
-											str = scope.inputChanged(str);
-										}
-										return str;
-									};
-
-									// check required
-									if (scope.fieldRequiredClass
-											&& scope.fieldRequiredClass !== '') {
-										requiredClassName = scope.fieldRequiredClass;
-									}
-
-									// check min length
-									if (scope.minlength
-											&& scope.minlength !== '') {
-										minlength = scope.minlength;
-									}
-
-									// check pause time
-									if (!scope.pause) {
-										scope.pause = PAUSE;
-									}
-
-									// check clearSelected
-									if (!scope.clearSelected) {
-										scope.clearSelected = false;
-									}
-
-									// check override suggestions
-									if (!scope.overrideSuggestions) {
-										scope.overrideSuggestions = false;
-									}
-
-									// check required field
-									if (scope.fieldRequired && ctrl) {
-										// check initial value, if given, set validitity to true
-										if (scope.initialValue) {
-											handleRequired(true);
-										} else {
-											handleRequired(false);
-										}
-									}
-
-									// set strings for "Searching..." and "No results"
-									scope.textSearching = attrs.textSearching ? attrs.textSearching
-											: TEXT_SEARCHING;
-									scope.textNoResults = attrs.textNoResults ? attrs.textNoResults
-											: TEXT_NORESULTS;
-
-									// register events
-									inputField.on('keydown', keydownHandler);
-									inputField.on('keyup', keyupHandler);
-
-									// set response formatter
-									responseFormatter = callFunctionOrIdentity('remoteUrlResponseFormatter');
-
-									// set isScrollOn
-									$timeout(function() {
-										var css = getComputedStyle(dd);
-										isScrollOn = css.maxHeight
-												&& css.overflowY === 'auto';
-									});
-								}
-							};
-						} ]);
+angular.module('ui.bootstrap.tabs', [])
+
+.controller('TabsetController', ['$scope', function TabsetCtrl($scope) {
+  var ctrl = this,
+      tabs = ctrl.tabs = $scope.tabs = [];
+
+  ctrl.select = function(selectedTab) {
+    angular.forEach(tabs, function(tab) {
+      if (tab.active && tab !== selectedTab) {
+        tab.active = false;
+        tab.onDeselect();
+      }
+    });
+    selectedTab.active = true;
+    selectedTab.onSelect();
+  };
+
+  ctrl.addTab = function addTab(tab) {
+    tabs.push(tab);
+    // we can't run the select function on the first tab
+    // since that would select it twice
+    if (tabs.length === 1) {
+      tab.active = true;
+    } else if (tab.active) {
+      ctrl.select(tab);
+    }
+  };
+
+  ctrl.removeTab = function removeTab(tab) {
+    var index = tabs.indexOf(tab);
+    //Select a new tab if the tab to be removed is selected and not destroyed
+    if (tab.active && tabs.length > 1 && !destroyed) {
+      //If this is the last tab, select the previous tab. else, the next tab.
+      var newActiveIndex = index == tabs.length - 1 ? index - 1 : index + 1;
+      ctrl.select(tabs[newActiveIndex]);
+    }
+    tabs.splice(index, 1);
+  };
+
+  var destroyed;
+  $scope.$on('$destroy', function() {
+    destroyed = true;
+  });
+}])
+
+/**
+ * @ngdoc directive
+ * @name ui.bootstrap.tabs.directive:tabset
+ * @restrict EA
+ *
+ * @description
+ * Tabset is the outer container for the tabs directive
+ *
+ * @param {boolean=} vertical Whether or not to use vertical styling for the tabs.
+ * @param {boolean=} justified Whether or not to use justified styling for the tabs.
+ *
+ * @example
+<example module="ui.bootstrap">
+  <file name="index.html">
+    <tabset>
+      <tab heading="Tab 1"><b>First</b> Content!</tab>
+      <tab heading="Tab 2"><i>Second</i> Content!</tab>
+    </tabset>
+    <hr />
+    <tabset vertical="true">
+      <tab heading="Vertical Tab 1"><b>First</b> Vertical Content!</tab>
+      <tab heading="Vertical Tab 2"><i>Second</i> Vertical Content!</tab>
+    </tabset>
+    <tabset justified="true">
+      <tab heading="Justified Tab 1"><b>First</b> Justified Content!</tab>
+      <tab heading="Justified Tab 2"><i>Second</i> Justified Content!</tab>
+    </tabset>
+  </file>
+</example>
+ */
+.directive('tabset', function() {
+  return {
+    restrict: 'EA',
+    transclude: true,
+    replace: true,
+    scope: {
+      type: '@'
+    },
+    controller: 'TabsetController',
+    templateUrl: 'template/tabs/tabset.html',
+    link: function(scope, element, attrs) {
+      scope.vertical = angular.isDefined(attrs.vertical) ? scope.$parent.$eval(attrs.vertical) : false;
+      scope.justified = angular.isDefined(attrs.justified) ? scope.$parent.$eval(attrs.justified) : false;
+    }
+  };
+})
+
+/**
+ * @ngdoc directive
+ * @name ui.bootstrap.tabs.directive:tab
+ * @restrict EA
+ *
+ * @param {string=} heading The visible heading, or title, of the tab. Set HTML headings with {@link ui.bootstrap.tabs.directive:tabHeading tabHeading}.
+ * @param {string=} select An expression to evaluate when the tab is selected.
+ * @param {boolean=} active A binding, telling whether or not this tab is selected.
+ * @param {boolean=} disabled A binding, telling whether or not this tab is disabled.
+ *
+ * @description
+ * Creates a tab with a heading and content. Must be placed within a {@link ui.bootstrap.tabs.directive:tabset tabset}.
+ *
+ * @example
+<example module="ui.bootstrap">
+  <file name="index.html">
+    <div ng-controller="TabsDemoCtrl">
+      <button class="btn btn-small" ng-click="items[0].active = true">
+        Select item 1, using active binding
+      </button>
+      <button class="btn btn-small" ng-click="items[1].disabled = !items[1].disabled">
+        Enable/disable item 2, using disabled binding
+      </button>
+      <br />
+      <tabset>
+        <tab heading="Tab 1">First Tab</tab>
+        <tab select="alertMe()">
+          <tab-heading><i class="icon-bell"></i> Alert me!</tab-heading>
+          Second Tab, with alert callback and html heading!
+        </tab>
+        <tab ng-repeat="item in items"
+          heading="{{item.title}}"
+          disabled="item.disabled"
+          active="item.active">
+          {{item.content}}
+        </tab>
+      </tabset>
+    </div>
+  </file>
+  <file name="script.js">
+    function TabsDemoCtrl($scope) {
+      $scope.items = [
+        { title:"Dynamic Title 1", content:"Dynamic Item 0" },
+        { title:"Dynamic Title 2", content:"Dynamic Item 1", disabled: true }
+      ];
+
+      $scope.alertMe = function() {
+        setTimeout(function() {
+          alert("You've selected the alert tab!");
+        });
+      };
+    };
+  </file>
+</example>
+ */
+
+/**
+ * @ngdoc directive
+ * @name ui.bootstrap.tabs.directive:tabHeading
+ * @restrict EA
+ *
+ * @description
+ * Creates an HTML heading for a {@link ui.bootstrap.tabs.directive:tab tab}. Must be placed as a child of a tab element.
+ *
+ * @example
+<example module="ui.bootstrap">
+  <file name="index.html">
+    <tabset>
+      <tab>
+        <tab-heading><b>HTML</b> in my titles?!</tab-heading>
+        And some content, too!
+      </tab>
+      <tab>
+        <tab-heading><i class="icon-heart"></i> Icon heading?!?</tab-heading>
+        That's right.
+      </tab>
+    </tabset>
+  </file>
+</example>
+ */
+.directive('tab', ['$parse', function($parse) {
+  return {
+    require: '^tabset',
+    restrict: 'EA',
+    replace: true,
+    templateUrl: 'template/tabs/tab.html',
+    transclude: true,
+    scope: {
+      active: '=?',
+      heading: '@',
+      onSelect: '&select', //This callback is called in contentHeadingTransclude
+                          //once it inserts the tab's content into the dom
+      onDeselect: '&deselect'
+    },
+    controller: function() {
+      //Empty controller so other directives can require being 'under' a tab
+    },
+    compile: function(elm, attrs, transclude) {
+      return function postLink(scope, elm, attrs, tabsetCtrl) {
+        scope.$watch('active', function(active) {
+          if (active) {
+            tabsetCtrl.select(scope);
+          }
+        });
+
+        scope.disabled = false;
+        if ( attrs.disabled ) {
+          scope.$parent.$watch($parse(attrs.disabled), function(value) {
+            scope.disabled = !! value;
+          });
+        }
+
+        scope.select = function() {
+          if ( !scope.disabled ) {
+            scope.active = true;
+          }
+        };
+
+        tabsetCtrl.addTab(scope);
+        scope.$on('$destroy', function() {
+          tabsetCtrl.removeTab(scope);
+        });
+
+        //We need to transclude later, once the content container is ready.
+        //when this link happens, we're inside a tab heading.
+        scope.$transcludeFn = transclude;
+      };
+    }
+  };
+}])
+
+.directive('tabHeadingTransclude', [function() {
+  return {
+    restrict: 'A',
+    require: '^tab',
+    link: function(scope, elm, attrs, tabCtrl) {
+      scope.$watch('headingElement', function updateHeadingElement(heading) {
+        if (heading) {
+          elm.html('');
+          elm.append(heading);
+        }
+      });
+    }
+  };
+}])
+
+.directive('tabContentTransclude', function() {
+  return {
+    restrict: 'A',
+    require: '^tabset',
+    link: function(scope, elm, attrs) {
+      var tab = scope.$eval(attrs.tabContentTransclude);
+
+      //Now our tab is ready to be transcluded: both the tab heading area
+      //and the tab content area are loaded.  Transclude 'em both.
+      tab.$transcludeFn(tab.$parent, function(contents) {
+        angular.forEach(contents, function(node) {
+          if (isTabHeading(node)) {
+            //Let tabHeadingTransclude know.
+            tab.headingElement = node;
+          } else {
+            elm.append(node);
+          }
+        });
+      });
+    }
+  };
+  function isTabHeading(node) {
+    return node.tagName &&  (
+      node.hasAttribute('tab-heading') ||
+      node.hasAttribute('data-tab-heading') ||
+      node.tagName.toLowerCase() === 'tab-heading' ||
+      node.tagName.toLowerCase() === 'data-tab-heading'
+    );
+  }
+})
+
+;
 
 /*
  *  Angular RangeSlider Directive
@@ -54129,93 +54214,258 @@ build date: 2014-11-25
 author: Robin Fan
 https://github.com/pc035860/angular-easyfb.git */
 !function(a){function b(b,c){var d="ezfb-social-plugin-wrap",e="display: inline-block; width: 0; height: 0; overflow: hidden;",f=function(a){var b='<span class="'+d+'" style="'+e+'">';return a.wrap(b).parent()},g=function(a){return a.parent().hasClass(d)},h=function(a){var b=a.parent();return b.after(a).remove(),a};a.directive(c,["ezfb",function(a){return{restrict:"EC",require:"?^ezfbXfbml",link:function(c,d,e,i){function j(a){return function(){var b;k&&a===l&&(b=e.onrender,b&&c.$eval(b),k=!1,h(d))}}if(!i){var k=!1,l=0;c.$watch(function(){var a=[];return angular.forEach(b,function(b){a.push(e[b])}),a},function(){l++,k?a.XFBML.parse(d.parent()[0],j(l)):(k=!0,a.XFBML.parse(f(d)[0],j(l)))},!0),d.bind("$destroy",function(){g(d)&&h(d)})}}}}])}a.provider("ezfb",function(){function a(a,b){return angular.isObject(b)?void angular.extend(a,b):angular.copy(a)}function b(a,b,c){return function(){return a.apply(b,c)}}var c={COMPLETED_REGISTRATION:"fb_mobile_complete_registration",VIEWED_CONTENT:"fb_mobile_content_view",SEARCHED:"fb_mobile_search",RATED:"fb_mobile_rate",COMPLETED_TUTORIAL:"fb_mobile_tutorial_completion",ADDED_TO_CART:"fb_mobile_add_to_cart",ADDED_TO_WISHLIST:"fb_mobile_add_to_wishlist",INITIATED_CHECKOUT:"fb_mobile_initiated_checkout",ADDED_PAYMENT_INFO:"fb_mobile_add_payment_info",ACHIEVED_LEVEL:"fb_mobile_level_achieved",UNLOCKED_ACHIEVEMENT:"fb_mobile_achievement_unlocked",SPENT_CREDITS:"fb_mobile_spent_credits"},d={CURRENCY:"fb_currency",REGISTRATION_METHOD:"fb_registration_method",CONTENT_TYPE:"fb_content_type",CONTENT_ID:"fb_content_id",SEARCH_STRING:"fb_search_string",SUCCESS:"fb_success",MAX_RATING_VALUE:"fb_max_rating_value",PAYMENT_INFO_AVAILABLE:"fb_payment_info_available",NUM_ITEMS:"fb_num_items",LEVEL:"fb_level",DESCRIPTION:"fb_description"},e=-1,f={api:[1,2,3],ui:1,getAuthResponse:e,getLoginStatus:0,login:0,logout:0,"Event.subscribe":1,"Event.unsubscribe":1,"XFBML.parse":1,"Canvas.Prefetcher.addStaticResource":e,"Canvas.Prefetcher.setCollectionMode":e,"Canvas.getPageInfo":0,"Canvas.hideFlashElement":e,"Canvas.scrollTo":e,"Canvas.setAutoGrow":e,"Canvas.setDoneLoading":0,"Canvas.setSize":e,"Canvas.setUrlHandler":0,"Canvas.showFlashElement":e,"Canvas.startTimer":e,"Canvas.stopTimer":0,"AppEvents.logEvent":e,"AppEvents.logPurchase":e,"AppEvents.activateApp":e},g="en_US",h={status:!0,cookie:!0,xfbml:!0,version:"v1.0"},i=["$window","$document","ezfbAsyncInit","ezfbLocale",function(a,b,c,d){!function(a){var b,c="facebook-jssdk",e=a.getElementsByTagName("script")[0];a.getElementById(c)||(b=a.createElement("script"),b.id=c,b.async=!0,b.src="//connect.facebook.net/"+d+"/sdk.js",e.parentNode.insertBefore(b,e))}(b[0]),a.fbAsyncInit=c}],j=i,k=["$window","ezfbInitParams",function(a,b){a.FB.init(b)}],l=k;return{setInitParams:function(b){a(h,b)},getInitParams:function(){return a(h)},setLocale:function(a){g=a},getLocale:function(){return g},setLoadSDKFunction:function(a){if(!angular.isArray(a)&&!angular.isFunction(a))throw new Error("Init function type error.");j=a},getLoadSDKFunction:function(){return j},setInitFunction:function(a){if(!angular.isArray(a)&&!angular.isFunction(a))throw new Error("Init function type error.");l=a},getInitFunction:function(){return l},$get:["$window","$q","$document","$parse","$rootScope","$injector",function(i,m,n,o,p,q){var r,s,t,u,v;return t={},u=m.defer(),(h.appId||l!==k)&&u.resolve(),r=m.defer(),n[0].getElementById("fb-root")||n.find("body").append('<div id="fb-root"></div>'),v=function(){u.promise.then(function(){q.invoke(l,null,{ezfbInitParams:h}),s.$$ready=!0,r.resolve()})},q.invoke(j,null,{ezfbAsyncInit:v,ezfbLocale:g}),s={$$ready:!1,init:function(b){a(h,b),u.resolve()},AppEvents:{EventNames:c,ParameterNames:d}},angular.forEach(f,function(a,c){var d=o(c),f=d.assign;f(s,function(){var f=b(function(b){var f,g;if(f=m.defer(),g=function(a){var d,e;for(d=angular.isFunction(b[a])?b[a]:angular.noop,e=function(){var a=Array.prototype.slice.call(arguments);p.$$phase?(d.apply(null,a),f.resolve.apply(f,a)):p.$apply(function(){d.apply(null,a),f.resolve.apply(f,a)})};b.length<=a;)b.push(null);var g;if("Event.subscribe"===c)g=b[0],angular.isUndefined(t[g])&&(t[g]=[]),t[g].push({original:d,wrapped:e});else if("Event.unsubscribe"===c&&(g=b[0],angular.isArray(t[g]))){var h,i,j=t[g].length;for(h=0;j>h;h++)if(i=t[g][h],i.original===d){e=i.wrapped,t[g].splice(h,1);break}}b[a]=e},a!==e)if(angular.isNumber(a))g(a);else if(angular.isArray(a)){var h,j;for(h=0;h<a.length;h++)if(j=a[h],b.length==j||b.length==j+1&&angular.isFunction(b[j])){g(j);break}}var k=d(i.FB);if(!k)throw new Error("Facebook API `FB."+c+"` doesn't exist.");return k.apply(i.FB,b),f.promise},null,[Array.prototype.slice.call(arguments)]);if("getAuthResponse"===c){if(angular.isUndefined(i.FB))throw new Error("`FB` is not ready.");return i.FB.getAuthResponse()}return a!==e?r.promise.then(f):void r.promise.then(f)})}),s}]}}).directive("ezfbXfbml",["ezfb","$parse","$compile","$timeout",function(a,b,c,d){return{restrict:"EAC",controller:function(){},compile:function(e){var f=e.html();return function(e,g,h){var i=!0,j=h.onrender,k=function(){i&&(j&&e.$eval(j),i=!1)};a.XFBML.parse(g[0],k);var l=b(h.ezfbXfbml).assign;e.$watch(h.ezfbXfbml,function(b){b&&(i=!0,g.html(f),c(g.contents())(e),d(function(){a.XFBML.parse(g[0],k)}),(l||angular.noop)(e,!1))},!0)}}}}]);var c={fbLike:["action","colorscheme","href","kidDirectedSite","layout","ref","share","showFaces","width"],fbShareButton:["href","layout","width"],fbSend:["colorscheme","href","kidDirectedSite","ref"],fbPost:["href","width"],fbFollow:["colorscheme","href","kidDirectedSite","layout","showFaces","width"],fbComments:["colorscheme","href","mobile","numPosts","orderBy","width"],fbCommentsCount:["href"],fbActivity:["action","appId","colorscheme","filter","header","height","linktarget","maxAge","recommendations","ref","site","width"],fbRecommendations:["action","appId","colorscheme","header","height","linktarget","maxAge","ref","site","width"],fbRecommendationsBar:["action","href","maxAge","numRecommendations","readTime","ref","side","site","trigger"],fbLikeBox:["colorscheme","forceWall","header","height","href","showBorder","showFaces","stream","width"],fbFacepile:["action","appId","colorscheme","href","maxRows","size","width"]};angular.forEach(c,b)}(angular.module("ezfb",[]));
+/**
+ * Angular Google Analytics - Easy tracking for your AngularJS application
+ * @version v0.0.10 - 2015-01-22
+ * @link http://github.com/revolunet/angular-google-analytics
+ * @author Julien Bouquillon <julien@revolunet.com>
+ * @license MIT License, http://www.opensource.org/licenses/MIT
+ */
+"use strict";angular.module("angular-google-analytics",[]).provider("Analytics",function(){var e,n,t,i,a,c,o=!1,r=!0,s="",u=!1,l="$routeChangeSuccess",d="auto",g=!1,m=!1,_=!1,f=!1,h=!1,p={allowLinker:!0};this._logs=[],this.setAccount=function(n){return e=n,!0},this.trackPages=function(e){return r=e,!0},this.trackPrefix=function(e){return s=e,!0},this.setDomainName=function(e){return t=e,!0},this.useDisplayFeatures=function(e){return n=!!e,!0},this.useAnalytics=function(e){return u=!!e,!0},this.useEnhancedLinkAttribution=function(e){return _=!!e,!0},this.useCrossDomainLinker=function(e){return h=!!e,!0},this.setCrossLinkDomains=function(e){return c=e,!0},this.setPageEvent=function(e){return l=e,!0},this.setCookieConfig=function(e){return d=e,!0},this.useECommerce=function(e,n){return g=!!e,m=!!n,!0},this.setRemoveRegExp=function(e){return e instanceof RegExp?(i=e,!0):!1},this.setExperimentId=function(e){return a=e,!0},this.ignoreFirstPageLoad=function(e){return f=!!e,!0},this.$get=["$document","$location","$log","$rootScope","$window",function(k,v,E,w,y){function A(e){!u&&y._gaq&&"function"==typeof e&&e()}function P(e){u&&y.ga&&"function"==typeof e&&e()}function b(){if(!e)return I._log("warn","No account id set to create script tag"),void 0;y._gaq=[],y._gaq.push(["_setAccount",e]),t&&y._gaq.push(["_setDomainName",t]),_&&y._gaq.push(["_require","inpage_linkid","//www.google-analytics.com/plugins/ga/inpage_linkid.js"]),r&&!f&&(i?y._gaq.push(["_trackPageview",L()]):y._gaq.push(["_trackPageview"]));var a;a=n?("https:"===document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js":("https:"===document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js",function(){var e=k[0],n=e.createElement("script");n.type="text/javascript",n.async=!0,n.src=a;var t=e.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)}(a),o=!0}function q(e,n){return!angular.isUndefined(n)&&"name"in n&&n.name?n.name+"."+e:e}function C(e,n){return e in n&&n[e]}function T(){if(!e)return I._log("warn","No account id set to create analytics script tag"),void 0;if(function(e,n,t,i,a,c,o){e.GoogleAnalyticsObject=a,e[a]=e[a]||function(){(e[a].q=e[a].q||[]).push(arguments)},e[a].l=1*new Date,c=n.createElement(t),o=n.getElementsByTagName(t)[0],c.async=1,c.src=i,o.parentNode.insertBefore(c,o)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),angular.isArray(e)?e.forEach(function(e){var n,t="cookieConfig"in e?e.cookieConfig:d;C("crossDomainLinker",e)&&(e.allowLinker=e.crossDomainLinker),angular.forEach(["name","allowLinker"],function(t){t in e&&(angular.isUndefined(n)&&(n={}),n[t]=e[t])}),angular.isUndefined(n)?y.ga("create",e.tracker,t):y.ga("create",e.tracker,t,n),n&&"allowLinker"in n&&n.allowLinker&&(y.ga(q("require",e),"linker"),C("crossLinkDomains",e)&&y.ga(q("linker:autoLink",e),e.crossLinkDomains))}):h?(y.ga("create",e,d,p),y.ga("require","linker"),c&&y.ga("linker:autoLink",c)):y.ga("create",e,d),n&&y.ga("require","displayfeatures"),r&&!f&&y.ga("send","pageview",L()),y.ga&&(g&&(m?y.ga("require","ec","ec.js"):y.ga("require","ecommerce","ecommerce.js")),_&&y.ga("require","linkid","linkid.js"),a)){var t=document.createElement("script"),i=document.getElementsByTagName("script")[0];t.src="//www.google-analytics.com/cx/api.js?experiment="+a,i.parentNode.insertBefore(t,i)}}var I=this,L=function(){var e=v.path();return i?e.replace(i,""):e};return this._log=function(){arguments.length>0&&(arguments.length>1&&"warn"===arguments[0]&&E.warn(Array.prototype.slice.call(arguments,1)),this._logs.push(arguments))},this._ecommerceEnabled=function(){return g?m?(this._log("warn","Enhanced ecommerce plugin is enabled. Only one plugin(ecommerce/ec) can be used at a time. Use AnalyticsProvider.setECommerce(true, false);"),!1):!0:(this._log("warn","ecommerce not set. Use AnalyticsProvider.setECommerce(true, false);"),!1)},this._enhancedEcommerceEnabled=function(){return g?m?!0:(this._log("warn","Enhanced ecommerce plugin is disabled. Use AnalyticsProvider.setECommerce(true, true);"),!1):(this._log("warn","ecommerce not set. Use AnalyticsProvider.setECommerce(true, true);"),!1)},this._trackPage=function(n,t){var i=this,a=arguments;n=n?n:L(),t=t?t:k[0].title,A(function(){y._gaq.push(["_set","title",t]),y._gaq.push(["_trackPageview",s+n]),i._log("_trackPageview",n,t,a)}),P(function(){angular.isArray(e)?e.forEach(function(e){y.ga(q("send",e),"pageview",{page:s+n,title:t})}):y.ga("send","pageview",{page:s+n,title:t}),i._log("pageview",n,t,a)})},this._trackEvent=function(n,t,i,a,c){var o=this,r=arguments;A(function(){y._gaq.push(["_trackEvent",n,t,i,a,!!c]),o._log("trackEvent",r)}),P(function(){angular.isArray(e)?e.forEach(function(e){C("trackEvent",e)&&y.ga(q("send",e),"event",n,t,i,a)}):y.ga("send","event",n,t,i,a),o._log("event",r)})},this._addTrans=function(e,n,t,i,a,c,o,r,s){var u=this,l=arguments;A(function(){y._gaq.push(["_addTrans",e,n,t,i,a,c,o,r]),u._log("_addTrans",l)}),P(function(){u._ecommerceEnabled()&&(y.ga("ecommerce:addTransaction",{id:e,affiliation:n,revenue:t,tax:i,shipping:a,currency:s||"USD"}),u._log("ecommerce:addTransaction",l))})},this._addItem=function(e,n,t,i,a,c){var o=this,r=arguments;A(function(){y._gaq.push(["_addItem",e,n,t,i,a,c]),o._log("_addItem",r)}),P(function(){o._ecommerceEnabled()&&(y.ga("ecommerce:addItem",{id:e,name:t,sku:n,category:i,price:a,quantity:c}),o._log("ecommerce:addItem",r))})},this._trackTrans=function(){var e=this,n=arguments;A(function(){y._gaq.push(["_trackTrans"]),e._log("_trackTrans",n)}),P(function(){e._ecommerceEnabled()&&(y.ga("ecommerce:send"),e._log("ecommerce:send",n))})},this._clearTrans=function(){var e=this,n=arguments;P(function(){e._ecommerceEnabled()&&(y.ga("ecommerce:clear"),e._log("ecommerce:clear",n))})},this._addProduct=function(e,n,t,i,a,c,o,r,s){var u=this,l=arguments;A(function(){y._gaq.push(["_addProduct",e,n,t,i,a,c,o,r,s]),u._log("_addProduct",l)}),P(function(){u._enhancedEcommerceEnabled()&&(y.ga("ec:addProduct",{id:e,name:n,category:t,brand:i,variant:a,price:c,quantity:o,coupon:r,position:s}),u._log("ec:addProduct",l))})},this._addImpression=function(e,n,t,i,a,c,o,r){var s=this,u=arguments;A(function(){y._gaq.push(["_addImpression",e,n,t,i,a,c,o,r]),s._log("_addImpression",u)}),P(function(){s._enhancedEcommerceEnabled()&&y.ga("ec:addImpression",{id:e,name:n,category:a,brand:i,variant:c,list:t,position:o,price:r}),s._log("ec:addImpression",u)})},this._addPromo=function(e,n,t,i){var a=this,c=arguments;A(function(){y._gaq.push(["_addPromo",e,n,t,i]),a._log("_addPromo",arguments)}),P(function(){a._enhancedEcommerceEnabled()&&(y.ga("ec:addPromo",{id:e,name:n,creative:t,position:i}),a._log("ec:addPromo",c))})},this._getActionFieldObject=function(e,n,t,i,a,c,o,r,s){var u={};return e&&(u.id=e),n&&(u.affiliation=n),t&&(u.revenue=t),i&&(u.tax=i),a&&(u.shipping=a),c&&(u.coupon=c),o&&(u.list=o),r&&(u.step=r),s&&(u.option=s),u},this._setAction=function(e,n){var t=this,i=arguments;A(function(){y._gaq.push(["_setAction",e,n]),t._log("__setAction",i)}),P(function(){t._enhancedEcommerceEnabled()&&(y.ga("ec:setAction",e,n),t._log("ec:setAction",i))})},this._trackTransaction=function(e,n,t,i,a,c,o,r,s){this._setAction("purchase",this._getActionFieldObject(e,n,t,i,a,c,o,r,s)),this._pageView()},this._trackRefund=function(e){this._setAction("refund",this._getActionFieldObject(e)),this._pageView()},this._trackCheckOut=function(e,n){this._setAction("checkout",this._getActionFieldObject(null,null,null,null,null,null,null,e,n)),this._pageView()},this._trackCart=function(e){-1!==["add","remove"].indexOf(e)&&(this._setAction(e),this._send("event","UX","click",e+"to cart"))},this._promoClick=function(e){this._setAction("promo_click"),this._send("event","Internal Promotions","click",e)},this._productClick=function(e){this._setAction("click",this._getActionFieldObject(null,null,null,null,null,null,e,null,null)),this._send("event","UX","click",e)},this._send=function(e){var n=this;P(function(){y.ga("send",e),n._log("send",e)})},this._pageView=function(){this._send("pageview")},this._set=function(e,n){var t=this;P(function(){y.ga("set",e,n),t._log("set",e,n)})},u?T():b(),r&&w.$on(l,function(){I._trackPage()}),{_logs:I._logs,cookieConfig:d,displayFeatures:n,ecommerce:g,enhancedEcommerce:m,enhancedLinkAttribution:_,getUrl:L,experimentId:a,ignoreFirstPageLoad:f,ecommerceEnabled:function(){return I._ecommerceEnabled()},enhancedEcommerceEnabled:function(){return I._enhancedEcommerceEnabled()},trackPage:function(e,n){I._trackPage(e,n)},trackEvent:function(e,n,t,i,a){I._trackEvent(e,n,t,i,a)},addTrans:function(e,n,t,i,a,c,o,r,s){I._addTrans(e,n,t,i,a,c,o,r,s)},addItem:function(e,n,t,i,a,c){I._addItem(e,n,t,i,a,c)},trackTrans:function(){I._trackTrans()},clearTrans:function(){I._clearTrans()},addProduct:function(e,n,t,i,a,c,o,r,s){I._addProduct(e,n,t,i,a,c,o,r,s)},addPromo:function(e,n,t,i){I._addPromo(e,n,t,i)},addImpression:function(e,n,t,i,a,c,o,r){I._addImpression(e,n,t,i,a,c,o,r)},productClick:function(e){I._productClick(e)},promoClick:function(e){I._promoClick(e)},trackDetail:function(){I._setAction("detail"),I._pageView()},trackCart:function(e){I._trackCart(e)},trackCheckout:function(e,n){I._trackCheckOut(e,n)},trackTransaction:function(e,n,t,i,a,c,o,r,s){I._trackTransaction(e,n,t,i,a,c,o,r,s)},setAction:function(e,n){I._setAction(e,n)},send:function(e){I._send(e)},pageView:function(){I._pageView()},set:function(e,n){I._set(e,n)}}}]});
+!function(window, document, undefined) {
+    var getModule = function(angular) {
+        return angular.module('seo', [])
+            .run([
+                '$rootScope',
+                function($rootScope) {
+                    $rootScope.htmlReady = function() {
+                        $rootScope.$evalAsync(function() { // fire after $digest
+                            setTimeout(function() { // fire after DOM rendering
+                                if (typeof window.callPhantom == 'function') { 
+                                    window.callPhantom();
+                                }
+                            }, 0);
+                        });
+                    };
+                }
+            ]);
+    };
+    if (typeof define == 'function' && define.amd)
+        define(['angular'], getModule);
+    else
+        getModule(angular);
+}(window, document);
 
-  // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-    	
-      testAPI();
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
-    }
-  }
+(function() {
 
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
+	'use strict';
+	
+	angular.module('digitalfondue.dftabmenu', []).directive('dfTabMenu', ['$window','$timeout', function($window, $timeout) {
+		return {
+			restrict : 'A',
+			compile: function($element, $attrs) {
+				var doc = $window.document;
+				var root = $element[0];
+				
+				var baseTag = root.tagName;
+				
+				if(baseTag !== "UL" && baseTag !== "OL") {
+					throw "Wrong element: only OL and UL are supported by df-tab-menu";
+				}
+				
+				var addBootstrapTheme = $attrs.theme === 'bootstrap';
+				
+				function bootstrap(s) {
+					return addBootstrapTheme ? s : '';
+				}
+				
+				angular.element(root).attr('role','tablist').addClass('df-tab-menu ' + bootstrap('nav nav-tabs'));
+				
+				var moreMenuElement = angular.element(root.querySelector('li[data-more-menu-item]'));
+				moreMenuElement.attr({
+						"role":"presentation"
+				});
+				moreMenuElement.addClass(bootstrap('dropdown'));
+				
+				moreMenuElement.children().attr({
+						"dropdown-toggle":"",
+						"aria-haspopup":"true",
+						"aria-expanded":"false"
+				});
+				moreMenuElement.children().addClass('dropdown-toggle');
+				
+				moreMenuElement.append('<' + baseTag + ' role=\"menu\" aria-hidden=\"true\" class=\"df-tab-menu-dropdown '+bootstrap('dropdown-menu')+'\"></' + baseTag + '>');
+				
+				//clone elements into the more menu, and add aria tags
+				var moreList = angular.element(root.querySelector('.df-tab-menu-dropdown'));
+				var moreElements = root.querySelectorAll('li[data-menu-item]');
+				var elements = angular.element(moreElements);
+				for(var e = 0;e < elements.length; e++) {
+					var newElement = angular.element(moreElements[e]).clone();
+					newElement.attr({"role":"menuitem"});
+					moreList.append(newElement);
+					
+					angular.element(moreElements[e]).attr({
+						"role":"presentation"});
+					
+					angular.element(moreElements[e]).children().attr({
+						"aria-selected":"false",
+						"role":"tab"});
+				};
+				
+				return function ($scope, $element, $attrs) {
+					var root = $element[0];
+					var wdw = angular.element($window);
+					var dropdownOpen = false;
+					
+					var getElementsSize = function() {
+						var elements = root.querySelectorAll('li[data-menu-item][role=presentation]');
+						angular.element(elements).removeClass('ng-hide');
+						var elementsSize = [];
+						for(var e = 0;e < elements.length; e++) {
+							var size = elements[e].offsetWidth;
+							if(size > 0) {
+								elementsSize[e] = elements[e].offsetWidth;
+							}
+						};
+						return elementsSize;
+					}
+					
+					// handle directive (such as ng-translate) that may change the size of the elements
+					var unregister = $scope.$watch(function() {
+						var element = root.querySelector('li[role=presentation].df-tab-menu-active');
+						return element != null ? element.scrollWidth : 0;
+					}, function(w, oldW) {
+						if(w != null && w > 0) {
+							buildMenu();
+						}
+					}, true);
+					
+					var getMoreElementSize = function() {
+						angular.element(root.querySelector('li[data-more-menu-item]')).removeClass('ng-hide');
+						return root.querySelector('li[data-more-menu-item]').offsetWidth;
+					}
+					
+					var getVisibleItems = function(_maxWidth, _activeItemIndex) {
+						var visibleItems = [];
+						var elementsSize = getElementsSize();
+						//40px: scrollbar tolerance. Not proud of this, but it works...
+						var sum = elementsSize[_activeItemIndex] + getMoreElementSize() + 40;
+						visibleItems.push(_activeItemIndex);
+						var items = root.querySelectorAll('li[data-menu-item][role=presentation]');
+						for(var i = 0; i < items.length; i++) {
+							if(i != _activeItemIndex) {
+								sum += elementsSize[i];
+								if(sum > _maxWidth) {
+									return visibleItems;
+								} else {
+									visibleItems.push(i);
+								}
+							}
+						}
+						return visibleItems;
+					};
+					
+					var getActiveItemIndex = function() {
+						var items = root.querySelectorAll('li[data-menu-item][role=presentation]');
+						for(var i = 0; i < items.length; i++) {
+							if(angular.element(items[i]).hasClass('df-tab-menu-active')) {
+								return i;
+							}
+						}
+						return 0;//fallback
+					}
+					
+					var buildMenu = function() {
+						var maxWidth = root.offsetWidth;
+						var activeItemIndex = getActiveItemIndex();
+						var visibleItems = getVisibleItems(maxWidth, activeItemIndex);
+						
+						var elements = root.querySelectorAll('li[data-menu-item][role=presentation]');
+						var moreElements = root.querySelectorAll('li[role=menuitem]');
+						var moreMenuToggle = root.querySelector('li[data-more-menu-item]');
+						
+						if(visibleItems.length < root.querySelectorAll('li[data-menu-item][role=presentation]').length) {
+							angular.element(moreMenuToggle).removeClass('ng-hide').attr('aria-hidden','false');
+							
+							for(var i = 0; i < elements.length; i++) {
+								if(visibleItems.indexOf(i) != -1) {
+									angular.element(elements[i]).removeClass('ng-hide').attr('aria-hidden','false');
+									angular.element(moreElements[i]).addClass('ng-hide').attr('aria-hidden','true');
+								} else {
+									angular.element(elements[i]).addClass('ng-hide').attr('aria-hidden','true');
+									angular.element(moreElements[i]).removeClass('ng-hide').attr('aria-hidden','false');
+								}
+							}
+						} else {
+							angular.element(moreMenuToggle).addClass('ng-hide').attr('aria-hidden','true');
+							
+							angular.element(elements).removeClass('ng-hide').attr('aria-hidden','false');
+							
+							dropdownOpen = false;
+							drawDropDown();
+						}
+					};
+					
+					var closeDropdown = function(e) {
+						dropdownOpen = false;
+						drawDropDown(e);
+					};					
+					
+					var drawDropDown = function() {
+						if(dropdownOpen) {
+							if(addBootstrapTheme) {
+								angular.element(root.querySelector('li[data-more-menu-item]')).addClass('open');
+							}
+							angular.element(root.querySelector('li[data-more-menu-item] [dropdown-toggle]')).addClass('df-tab-menu-dropdown-open').attr({'aria-expanded':'true'});
+							angular.element(doc).bind('click', closeDropdown);
+						} else {
+							if(addBootstrapTheme) {
+								angular.element(root.querySelector('li[data-more-menu-item]')).removeClass('open');
+							}
+							angular.element(root.querySelector('li[data-more-menu-item] [dropdown-toggle]')).removeClass('df-tab-menu-dropdown-open').attr({'aria-expanded':'false'});;
+							angular.element(doc).unbind('click', closeDropdown);
+						}
+					};
+					
+					//dropdown controls
+					var toggleDropdown = function(e) {
+						if(e) {e.stopPropagation()};
+						dropdownOpen = !dropdownOpen;
+						drawDropDown();
+					};
+					
+					angular.element(root.querySelector('li[data-more-menu-item] [dropdown-toggle]')).bind('click', toggleDropdown);
+					
+					var updateActiveState = function(c) {
+						//set active state
+						var e1 = angular.element(root.querySelector('li.df-tab-menu-active')).removeClass('df-tab-menu-active');
+						e1.children().attr('aria-selected','false');
+						var e2 = angular.element(root.querySelector('li[data-menu-item=\"' + c + '\"][role=presentation]')).addClass('df-tab-menu-active');
+						e2.children().attr('aria-selected','true');
+						
+						if(addBootstrapTheme) {
+							e1.removeClass('active');
+							e2.addClass('active');
+						}
+					}
+					
+					$attrs.$observe('menuControl', function(c) {
+						buildMenu();
+						updateActiveState(c);
+		            });
+					
+					wdw.bind('resize', buildMenu);
 
-  window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '724919397607271',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.2' // use version 2.1
-  });
-
-  // Now that we've initialized the JavaScript SDK, we call 
-  // FB.getLoginStatus().  This function gets the state of the
-  // person visiting this page and can return one of three states to
-  // the callback you provide.  They can be:
-  //
-  // 1. Logged into your app ('connected')
-  // 2. Logged into Facebook, but not your app ('not_authorized')
-  // 3. Not logged into Facebook and can't tell if they are logged into
-  //    your app or not.
-  //
-  // These three cases are handled in the callback function.
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-  };
-
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "http://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-  function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-    });
-  }
-  
-  (function(d, s, id) {
-	  var js, fjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=724770587622152&version=v2.0";
-	  fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-
+					$scope.$on('$destroy', function() {
+						wdw.unbind('resize', buildMenu);
+						angular.element(root.querySelector('li[data-more-menu-item] [dropdown-toggle]')).unbind('click', toggleDropdown);
+						angular.element(doc).unbind('click', closeDropdown);
+					});
+					
+					
+					var buildMenuTimeout;
+					$scope.$watch(function() {
+						$timeout.cancel(buildMenuTimeout);
+						buildMenuTimeout = $timeout(function() {
+							buildMenu();
+							updateActiveState($attrs.menuControl);
+						}, 25, false);
+					});
+				};
+		     }
+		}
+		
+	}]);
+})();
 
