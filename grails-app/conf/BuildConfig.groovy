@@ -71,7 +71,7 @@ grails.project.dependency.resolution = {
 		compile ':cache:1.1.7'
 		compile ":asset-pipeline:1.9.9"
 		compile ":marshallers:0.6"
-		
+		compile ":prerender:1.0.7"
 		
 
 		// plugins needed at runtime but not for compilation

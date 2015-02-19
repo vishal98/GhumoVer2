@@ -35,7 +35,15 @@ class UrlMappings {
 			action = "addMessage"
 	}
 		
+		"/blogList/$msg?"{
+			controller = "blog"
+			action = "getBlogs"
+	}
 		
+		"/id/$id/blog/$name?"{
+			controller = "blog"
+			action = "getBlogDetails"
+	}
 		
 		
 		

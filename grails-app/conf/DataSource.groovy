@@ -19,26 +19,20 @@ environments {
 	development {
 		dataSource {
 				dbCreate = "update"
-				url = "jdbc:mysql://localhost/test"
+				url = "jdbc:mysql://localhost/test2"
 				username = "root"
 				password = "admin"
 	}
 	}
 	test {
 		dataSource {
-			dbCreate = "update"
-			url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
-		}
-	}
-	production {
-		dataSource {
-		
-				username = "fusion"
-				password = "plp247619"
-				pooled = true
-				dbCreate = "create"
-				driverClassName = "com.mysql.jdbc.Driver"
-				url = "jdbc:mysql://aa1bzishuiat2fj.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=fusion&password=plp247619"
+			username = "gimme"
+			password = "gimmepwd"
+			pooled = true
+			dbCreate = "create"
+			driverClassName = "com.mysql.jdbc.Driver"
+			//	url = "jdbc:mysql://aa1bzishuiat2fj.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=fusion&password=plp247619"
+				url="jdbc:mysql://gimmetestdb.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimme&password=gimmepwd"
 				dialect = org.hibernate.dialect.MySQL5InnoDBDialect
 				properties {
 				 validationQuery = "SELECT 1"
@@ -49,7 +43,38 @@ environments {
 				 numTestsPerEvictionRun = 3
 				 minEvictableIdleTimeMillis = 1800000
 				 }
-			   
+		}
+	}
+	production {
+		dataSource {
+			url = "jdbc:mysql://gimmetestdb.cbj9zqqysdxf.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=gimme&password=gimmepwd"
+			username = "gimme"
+			password = "gimmepwd"
+			pooled = true
+			dbCreate = "create"
+			driverClassName = "com.mysql.jdbc.Driver"
+			
+			/*username = "fusion"
+			password = "plp247619"
+			pooled = true
+			dbCreate = "update"
+			driverClassName = "com.mysql.jdbc.Driver"
+			url = "jdbc:mysql://aa1bzishuiat2fj.c3m5mgrxcx6j.ap-southeast-1.rds.amazonaws.com:3306/ebdb?user=fusion&password=plp247619"
+			
+			*/	dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+				properties {
+				 validationQuery = "SELECT 1"
+				 testOnBorrow = true
+				 testOnReturn = true
+				 testWhileIdle = true
+				 timeBetweenEvictionRunsMillis = 1800000
+				 numTestsPerEvictionRun = 3
+				 minEvictableIdleTimeMillis = 1800000
+				}
+				
+				
+				
+			
 		}
 	}
 }

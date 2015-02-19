@@ -8,21 +8,21 @@ class Activity {
 	
 }
 	
-	static hasMany = [review: Review,iternary:Iternary]
+static hasMany = [review: Review,iternary:Iternary]
 	
 	String activityId;
-	String activityTypeCode
-	String placeId
-	String difficultyLevel
-	String activityKeyWord
-	String activityPicUrlId
-	String activityRating
-	int days
-	String activityOverview
-	String activityComments
-	String priceRange
-	Review review
-	Iternary iternary
+	String activityTypeCode //trek
+	String Name
+	String placeId     //
+	String difficultyLevel  //easy
+	String activityKeyWord   //campMamali
+	String activityPicUrlId  //
+	int days   //
+	String activityOverview  //
+	String priceRange   //
+	//Review review    ///
+	String activityRating  //3
+	//Iternary iternary
 	
 	//String activityId
 	
